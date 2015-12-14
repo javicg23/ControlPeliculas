@@ -11,9 +11,6 @@ import com.example.vesprada.controlpelicula.modelo.Productor;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * Created by Pc on 13/12/2015.
- */
 public class ProductorDAO {
     private DBHelperControlPeliculas dbHelperProductor;
 

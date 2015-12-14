@@ -1,8 +1,6 @@
 package com.example.vesprada.controlpelicula.modelo;
 
-/**
- * Created by vesprada on 11/12/2015.
- */
+
 public class Genero {
     public static final String TABLE = "Genero";
 

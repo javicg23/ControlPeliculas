@@ -1,10 +1,5 @@
 package com.example.vesprada.controlpelicula.modelo;
 
-import java.util.Date;
-
-/**
- * Created by Pc on 14/12/2015.
- */
 public class Director {
     public static final String TABLE = "Director";
 

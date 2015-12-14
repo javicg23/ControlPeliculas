@@ -11,9 +11,6 @@ import com.example.vesprada.controlpelicula.modelo.Director;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * Created by Pc on 14/12/2015.
- */
 public class DirectorDAO {
     private DBHelperControlPeliculas dbHelperDirector;
 

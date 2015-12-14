@@ -8,9 +8,6 @@ import com.example.vesprada.controlpelicula.modelo.Director;
 import com.example.vesprada.controlpelicula.modelo.Genero;
 import com.example.vesprada.controlpelicula.modelo.Productor;
 
-/**
- * Created by vesprada on 11/12/2015.
- */
 public class DBHelperControlPeliculas extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 0.1;

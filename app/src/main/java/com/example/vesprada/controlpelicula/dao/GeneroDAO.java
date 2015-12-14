@@ -11,9 +11,7 @@ import com.example.vesprada.controlpelicula.modelo.Genero;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * Created by vesprada on 11/12/2015.
- */
+
 public class GeneroDAO {
     private DBHelperControlPeliculas dbHelperGenero;
 
