@@ -15,6 +15,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.vesprada.controlpelicula.activity.CrearPelicula;
+import com.example.vesprada.controlpelicula.recyclerview.PeliculaAdapter;
+import com.example.vesprada.controlpelicula.recyclerview.PeliculaParser;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity

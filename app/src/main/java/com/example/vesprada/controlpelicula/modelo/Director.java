@@ -1,4 +1,4 @@
-package com.example.vesprada.controlpelicula;
+package com.example.vesprada.controlpelicula.modelo;
 
 import java.util.Date;
 

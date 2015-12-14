@@ -1,4 +1,4 @@
-package com.example.vesprada.controlpelicula;
+package com.example.vesprada.controlpelicula.recyclerview;
 
 public class PeliculaParser {
 

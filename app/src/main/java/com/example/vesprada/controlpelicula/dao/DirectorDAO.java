@@ -1,9 +1,13 @@
-package com.example.vesprada.controlpelicula;
+package com.example.vesprada.controlpelicula.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.example.vesprada.controlpelicula.conexion.DBHelperControlPeliculas;
+import com.example.vesprada.controlpelicula.modelo.Director;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 

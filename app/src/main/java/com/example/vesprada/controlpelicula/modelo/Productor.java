@@ -1,4 +1,4 @@
-package com.example.vesprada.controlpelicula;
+package com.example.vesprada.controlpelicula.modelo;
 
 /**
  * Created by Pc on 13/12/2015.

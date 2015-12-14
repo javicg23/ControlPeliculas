@@ -1,8 +1,12 @@
-package com.example.vesprada.controlpelicula;
+package com.example.vesprada.controlpelicula.conexion;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.vesprada.controlpelicula.modelo.Director;
+import com.example.vesprada.controlpelicula.modelo.Genero;
+import com.example.vesprada.controlpelicula.modelo.Productor;
 
 /**
  * Created by vesprada on 11/12/2015.

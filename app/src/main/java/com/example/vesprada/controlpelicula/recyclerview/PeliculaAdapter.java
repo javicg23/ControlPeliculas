@@ -1,4 +1,4 @@
-package com.example.vesprada.controlpelicula;
+package com.example.vesprada.controlpelicula.recyclerview;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.vesprada.controlpelicula.R;
 
 public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.PeliculaViewHolder> {
 
