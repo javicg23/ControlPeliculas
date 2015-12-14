@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,12 +21,6 @@ public class DirectorDAO {
         ContentValues values = new ContentValues();
         values.put(Director.KEY_ID, director.ID);
         values.put(Director.KEY_nombre_completo, director.nombre_completo);
-        /**
-         * en la siguiente linea da error, no estoy seguro pero creo que tiene
-         * que ver con el hecho de que es de tipo DATE, da error aqui, en la linea 53
-         * y en la linea 141
-         */
-        values.put(Director.KEY_fecha_nacimiento, director.fecha_nacimiento);
 
         long ID = db.insert(Director.TABLE, null, values);
         db.close();
@@ -48,10 +41,6 @@ public class DirectorDAO {
 
         values.put(Director.KEY_ID, director.ID);
         values.put(Director.KEY_nombre_completo, director.nombre_completo);
-        /**
-         * esperando actoresDAO
-         */
-        values.put(Director.KEY_fecha_nacimiento, director.fecha_nacimiento);
 
         db.update(Director.TABLE, values, Director.KEY_ID + "= ?", new String[]{String.valueOf(director.ID)});
     }
@@ -61,8 +50,7 @@ public class DirectorDAO {
         SQLiteDatabase db = dbHelperDirector.getReadableDatabase();
         String selectQuery = "SELECT " +
                 Director.KEY_ID + "," +
-                Director.KEY_nombre_completo + "," +
-                Director.KEY_fecha_nacimiento +
+                Director.KEY_nombre_completo +
                 " FROM " + Director.TABLE;
 
         ArrayList<HashMap<String, String>> directorLista = new ArrayList<HashMap<String, String>>();
@@ -74,7 +62,6 @@ public class DirectorDAO {
                 HashMap<String, String> director = new HashMap<String, String>();
                 director.put("ID", cursor.getString(cursor.getColumnIndex(Director.KEY_ID)));
                 director.put("nombre_completo", cursor.getString(cursor.getColumnIndex(Director.KEY_nombre_completo)));
-                director.put("fecha_nacimiento", cursor.getString(cursor.getColumnIndex(Director.KEY_fecha_nacimiento)));
                 directorLista.add(director);
 
             } while (cursor.moveToNext());
@@ -90,8 +77,7 @@ public class DirectorDAO {
         SQLiteDatabase db = dbHelperDirector.getReadableDatabase();
         String selectQuery = "SELECT " +
                 Director.KEY_ID + "," +
-                Director.KEY_nombre_completo + "," +
-                Director.KEY_fecha_nacimiento +
+                Director.KEY_nombre_completo +
                 " FROM " + Director.TABLE +
                 " WHERE " + Director.KEY_nombre_completo + " LIKE ?";
 
@@ -104,7 +90,6 @@ public class DirectorDAO {
                 HashMap<String, String> director = new HashMap<String, String>();
                 director.put("ID", cursor.getString(cursor.getColumnIndex(Director.KEY_ID)));
                 director.put("nombre_completo", cursor.getString(cursor.getColumnIndex(Director.KEY_nombre_completo)));
-                director.put("fecha_nacimiento", cursor.getString(cursor.getColumnIndex(Director.KEY_fecha_nacimiento)));
                 directorLista.add(director);
 
             } while (cursor.moveToNext());
@@ -120,8 +105,7 @@ public class DirectorDAO {
         SQLiteDatabase db = dbHelperDirector.getReadableDatabase();
         String selectQuery = "SELECT " +
                 Director.KEY_ID + "," +
-                Director.KEY_nombre_completo + "," +
-                Director.KEY_fecha_nacimiento +
+                Director.KEY_nombre_completo +
                 " FROM " + Director.TABLE +
                 " WHERE " + Director.KEY_ID + "=?";
 
@@ -139,11 +123,6 @@ public class DirectorDAO {
             do {
                 director.ID = cursor.getInt(cursor.getColumnIndex(Director.KEY_ID));
                 director.nombre_completo = cursor.getString(cursor.getColumnIndex(Director.KEY_nombre_completo));
-                /** esta parte la dejo comentada porque no me deja poner GetDate y si pongo
-                 * getString me da error, a la espera de el trabajo de Dani en actoresDAO
-                 * para ver que ha hecho.
-                 */
-                director.fecha_nacimiento = cursor.getString(cursor.getColumnIndex(Director.KEY_fecha_nacimiento));
 
             } while (cursor.moveToNext());
         }
