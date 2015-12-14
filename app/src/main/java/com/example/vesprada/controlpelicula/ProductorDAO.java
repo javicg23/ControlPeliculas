@@ -20,7 +20,7 @@ public class ProductorDAO {
 
         SQLiteDatabase db = dbHelperProductor.getWritableDatabase();
         ContentValues values = new ContentValues();
-       values.put(Productor.KEY_ID, productor.ID);
+        values.put(Productor.KEY_ID, productor.ID);
         values.put(Productor.KEY_nombre, productor.nombre);
 
 
