@@ -4,13 +4,15 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.vesprada.controlpelicula.modelo.Actor;
 import com.example.vesprada.controlpelicula.modelo.Director;
 import com.example.vesprada.controlpelicula.modelo.Genero;
+import com.example.vesprada.controlpelicula.modelo.Pelicula;
 import com.example.vesprada.controlpelicula.modelo.Productor;
 
 public class DBHelperControlPeliculas extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 0.1;
+    private static final int DATABASE_VERSION = 1;
 
     private static final String DATABASE_NAME = "ControlPeliclas";
 
@@ -23,7 +25,7 @@ public class DBHelperControlPeliculas extends SQLiteOpenHelper {
 
         String CREATE_TABLE_ACTOR = "CREATE TABLE " + Actor.TABLE + "("
                 + Actor.KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
-                + Actor.KEY_nombre_completo + " TEXT )";
+                + Actor.KEY_Nombre_completo + " TEXT )";
         db.execSQL(CREATE_TABLE_ACTOR);
 
         String CREATE_TABLE_GENERO = "CREATE TABLE " + Genero.TABLE + "("
@@ -43,16 +45,16 @@ public class DBHelperControlPeliculas extends SQLiteOpenHelper {
 
         String CREATE_TABLE_PELICULA = "CREATE TABLE " + Pelicula.TABLE + "("
                 + Pelicula.KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
-                + Pelicula.KEY_nombre + " VARCHAR, "
-                + Pelicula.KEY_año + " DATE, "
-                + Pelicula.KEY_duracion + " INTEGER, "
-                + Pelicula.KEY_sinopsis + " TEXT, "
-                + Pelicula.KEY_puntuacion + " FLOAT, "
-                + Pelicula.KEY_estado + " INTEGER DEFAULT 0, "
-                + Pelicula.KEY_imagen + " TEXT, "
-                + Pelicula.KEY_IDGenero + " INTEGER, "
-                + Pelicula.KEY_IDDirector + " INTEGER, "
-                + Pelicula.KEY_IDProductor + " INTEGER, "
+                + Pelicula.KEY_Nombre + " VARCHAR, "
+                + Pelicula.KEY_Anyo + " DATE, "
+                + Pelicula.KEY_Duracion + " INTEGER, "
+                + Pelicula.KEY_Sinopsis + " TEXT, "
+                + Pelicula.KEY_Puntuacion + " FLOAT, "
+                + Pelicula.KEY_Estado + " INTEGER DEFAULT 0, "
+                + Pelicula.KEY_Portada + " TEXT, "
+                + Pelicula.KEY_Id_genero + " INTEGER, "
+                + Pelicula.KEY_Id_director + " INTEGER, "
+                + Pelicula.KEY_Id_productor + " INTEGER, "
                 + " FOREIGN KEY(IDGenero) REFERENCES Genero(ID) ON UPDATE CASCADE ON DELETE CASCADE, "
                 + " FOREIGN KEY(IDDirector) REFERENCES Director(ID) ON UPDATE CASCADE ON DELETE CASCADE, "
                 + " FOREIGN KEY(IDProductor) REFERENCES Productor(ID) ON UPTADTE CASCADE ON DELETE CASCADE )";

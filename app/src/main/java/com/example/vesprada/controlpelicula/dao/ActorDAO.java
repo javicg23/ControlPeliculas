@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.vesprada.controlpelicula.conexion.DBHelperControlPeliculas;
 import com.example.vesprada.controlpelicula.modelo.Actor;
 
 import java.util.ArrayList;
@@ -13,10 +14,10 @@ import java.util.HashMap;
 
 public class ActorDAO {
 
-    private DBHelper dbHelper;
+    private DBHelperControlPeliculas dbHelper;
 
     public ActorDAO(Context context) {
-        dbHelper = new DBHelper(context);
+        dbHelper = new DBHelperControlPeliculas(context);
     }
 
     public int insert(Actor actor) {

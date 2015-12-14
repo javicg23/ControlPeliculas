@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.vesprada.controlpelicula.activity.CrearPelicula;
+import com.example.vesprada.controlpelicula.modelo.Pelicula;
 import com.example.vesprada.controlpelicula.recyclerview.PeliculaAdapter;
 import com.example.vesprada.controlpelicula.recyclerview.PeliculaParser;
 

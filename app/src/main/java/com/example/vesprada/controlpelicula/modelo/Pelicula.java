@@ -9,6 +9,7 @@ public class Pelicula {
     public static final String KEY_ID = "id";
     public static final String KEY_Nombre = "nombre";
     public static final String KEY_Anyo = "anyo";
+    public static final String KEY_Portada = "portada";
     public static final String KEY_Duracion = "duracion";
     public static final String KEY_Sinopsis = "sinopsis";
     public static final String KEY_Puntuacion = "puntuacion";
@@ -22,6 +23,7 @@ public class Pelicula {
     public int ID;
     public String Nombre;
     public String Anyo;
+    public String Portada;
     public int Duracion;
     public String Sinopsis;
     public float Puntuacion;

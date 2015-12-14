@@ -1,5 +1,9 @@
 package com.example.vesprada.controlpelicula.recyclerview;
 
+import com.example.vesprada.controlpelicula.modelo.Pelicula;
+
+import java.util.ArrayList;
+
 public class PeliculaParser {
 
     private ArrayList<Pelicula> peliculas;
