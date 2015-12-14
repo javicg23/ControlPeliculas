@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvEstadoPelicula"
+        android:layout_width="10sp"
+        android:layout_height="match_parent"
+        android:background="#ff0000"/>
+
+    <ImageView
+        android:id="@+id/ivPortada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sa_ca"
+        android:maxHeight="250px"
+        android:maxWidth="450px"
+        android:minHeight="250px"
+        android:minWidth="450px"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
+        android:layout_gravity="center_vertical"
+        android:contentDescription="Portada" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="5dp">
+
+        <TextView
+            android:id="@+id/tvNombrePelicula"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="El Señor de los Anillos: La Comunidad del Anillo"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="5dp"
+            android:gravity="right" />
+
+        <TextView
+            android:id="@+id/tvPuntuacionPelicula"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="9.1"
+            android:textSize="20sp"
+            android:gravity="right" />
+
+    </LinearLayout>
+</LinearLayout>

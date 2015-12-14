@@ -3,7 +3,8 @@ package com.example.vesprada.controlpelicula;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,8 +15,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private ArrayList<Pelicula> peliculas = new ArrayList<>();
+    private PeliculaParser parseador;
+    private RecyclerView recView;
+    private final PeliculaAdapter adaptadorPaises
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +31,20 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        try {
+            parseador = new PeliculaParser(peliculas);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        recView = (RecyclerView) findViewById(R.id.RecView);
+
+        final PeliculaAdapter adaptadorPelicula = new PeliculaAdapter(peliculas);
+
+        recView.setAdapter(adaptadorPelicula);
+
+        recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

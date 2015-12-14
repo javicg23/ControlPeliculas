@@ -12,5 +12,9 @@
     tools:context="com.example.vesprada.controlpelicula.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/RecView"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" />
 
 </RelativeLayout>
