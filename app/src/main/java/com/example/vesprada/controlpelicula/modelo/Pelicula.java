@@ -2,6 +2,7 @@ package com.example.vesprada.controlpelicula.modelo;
 
 
 public class Pelicula {
+
     //Nombre de la tabla
     public static final String TABLE = "Pelicula";
 
@@ -20,18 +21,15 @@ public class Pelicula {
 
     //Atributos
 
-    public int ID;
-    public String Nombre;
-    public String Anyo;
-    public String Portada;
-    public int Duracion;
-    public String Sinopsis;
-    public float Puntuacion;
-    public int Estado;
-    public int Id_director;
-    public int Id_productor;
-    public int Id_genero;
-
-
-
+    public int id;
+    public String nombre;
+    public String anyo;
+    public String portada;
+    public int duracion;
+    public String sinopsis;
+    public float puntuacion;
+    public int estado;
+    public int id_director;
+    public int id_productor;
+    public int id_genero;
 }

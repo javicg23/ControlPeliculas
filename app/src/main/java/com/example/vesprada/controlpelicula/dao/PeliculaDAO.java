@@ -6,73 +6,72 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.vesprada.controlpelicula.conexion.DBHelperControlPeliculas;
-import com.example.vesprada.controlpelicula.modelo.Actor;
+import com.example.vesprada.controlpelicula.modelo.Genero;
 import com.example.vesprada.controlpelicula.modelo.Pelicula;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 public class PeliculaDAO {
-    private DBHelperControlPeliculas dbHelper;
+    private DBHelperControlPeliculas dbHelperPelicula;
 
     public PeliculaDAO(Context context) {
-        dbHelper = new DBHelperControlPeliculas(context);
+        dbHelperPelicula = new DBHelperControlPeliculas(context);
     }
 
     public int insert(Pelicula pelicula) {
 
         //Le damos valor
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        SQLiteDatabase db = dbHelperPelicula.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Pelicula.KEY_ID, pelicula.ID);
-        values.put(Pelicula.KEY_Nombre, pelicula.Nombre);
-        values.put(Pelicula.KEY_Anyo, pelicula.Anyo);
-        values.put(Pelicula.KEY_Duracion, pelicula.Duracion);
-        values.put(Pelicula.KEY_Sinopsis, pelicula.Sinopsis);
-        values.put(Pelicula.KEY_Puntuacion, pelicula.Puntuacion);
-        values.put(Pelicula.KEY_Estado, pelicula.Estado);
-        values.put(Pelicula.KEY_Id_director, pelicula.Id_director);
-        values.put(Pelicula.KEY_Id_genero, pelicula.Id_genero);
-        values.put(Pelicula.KEY_Id_productor, pelicula.Id_productor);
+        values.put(Pelicula.KEY_ID, pelicula.id);
+        values.put(Pelicula.KEY_Nombre, pelicula.nombre);
+        values.put(Pelicula.KEY_Anyo, pelicula.anyo);
+        values.put(Pelicula.KEY_Duracion, pelicula.duracion);
+        values.put(Pelicula.KEY_Sinopsis, pelicula.sinopsis);
+        values.put(Pelicula.KEY_Puntuacion, pelicula.puntuacion);
+        values.put(Pelicula.KEY_Estado, pelicula.estado);
+        values.put(Pelicula.KEY_Id_director, pelicula.id_director);
+        values.put(Pelicula.KEY_Id_genero, pelicula.id_genero);
+        values.put(Pelicula.KEY_Id_productor, pelicula.id_productor);
 
         // hacemos el insert
-        long actor_ID = db.insert(Actor.TABLE, null, values);
+        long pelicula_id = db.insert(Pelicula.TABLE, null, values);
         db.close(); // Closing database connection
-        return (int) actor_ID;
+        return (int) pelicula_id;
     }
 
-    public void delete(int pelicula_Id) {
+    public void delete(int pelicula_id) {
 
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.delete(Pelicula.TABLE, Pelicula.KEY_ID + "= ?", new String[]{String.valueOf(pelicula_Id)});
+        SQLiteDatabase db = dbHelperPelicula.getWritableDatabase();
+        db.delete(Pelicula.TABLE, Pelicula.KEY_ID + "= ?", new String[]{String.valueOf(pelicula_id)});
         db.close();
     }
 
     public void update(Pelicula pelicula) {
 
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        SQLiteDatabase db = dbHelperPelicula.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(Pelicula.KEY_ID, pelicula.ID);
-        values.put(Pelicula.KEY_Nombre, pelicula.Nombre);
-        values.put(Pelicula.KEY_Anyo, pelicula.Anyo);
-        values.put(Pelicula.KEY_Duracion, pelicula.Duracion);
-        values.put(Pelicula.KEY_Sinopsis, pelicula.Sinopsis);
-        values.put(Pelicula.KEY_Puntuacion, pelicula.Puntuacion);
-        values.put(Pelicula.KEY_Estado, pelicula.Estado);
-        values.put(Pelicula.KEY_Id_director, pelicula.Id_director);
-        values.put(Pelicula.KEY_Id_genero, pelicula.Id_genero);
-        values.put(Pelicula.KEY_Id_productor, pelicula.Id_productor);
+        values.put(Pelicula.KEY_ID, pelicula.id);
+        values.put(Pelicula.KEY_Nombre, pelicula.nombre);
+        values.put(Pelicula.KEY_Anyo, pelicula.anyo);
+        values.put(Pelicula.KEY_Duracion, pelicula.duracion);
+        values.put(Pelicula.KEY_Sinopsis, pelicula.sinopsis);
+        values.put(Pelicula.KEY_Puntuacion, pelicula.puntuacion);
+        values.put(Pelicula.KEY_Estado, pelicula.estado);
+        values.put(Pelicula.KEY_Id_director, pelicula.id_director);
+        values.put(Pelicula.KEY_Id_genero, pelicula.id_genero);
+        values.put(Pelicula.KEY_Id_productor, pelicula.id_productor);
 
         // It's a good practice to use parameter ?, instead of concatenate string
-        db.update(Actor.TABLE, values, Actor.KEY_ID + "= ?", new String[]{String.valueOf(pelicula.ID)});
+        db.update(Pelicula.TABLE, values, Pelicula.KEY_ID + "= ?", new String[]{String.valueOf(pelicula.id)});
         db.close(); // Closing database connection
     }
 
-    public ArrayList<HashMap<String, String>> getPeliculaList() {
+    public ArrayList<Pelicula> getPeliculaList() {
         //Open connection to read only
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        SQLiteDatabase db = dbHelperPelicula.getReadableDatabase();
         String selectQuery =  "SELECT  " +
                 Pelicula.KEY_ID + "," +
                 Pelicula.KEY_Nombre +
@@ -84,20 +83,22 @@ public class PeliculaDAO {
                 Pelicula.KEY_Id_director +
                 Pelicula.KEY_Id_genero +
                 Pelicula.KEY_Id_productor +
-                " FROM " + Actor.TABLE;
+                " FROM " + Pelicula.TABLE;
 
-        //Student student = new Student();
-        ArrayList<HashMap<String, String>> peliculaList = new ArrayList<HashMap<String, String>>();
+        ArrayList<Pelicula> peliculaList = new ArrayList<Pelicula>();
 
         Cursor cursor = db.rawQuery(selectQuery, null);
         // looping through all rows and adding to list
 
         if (cursor.moveToFirst()) {
             do {
-                HashMap<String, String> student = new HashMap<String, String>();
-                student.put("id", cursor.getString(cursor.getColumnIndex(Actor.KEY_ID)));
-                student.put("name", cursor.getString(cursor.getColumnIndex(Actor.KEY_Nombre_completo)));
-                peliculaList.add(student);
+                Pelicula p = new Pelicula();
+                p.id = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_ID));
+                p.nombre = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Nombre));
+                p.portada = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Portada));
+                p.puntuacion = cursor.getFloat(cursor.getColumnIndex(Pelicula.KEY_Puntuacion));
+                p.estado = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Estado));
+                peliculaList.add(p);
 
             } while (cursor.moveToNext());
         }
@@ -108,9 +109,9 @@ public class PeliculaDAO {
 
     }
 
-    public ArrayList<HashMap<String, String>>  getActorListByName(String nameStudentSearch) {
+    public ArrayList<Pelicula>  getPeliculaListByName(String nombrePelicula) {
         //Open connection to read only
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        SQLiteDatabase db = dbHelperPelicula.getReadableDatabase();
         String selectQuery =  "SELECT  " +
                 Pelicula.KEY_ID + "," +
                 Pelicula.KEY_Nombre +
@@ -122,21 +123,20 @@ public class PeliculaDAO {
                 Pelicula.KEY_Id_director +
                 Pelicula.KEY_Id_genero +
                 Pelicula.KEY_Id_productor +
-                " FROM " + Actor.TABLE +
-                " WHERE " + Actor.KEY_Nombre_completo + " LIKE ?";
+                " FROM " + Pelicula.TABLE +
+                " WHERE " + Pelicula.KEY_Nombre + " LIKE ?";
 
-        //Student student = new Student();
-        ArrayList<HashMap<String, String>> peliculaList = new ArrayList<HashMap<String, String>>();
+        ArrayList<Pelicula> peliculaList = new ArrayList<Pelicula>();
 
-        Cursor cursor = db.rawQuery(selectQuery, new String[] {"%" + nameStudentSearch + "%"});
+        Cursor cursor = db.rawQuery(selectQuery, new String[] {"%" + nombrePelicula + "%"});
         // looping through all rows and adding to list
 
         if (cursor.moveToFirst()) {
             do {
-                HashMap<String, String> student = new HashMap<String, String>();
-                student.put("id", cursor.getString(cursor.getColumnIndex(Actor.KEY_ID)));
-                student.put("name", cursor.getString(cursor.getColumnIndex(Actor.KEY_Nombre_completo)));
-                peliculaList.add(student);
+                Pelicula p = new Pelicula();
+                p.id = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_ID));
+                p.nombre = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Nombre));
+                peliculaList.add(p);
 
             } while (cursor.moveToNext());
         }
@@ -144,6 +144,32 @@ public class PeliculaDAO {
         cursor.close();
         db.close();
         return peliculaList;
-
     }
+
+    public Pelicula getPeliculaById(int id) {
+
+        SQLiteDatabase db = dbHelperPelicula.getReadableDatabase();
+        String selectQuery = "SELECT " +
+                Pelicula.KEY_ID + "," +
+                Pelicula.KEY_Nombre + "," +
+                " FROM " + Genero.TABLE
+                + " WHERE " +
+                Pelicula.KEY_ID + "=?";
+
+        Pelicula p = new Pelicula();
+
+        Cursor cursor = db.rawQuery(selectQuery, new String[] { String.valueOf(id)});
+
+        if (cursor.moveToFirst()) {
+            do {
+                p.id = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_ID));
+                p.nombre = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Nombre));
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return p;
+    }
+
 }

@@ -20,8 +20,8 @@ public class ProductorDAO {
 
         SQLiteDatabase db = dbHelperProductor.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Productor.KEY_ID, productor.ID);
-        values.put(Productor.KEY_nombre, productor.nombre);
+        values.put(Productor.KEY_ID, productor.id);
+        values.put(Productor.KEY_Nombre, productor.nombre);
 
 
         long ID = db.insert(Productor.TABLE, null, values);
@@ -41,10 +41,10 @@ public class ProductorDAO {
         SQLiteDatabase db = dbHelperProductor.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(Productor.KEY_ID, productor.ID);
-        values.put(Productor.KEY_nombre, productor.nombre);
+        values.put(Productor.KEY_ID, productor.id);
+        values.put(Productor.KEY_Nombre, productor.nombre);
 
-        db.update(Productor.TABLE, values, Productor.KEY_ID + "= ?", new String[]{String.valueOf(productor.ID)});
+        db.update(Productor.TABLE, values, Productor.KEY_ID + "= ?", new String[]{String.valueOf(productor.id)});
     }
 
     public ArrayList<HashMap<String, String>> getProductorList() {
@@ -52,7 +52,7 @@ public class ProductorDAO {
         SQLiteDatabase db = dbHelperProductor.getReadableDatabase();
         String selectQuery = "SELECT " +
                 Productor.KEY_ID + "," +
-                Productor.KEY_nombre +
+                Productor.KEY_Nombre +
                 " FROM " + Productor.TABLE;
 
         ArrayList<HashMap<String, String>> productorLista = new ArrayList<HashMap<String, String>>();
@@ -63,7 +63,7 @@ public class ProductorDAO {
             do {
                 HashMap<String, String> productor = new HashMap<String, String>();
                 productor.put("ID", cursor.getString(cursor.getColumnIndex(Productor.KEY_ID)));
-                productor.put("nombre", cursor.getString(cursor.getColumnIndex(Productor.KEY_nombre)));
+                productor.put("nombre", cursor.getString(cursor.getColumnIndex(Productor.KEY_Nombre)));
                 productorLista.add(productor);
 
             } while (cursor.moveToNext());
@@ -79,9 +79,9 @@ public class ProductorDAO {
         SQLiteDatabase db = dbHelperProductor.getReadableDatabase();
         String selectQuery = "SELECT " +
                 Productor.KEY_ID + "," +
-                Productor.KEY_nombre +
+                Productor.KEY_Nombre +
                 " FROM " + Productor.TABLE +
-                " WHERE " + Productor.KEY_nombre + " LIKE ?";
+                " WHERE " + Productor.KEY_Nombre + " LIKE ?";
 
         ArrayList<HashMap<String, String>> productorLista = new ArrayList<HashMap<String, String>>();
 
@@ -91,7 +91,7 @@ public class ProductorDAO {
             do {
                 HashMap<String, String> productor = new HashMap<String, String>();
                 productor.put("ID", cursor.getString(cursor.getColumnIndex(Productor.KEY_ID)));
-                productor.put("nombre", cursor.getString(cursor.getColumnIndex(Productor.KEY_nombre)));
+                productor.put("nombre", cursor.getString(cursor.getColumnIndex(Productor.KEY_Nombre)));
                 productorLista.add(productor);
             } while (cursor.moveToNext());
         }
@@ -106,16 +106,11 @@ public class ProductorDAO {
         SQLiteDatabase db = dbHelperProductor.getReadableDatabase();
         String selectQuery = "SELECT " +
                 Productor.KEY_ID + "," +
-                Productor.KEY_nombre + "," +
+                Productor.KEY_Nombre + "," +
                 " FROM " + Productor.TABLE
                 + " WHERE " +
                 Productor.KEY_ID + "=?";
 
-        /**
-         * No sabemos para que se usa valor entero iCount y en el
-         * proyecto de Eloy no se usa en ningún momento.
-         * int iCount =0
-         */
 
         Productor productor = new Productor();
 
@@ -123,8 +118,8 @@ public class ProductorDAO {
 
         if (cursor.moveToFirst()) {
             do {
-                productor.ID = cursor.getInt(cursor.getColumnIndex(Productor.KEY_ID));
-                productor.nombre = cursor.getString(cursor.getColumnIndex(Productor.KEY_nombre));
+                productor.id = cursor.getInt(cursor.getColumnIndex(Productor.KEY_ID));
+                productor.nombre = cursor.getString(cursor.getColumnIndex(Productor.KEY_Nombre));
 
             } while (cursor.moveToNext());
         }

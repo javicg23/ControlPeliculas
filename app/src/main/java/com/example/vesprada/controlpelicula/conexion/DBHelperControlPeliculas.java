@@ -12,9 +12,9 @@ import com.example.vesprada.controlpelicula.modelo.Productor;
 
 public class DBHelperControlPeliculas extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
-    private static final String DATABASE_NAME = "ControlPeliclas";
+    private static final String DATABASE_NAME = "ControlPeliculas.db";
 
     public DBHelperControlPeliculas(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -30,17 +30,17 @@ public class DBHelperControlPeliculas extends SQLiteOpenHelper {
 
         String CREATE_TABLE_GENERO = "CREATE TABLE " + Genero.TABLE + "("
                 + Genero.KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
-                + Genero.KEY_nombre + " VARCHAR )";
+                + Genero.KEY_Nombre + " VARCHAR )";
         db.execSQL(CREATE_TABLE_GENERO);
 
         String CREATE_TABLE_DIRECTOR = "CREATE TABLE " + Director.TABLE + "("
                 + Director.KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
-                + Director.KEY_nombre_completo + " TEXT )";
+                + Director.KEY_Nombre_completo + " TEXT )";
         db.execSQL(CREATE_TABLE_DIRECTOR);
 
         String CREATE_TABLE_PRODUCTOR = "CREATE TABLE " + Productor.TABLE + "("
                 + Productor.KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
-                + Productor.KEY_nombre + " VARCHAR )";
+                + Productor.KEY_Nombre + " VARCHAR )";
         db.execSQL(CREATE_TABLE_PRODUCTOR);
 
         String CREATE_TABLE_PELICULA = "CREATE TABLE " + Pelicula.TABLE + "("
@@ -60,13 +60,13 @@ public class DBHelperControlPeliculas extends SQLiteOpenHelper {
                 + " FOREIGN KEY(IDProductor) REFERENCES Productor(ID) ON UPTADTE CASCADE ON DELETE CASCADE )";
         db.execSQL(CREATE_TABLE_PELICULA);
 
-        String CREATE_TABLE_ACTOR_PELICULA = "CREATE TABLE " + Actor_Pelicula.TABLE + "("
+        /*String CREATE_TABLE_ACTOR_PELICULA = "CREATE TABLE " + Actor_Pelicula.TABLE + "("
                 + Actor_Pelicula.KEY_IDActor + " INTEGER, "
                 + Actor_Pelicula.KEY_IDPelicula + " INTEGER, "
                 + " PRIMARY KEY {IDPelicula, IDActor}, "
                 + " FOREIGN KEY(IDActor) REFERENCES Actor(ID) ON UPDATE CASCADE ON DELETE CASCADE, "
                 + " FOREIGN KEY(IDPelicula) REFERENCES Pelicula(ID) ON UPDATE CASCADA ON DELETE CASCADE )";
-
+        */
 
     }
 
@@ -77,7 +77,7 @@ public class DBHelperControlPeliculas extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + Director.TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + Productor.TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + Pelicula.TABLE);
-        db.execSQL("DROP TABLE IF EXISTS " + Actor_Pelicula.TABLE);
+        //db.execSQL("DROP TABLE IF EXISTS " + Actor_Pelicula.TABLE);
 
         onCreate(db);
     }

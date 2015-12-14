@@ -16,9 +16,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.vesprada.controlpelicula.activity.CrearPelicula;
+import com.example.vesprada.controlpelicula.conexion.DBHelperControlPeliculas;
 import com.example.vesprada.controlpelicula.modelo.Pelicula;
 import com.example.vesprada.controlpelicula.recyclerview.PeliculaAdapter;
-import com.example.vesprada.controlpelicula.recyclerview.PeliculaParser;
 
 import java.util.ArrayList;
 
@@ -26,9 +26,9 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private ArrayList<Pelicula> peliculas = new ArrayList<>();
-    private PeliculaParser parseador;
     private RecyclerView recView;
-    private final PeliculaAdapter adaptadorPaises
+    private PeliculaAdapter adaptadorPelicula;
+    private DBHelperControlPeliculas crearTablaPeliculas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +37,21 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        try {
-            parseador = new PeliculaParser(peliculas);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        crearTablaPeliculas = new DBHelperControlPeliculas(getApplicationContext());
+
+
+        /** crear el recyclerView con los items que toquen */
 
         recView = (RecyclerView) findViewById(R.id.RecView);
 
-        final PeliculaAdapter adaptadorPelicula = new PeliculaAdapter(peliculas);
+        adaptadorPelicula = new PeliculaAdapter(peliculas);
 
         recView.setAdapter(adaptadorPelicula);
 
         recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

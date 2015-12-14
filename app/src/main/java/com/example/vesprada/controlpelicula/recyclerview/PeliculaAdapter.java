@@ -34,15 +34,15 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.Pelicu
 
         public void bindPelicula(Pelicula pelicula) {
 
-            ivPortada.setImageResource(itemView.getContext().getResources().getIdentifier(pelicula.getEstadoPelicula(), "drawable", itemView.getContext().getPackageName()));
+            ivPortada.setImageResource(itemView.getContext().getResources().getIdentifier(pelicula.portada, "drawable", itemView.getContext().getPackageName()));
 
             if (ivPortada.getDrawable() == null) {
-                ivPortada.setImageResource(itemView.getContext().getResources().getIdentifier("_xx", "drawable", itemView.getContext().getPackageName()));
+                ivPortada.setImageResource(itemView.getContext().getResources().getIdentifier("pe_null", "drawable", itemView.getContext().getPackageName()));
             }
 
-            tvNombrePelicula.setText(pelicula.getNombrePelicula());
-            tvPuntuacionPelicula.setText(pelicula.getPuntuacionPelicula());
-            tvEstadoPelicula.setText(pelicula.getEstadoPelicula());
+            tvNombrePelicula.setText(pelicula.nombre);
+            tvPuntuacionPelicula.setText((int) pelicula.puntuacion);
+            tvEstadoPelicula.setText(pelicula.estado);
         }
     }
 

@@ -20,8 +20,8 @@ public class DirectorDAO {
 
         SQLiteDatabase db = dbHelperDirector.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Director.KEY_ID, director.ID);
-        values.put(Director.KEY_nombre_completo, director.nombre_completo);
+        values.put(Director.KEY_ID, director.id);
+        values.put(Director.KEY_Nombre_completo, director.nombre_completo);
 
         long ID = db.insert(Director.TABLE, null, values);
         db.close();
@@ -40,10 +40,10 @@ public class DirectorDAO {
         SQLiteDatabase db = dbHelperDirector.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(Director.KEY_ID, director.ID);
-        values.put(Director.KEY_nombre_completo, director.nombre_completo);
+        values.put(Director.KEY_ID, director.id);
+        values.put(Director.KEY_Nombre_completo, director.nombre_completo);
 
-        db.update(Director.TABLE, values, Director.KEY_ID + "= ?", new String[]{String.valueOf(director.ID)});
+        db.update(Director.TABLE, values, Director.KEY_ID + "= ?", new String[]{String.valueOf(director.id)});
     }
 
     public ArrayList<HashMap<String, String>> getDirectorList() {
@@ -51,7 +51,7 @@ public class DirectorDAO {
         SQLiteDatabase db = dbHelperDirector.getReadableDatabase();
         String selectQuery = "SELECT " +
                 Director.KEY_ID + "," +
-                Director.KEY_nombre_completo +
+                Director.KEY_Nombre_completo +
                 " FROM " + Director.TABLE;
 
         ArrayList<HashMap<String, String>> directorLista = new ArrayList<HashMap<String, String>>();
@@ -61,8 +61,8 @@ public class DirectorDAO {
         if (cursor.moveToFirst()) {
             do {
                 HashMap<String, String> director = new HashMap<String, String>();
-                director.put("ID", cursor.getString(cursor.getColumnIndex(Director.KEY_ID)));
-                director.put("nombre_completo", cursor.getString(cursor.getColumnIndex(Director.KEY_nombre_completo)));
+                director.put("id", cursor.getString(cursor.getColumnIndex(Director.KEY_ID)));
+                director.put("nombre_completo", cursor.getString(cursor.getColumnIndex(Director.KEY_Nombre_completo)));
                 directorLista.add(director);
 
             } while (cursor.moveToNext());
@@ -78,9 +78,9 @@ public class DirectorDAO {
         SQLiteDatabase db = dbHelperDirector.getReadableDatabase();
         String selectQuery = "SELECT " +
                 Director.KEY_ID + "," +
-                Director.KEY_nombre_completo +
+                Director.KEY_Nombre_completo +
                 " FROM " + Director.TABLE +
-                " WHERE " + Director.KEY_nombre_completo + " LIKE ?";
+                " WHERE " + Director.KEY_Nombre_completo + " LIKE ?";
 
         ArrayList<HashMap<String, String>> directorLista = new ArrayList<HashMap<String, String>>();
 
@@ -89,8 +89,8 @@ public class DirectorDAO {
         if (cursor.moveToFirst()) {
             do {
                 HashMap<String, String> director = new HashMap<String, String>();
-                director.put("ID", cursor.getString(cursor.getColumnIndex(Director.KEY_ID)));
-                director.put("nombre_completo", cursor.getString(cursor.getColumnIndex(Director.KEY_nombre_completo)));
+                director.put("id", cursor.getString(cursor.getColumnIndex(Director.KEY_ID)));
+                director.put("nombre_completo", cursor.getString(cursor.getColumnIndex(Director.KEY_Nombre_completo)));
                 directorLista.add(director);
 
             } while (cursor.moveToNext());
@@ -106,7 +106,7 @@ public class DirectorDAO {
         SQLiteDatabase db = dbHelperDirector.getReadableDatabase();
         String selectQuery = "SELECT " +
                 Director.KEY_ID + "," +
-                Director.KEY_nombre_completo +
+                Director.KEY_Nombre_completo +
                 " FROM " + Director.TABLE +
                 " WHERE " + Director.KEY_ID + "=?";
 
@@ -122,8 +122,8 @@ public class DirectorDAO {
 
         if (cursor.moveToFirst()) {
             do {
-                director.ID = cursor.getInt(cursor.getColumnIndex(Director.KEY_ID));
-                director.nombre_completo = cursor.getString(cursor.getColumnIndex(Director.KEY_nombre_completo));
+                director.id = cursor.getInt(cursor.getColumnIndex(Director.KEY_ID));
+                director.nombre_completo = cursor.getString(cursor.getColumnIndex(Director.KEY_Nombre_completo));
 
             } while (cursor.moveToNext());
         }
@@ -135,43 +135,3 @@ public class DirectorDAO {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

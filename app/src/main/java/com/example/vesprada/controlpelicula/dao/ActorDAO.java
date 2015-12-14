@@ -14,49 +14,49 @@ import java.util.HashMap;
 
 public class ActorDAO {
 
-    private DBHelperControlPeliculas dbHelper;
+    private DBHelperControlPeliculas dbHelperActor;
 
     public ActorDAO(Context context) {
-        dbHelper = new DBHelperControlPeliculas(context);
+        dbHelperActor = new DBHelperControlPeliculas(context);
     }
 
     public int insert(Actor actor) {
 
         //Cojemos los valores
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        SQLiteDatabase db = dbHelperActor.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Actor.KEY_ID, actor.ID);
-        values.put(Actor.KEY_Nombre_completo, actor.Nombre_completo);
+        values.put(Actor.KEY_ID, actor.id);
+        values.put(Actor.KEY_Nombre_completo, actor.nombre_completo);
 
         // hacemos el insert
-        long actor_ID = db.insert(Actor.TABLE, null, values);
+        long actor_id = db.insert(Actor.TABLE, null, values);
         db.close(); // Closing database connection
-        return (int) actor_ID;
+        return (int) actor_id;
     }
 
-    public void delete(int actor_Id) {
+    public void delete(int actor_id) {
 
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.delete(Actor.TABLE, Actor.KEY_ID + "= ?", new String[]{String.valueOf(actor_Id)});
+        SQLiteDatabase db = dbHelperActor.getWritableDatabase();
+        db.delete(Actor.TABLE, Actor.KEY_ID + "= ?", new String[]{String.valueOf(actor_id)});
         db.close();
     }
 
     public void update(Actor actor) {
 
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        SQLiteDatabase db = dbHelperActor.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(Actor.KEY_ID, actor.ID);
-        values.put(Actor.KEY_Nombre_completo,actor.Nombre_completo);
+        values.put(Actor.KEY_ID, actor.id);
+        values.put(Actor.KEY_Nombre_completo,actor.nombre_completo);
 
         // It's a good practice to use parameter ?, instead of concatenate string
-        db.update(Actor.TABLE, values, Actor.KEY_ID + "= ?", new String[]{String.valueOf(actor.ID)});
+        db.update(Actor.TABLE, values, Actor.KEY_ID + "= ?", new String[]{String.valueOf(actor.id)});
         db.close(); // Closing database connection
     }
 
     public ArrayList<HashMap<String, String>>  getActorList() {
         //Open connection to read only
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        SQLiteDatabase db = dbHelperActor.getReadableDatabase();
         String selectQuery =  "SELECT  " +
                 Actor.KEY_ID + "," +
                 Actor.KEY_Nombre_completo +
@@ -86,7 +86,7 @@ public class ActorDAO {
 
     public ArrayList<HashMap<String, String>>  getActorListByName(String nameStudentSearch) {
         //Open connection to read only
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        SQLiteDatabase db = dbHelperActor.getReadableDatabase();
         String selectQuery =  "SELECT  " +
                 Actor.KEY_ID + "," +
                 Actor.KEY_Nombre_completo +
@@ -115,7 +115,7 @@ public class ActorDAO {
 
     }
     public Actor getActorById(int Id){
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        SQLiteDatabase db = dbHelperActor.getReadableDatabase();
         String selectQuery =  "SELECT  " +
                 Actor.KEY_ID + "," +
                 Actor.KEY_Nombre_completo +
@@ -123,15 +123,14 @@ public class ActorDAO {
                 + " WHERE " +
                 Actor.KEY_ID + "=?";
 
-        //int iCount = 0;
         Actor actor = new Actor();
 
         Cursor cursor = db.rawQuery(selectQuery, new String[] { String.valueOf(Id) } );
 
         if (cursor.moveToFirst()) {
             do {
-                actor.ID =cursor.getInt(cursor.getColumnIndex(Actor.KEY_ID));
-                actor.Nombre_completo =cursor.getString(cursor.getColumnIndex(Actor.KEY_Nombre_completo));
+                actor.id = cursor.getInt(cursor.getColumnIndex(Actor.KEY_ID));
+                actor.nombre_completo = cursor.getString(cursor.getColumnIndex(Actor.KEY_Nombre_completo));
 
 
             } while (cursor.moveToNext());
