@@ -14,8 +14,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import com.example.vesprada.controlpelicula.activity.CrearPelicula;
+import com.example.vesprada.controlpelicula.conexion.DBHelperControlPeliculas;
+import com.example.vesprada.controlpelicula.dao.Actor_PeliculaDAO;
+import com.example.vesprada.controlpelicula.dao.DirectorDAO;
+import com.example.vesprada.controlpelicula.dao.GeneroDAO;
+import com.example.vesprada.controlpelicula.dao.PeliculaDAO;
+import com.example.vesprada.controlpelicula.dao.ProductorDAO;
+import com.example.vesprada.controlpelicula.modelo.Director;
+import com.example.vesprada.controlpelicula.modelo.Genero;
+import com.example.vesprada.controlpelicula.modelo.Pelicula;
+import com.example.vesprada.controlpelicula.modelo.Productor;
 import com.example.vesprada.controlpelicula.recyclerview.PeliculaAdapter;
 
 import java.util.ArrayList;
@@ -26,14 +35,21 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<Pelicula> peliculas = new ArrayList<>();
     private RecyclerView recView;
     private PeliculaAdapter adaptadorPelicula;
+    private DBHelperControlPeliculas crearTablaPeliculas;
+    private PeliculaDAO conectorPelicula = new PeliculaDAO(this);
+    private GeneroDAO conectorGenero = new GeneroDAO(this);
+    private ProductorDAO conectorProductor = new ProductorDAO(this);
+    private DirectorDAO conectorDirector = new DirectorDAO(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        crearTablaPeliculas = new DBHelperControlPeliculas(getApplicationContext());
 
 
         /** crear el recyclerView con los items que toquen */
@@ -123,5 +139,50 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void InsertsGeneroDefecto() {
+
+        Genero generoAccion = new Genero();
+        generoAccion.nombre ="Accion";
+
+        Genero generoComedia = new Genero();
+        generoComedia.nombre = "Comedia";
+
+        Genero generoTerror = new Genero();
+        generoTerror.nombre = "Terror";
+
+        Genero generoCienciaFicción = new Genero();
+        generoCienciaFicción.nombre = "Ciencia Ficción";
+
+        Genero generoFantasia = new Genero();
+        generoFantasia.nombre = "Fantasia";
+
+        Genero generoDrama = new Genero();
+        generoDrama.nombre = "Drama";
+
+        Genero generoRomance = new Genero();
+        generoRomance.nombre = "Romance";
+
+        Genero generoSuspense = new Genero();
+        generoSuspense.nombre = "Suspense";
+    }
+
+    /**
+     * Tom cruise
+     * Eddie Murphy
+     * Bruce Wilis
+     * Will Smith
+     * Mark hammilk
+     * Harrison Ford
+     * Javier Bardem
+     * Emilia Clark
+     * Jason Clark
+     * Jason Stathan
+     */
+
+    public void InstertsProductorDefecto() {
+
+
     }
 }
