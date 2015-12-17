@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.vesprada.controlpelicula.R;
-import com.example.vesprada.controlpelicula.modelo.Pelicula;
 
 import java.util.ArrayList;
 

@@ -16,8 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.vesprada.controlpelicula.activity.CrearPelicula;
-import com.example.vesprada.controlpelicula.conexion.DBHelperControlPeliculas;
-import com.example.vesprada.controlpelicula.modelo.Pelicula;
 import com.example.vesprada.controlpelicula.recyclerview.PeliculaAdapter;
 
 import java.util.ArrayList;
@@ -28,7 +26,6 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<Pelicula> peliculas = new ArrayList<>();
     private RecyclerView recView;
     private PeliculaAdapter adaptadorPelicula;
-    private DBHelperControlPeliculas crearTablaPeliculas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +34,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        crearTablaPeliculas = new DBHelperControlPeliculas(getApplicationContext());
 
 
         /** crear el recyclerView con los items que toquen */

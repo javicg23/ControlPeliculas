@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.vesprada.controlpelicula.conexion.DBHelperControlPeliculas;
-import com.example.vesprada.controlpelicula.modelo.Actor;
 
 import java.util.ArrayList;
 import java.util.HashMap;

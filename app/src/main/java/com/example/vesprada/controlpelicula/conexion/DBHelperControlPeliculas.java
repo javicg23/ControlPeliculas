@@ -4,12 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.vesprada.controlpelicula.modelo.Actor;
-import com.example.vesprada.controlpelicula.modelo.Director;
-import com.example.vesprada.controlpelicula.modelo.Genero;
-import com.example.vesprada.controlpelicula.modelo.Pelicula;
-import com.example.vesprada.controlpelicula.modelo.Productor;
-
 public class DBHelperControlPeliculas extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 3;

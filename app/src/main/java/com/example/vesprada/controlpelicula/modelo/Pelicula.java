@@ -23,7 +23,7 @@ public class Pelicula {
 
     public int id;
     public String nombre;
-    public String anyo;
+    public int anyo;
     public String portada;
     public int duracion;
     public String sinopsis;
