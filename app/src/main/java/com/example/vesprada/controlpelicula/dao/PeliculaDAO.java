@@ -5,9 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-
 import com.example.vesprada.controlpelicula.conexion.DBHelperControlPeliculas;
-import com.example.vesprada.controlpelicula.modelo.Genero;
 import com.example.vesprada.controlpelicula.modelo.Pelicula;
 
 import java.util.ArrayList;
@@ -154,7 +152,7 @@ public class PeliculaDAO {
         String selectQuery = "SELECT " +
                 Pelicula.KEY_ID + "," +
                 Pelicula.KEY_Nombre + "," +
-                " FROM " + Genero.TABLE
+                " FROM " + Pelicula.TABLE
                 + " WHERE " +
                 Pelicula.KEY_ID + "=?";
 
