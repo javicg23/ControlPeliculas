@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import com.example.vesprada.controlpelicula.conexion.DBHelperControlPeliculas;
+import com.example.vesprada.controlpelicula.modelo.Actor_Pelicula;
 
 
 public class Actor_PeliculaDAO {

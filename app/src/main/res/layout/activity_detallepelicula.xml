@@ -73,6 +73,7 @@
                         android:text="Año: "
                         android:textStyle="bold"/>
                     <TextView
+                        android:id="@+id/tvAnyoDetalle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2001"/>
@@ -88,6 +89,7 @@
                         android:text="Duración: "
                         android:textStyle="bold"/>
                     <TextView
+                        android:id="@+id/tvDuracionDetalle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="180 min." />
@@ -103,6 +105,7 @@
                         android:text="Director: "
                         android:textStyle="bold"/>
                     <TextView
+                        android:id="@+id/tvDirectorDetalle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Peter Jackson"/>
@@ -118,6 +121,7 @@
                         android:text="Productor: "
                         android:textStyle="bold"/>
                     <TextView
+                        android:id="@+id/tvProductorDetalle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="New Line Cinema"/>
@@ -140,6 +144,7 @@
                     android:text="Actores: "
                     android:textStyle="bold"/>
                 <TextView
+                    android:id="@+id/tvActoresDetalle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Elijah Wood, Ian McKellen, Viggo Mortensen, Sean Astin, Sean Bean, John Rhys-Davies, Orlando Bloom"/>
@@ -154,6 +159,7 @@
                     android:text="Sinopsis: "
                     android:textStyle="bold"/>
                 <TextView
+                    android:id="@+id/tvSinopsisDetalle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="En la Tierra Media, el Señor Oscuro Saurón ordenó a los Elfos que forjaran los Grandes Anillos de Poder. Tres para los reyes Elfos, siete para los Señores Enanos, y nueve para los Hombres Mortales. Pero Saurón también forjó, en secreto, el Anillo Único, que tiene el poder de esclavizar toda la Tierra Media. Con la ayuda de sus amigos y de valientes aliados, el joven hobbit Frodo emprende un peligroso viaje con la misión de destruir el Anillo Único. Pero el malvado Sauron ordena la persecución del grupo, compuesto por Frodo y sus leales amigos hobbits, un mago, un hombre, un elfo y un enano. La misión es casi suicida pero necesaria, pues si Sauron con su ejército de orcos lograra recuperar el Anillo, sería el final de la Tierra Media." />

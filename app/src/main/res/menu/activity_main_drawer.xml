@@ -2,35 +2,35 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_camera"
+        <item android:title="Ordenar">
+            <item
+            android:id="@+id/nav_ord_vistas"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Ordenar por vistas" />
+            <item
+                android:id="@+id/nav_ord_pendientes"
+                android:icon="@drawable/ic_menu_gallery"
+                android:title="Ordenar por pendientes"  />
+            <item
+                android:id="@+id/nav_ord_novistas"
+                android:icon="@drawable/ic_menu_slideshow"
+                android:title="Ordenar por no vistas"  />
+        </item>
     </group>
-
-    <item android:title="Communicate">
-        <menu>
+    <group android:checkableBehavior="single">
+        <item android:title="Buscar">
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_pelicula"
+                android:icon="@drawable/filmstrip"
+                android:title="Buscar por película"  />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
-
+                android:id="@+id/nav_actor"
+                android:icon="@drawable/account"
+                android:title="Buscar por actor "  />
+            <item
+                android:id="@+id/nav_movie"
+                android:icon="@drawable/movie"
+                android:title="Buscar por director "  />
+        </item>
+    </group>
 </menu>

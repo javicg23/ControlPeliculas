@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.vesprada.controlpelicula.conexion.DBHelperControlPeliculas;
+import com.example.vesprada.controlpelicula.modelo.Genero;
+import com.example.vesprada.controlpelicula.modelo.Pelicula;
 
 import java.util.ArrayList;
 
