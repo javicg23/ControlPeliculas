@@ -18,11 +18,13 @@ import com.example.vesprada.controlpelicula.activity.CrearPelicula;
 import com.example.vesprada.controlpelicula.conexion.DBHelperControlPeliculas;
 import com.example.vesprada.controlpelicula.dao.ActorDAO;
 import com.example.vesprada.controlpelicula.dao.DirectorDAO;
+import com.example.vesprada.controlpelicula.dao.EstadoDAO;
 import com.example.vesprada.controlpelicula.dao.GeneroDAO;
 import com.example.vesprada.controlpelicula.dao.PeliculaDAO;
 import com.example.vesprada.controlpelicula.dao.ProductorDAO;
 import com.example.vesprada.controlpelicula.modelo.Actor;
 import com.example.vesprada.controlpelicula.modelo.Director;
+import com.example.vesprada.controlpelicula.modelo.Estado;
 import com.example.vesprada.controlpelicula.modelo.Genero;
 import com.example.vesprada.controlpelicula.modelo.Pelicula;
 import com.example.vesprada.controlpelicula.modelo.Productor;
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity
     private ProductorDAO conectorProductor = new ProductorDAO(this);
     private DirectorDAO conectorDirector = new DirectorDAO(this);
     private ActorDAO conectorActor = new ActorDAO(this);
+    private EstadoDAO conectorEstado = new EstadoDAO(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,7 +148,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void InsertsGeneroDefecto() {
+    public void insertsGeneroDefecto() {
 
         Genero generoAccion = new Genero();
         generoAccion.nombre ="Accion";
@@ -308,7 +311,27 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void InsertsPeliclasDefecto() {
+    public void insertsEstadosDefecto() {
+
+        Estado estadoNoVista = new Estado();
+        estadoNoVista.nombre_estado = "No Vista";
+        conectorEstado.insert(estadoNoVista);
+
+        Estado estadoPendiente = new Estado();
+        estadoPendiente.nombre_estado = "Pendiente";
+        conectorEstado.insert(estadoPendiente);
+
+        Estado estadoVista = new Estado();
+        estadoVista.nombre_estado = "Vista";
+        conectorEstado.insert(estadoVista);
+
+        Estado estadoFavorita = new Estado();
+        estadoFavorita.nombre_estado = "Favorita";
+        conectorEstado.insert(estadoFavorita);
+
+    }
+
+    public void insertsPeliclasDefecto() {
 
         
 

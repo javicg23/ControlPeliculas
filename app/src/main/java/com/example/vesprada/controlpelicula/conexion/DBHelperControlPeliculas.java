@@ -8,6 +8,7 @@ import android.util.Log;
 import com.example.vesprada.controlpelicula.modelo.Actor;
 import com.example.vesprada.controlpelicula.modelo.Actor_Pelicula;
 import com.example.vesprada.controlpelicula.modelo.Director;
+import com.example.vesprada.controlpelicula.modelo.Estado;
 import com.example.vesprada.controlpelicula.modelo.Genero;
 import com.example.vesprada.controlpelicula.modelo.Pelicula;
 import com.example.vesprada.controlpelicula.modelo.Productor;
@@ -20,7 +21,7 @@ import com.example.vesprada.controlpelicula.modelo.Productor;
 
 public class DBHelperControlPeliculas extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 13;
+    private static final int DATABASE_VERSION = 14;
 
     private static final String DATABASE_NAME = "ControlPeliculas.db";
 
@@ -51,6 +52,11 @@ public class DBHelperControlPeliculas extends SQLiteOpenHelper {
                 + Productor.KEY_Nombre + " VARCHAR )";
         db.execSQL(CREATE_TABLE_PRODUCTOR);
 
+        String CREATE_TABLE_ESTADO = "CREATE TABLE " + Estado.TABLE + "("
+                + Estado.KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
+                + Estado.KEY_Estado + " VARCHAR )";
+        db.execSQL(CREATE_TABLE_ESTADO);
+
 
         String CREATE_TABLE_PELICULA = "CREATE TABLE " + Pelicula.TABLE + "("
                 + Pelicula.KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
@@ -59,13 +65,15 @@ public class DBHelperControlPeliculas extends SQLiteOpenHelper {
                 + Pelicula.KEY_Duracion + " INTEGER, "
                 + Pelicula.KEY_Sinopsis + " TEXT, "
                 + Pelicula.KEY_Puntuacion + " FLOAT, "
-                + Pelicula.KEY_Estado + " INTEGER DEFAULT 0, "
+                + Pelicula.KEY_Id_estado + " INTEGER DEFAULT 1, "
                 + Pelicula.KEY_Portada + " TEXT, "
                 + Pelicula.KEY_Id_genero + " INTEGER, "
                 + Pelicula.KEY_Id_director + " INTEGER, "
                 + Pelicula.KEY_Id_productor + " INTEGER, "
+                + Pelicula.KEY_Id_estado + " INTEGER, "
                 + " FOREIGN KEY(" + Pelicula.KEY_Id_genero + ") REFERENCES " + Genero.TABLE + "(" + Genero.KEY_ID + ") ON UPDATE CASCADE ON DELETE CASCADE, "
                 + " FOREIGN KEY(" + Pelicula.KEY_Id_director + ") REFERENCES " + Director.TABLE + "(" + Director.KEY_ID + ") ON UPDATE CASCADE ON DELETE CASCADE, "
+                + " FOREIGN KEY(" + Pelicula.KEY_Id_estado + ") REFERENCES " + Estado.TABLE + "(" + Estado.KEY_ID + ") ON UPDATE CASCADE ON DELETE CASCADE, "
                 + " FOREIGN KEY(" + Pelicula.KEY_Id_productor + ") REFERENCES " + Productor.TABLE + "(" + Productor.KEY_ID + ") ON UPDATE CASCADE ON DELETE CASCADE)";
         db.execSQL(CREATE_TABLE_PELICULA);
 
@@ -89,6 +97,7 @@ public class DBHelperControlPeliculas extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + Genero.TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + Director.TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + Productor.TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + Estado.TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + Pelicula.TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + Actor_Pelicula.TABLE);
 
