@@ -562,7 +562,6 @@ public class MainActivity extends AppCompatActivity
         losMercenarios2.id_genero = 1;
         losMercenarios2.id_productor = 10;
         conectorPelicula.insert(losMercenarios2);
-
     }
 
     public void insertsPeliculasActoresDefecto() {
