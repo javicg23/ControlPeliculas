@@ -42,7 +42,7 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.Pelicu
 
             tvNombrePelicula.setText(pelicula.nombre);
             tvPuntuacionPelicula.setText((int) pelicula.puntuacion);
-            tvEstadoPelicula.setText(pelicula.estado);
+            tvEstadoPelicula.setText(pelicula.id_estado);
         }
     }
 
