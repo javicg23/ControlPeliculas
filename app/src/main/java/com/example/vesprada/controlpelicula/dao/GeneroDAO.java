@@ -107,7 +107,7 @@ public class GeneroDAO {
         SQLiteDatabase db = dbHelperGenero.getReadableDatabase();
         String selectQuery = "SELECT " +
                 Genero.KEY_ID + "," +
-                Genero.KEY_Nombre + "," +
+                Genero.KEY_Nombre +
                 " FROM " + Genero.TABLE
                 + " WHERE " +
                 Genero.KEY_ID + "=?";
@@ -129,6 +129,4 @@ public class GeneroDAO {
         db.close();
         return genero;
     }
-
-
 }

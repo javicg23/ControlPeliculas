@@ -132,6 +132,4 @@ public class DirectorDAO {
         db.close();
         return director;
     }
-
-
 }

@@ -106,7 +106,7 @@ public class ProductorDAO {
         SQLiteDatabase db = dbHelperProductor.getReadableDatabase();
         String selectQuery = "SELECT " +
                 Productor.KEY_ID + "," +
-                Productor.KEY_Nombre + "," +
+                Productor.KEY_Nombre +
                 " FROM " + Productor.TABLE
                 + " WHERE " +
                 Productor.KEY_ID + "=?";
@@ -128,46 +128,4 @@ public class ProductorDAO {
         db.close();
         return productor;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

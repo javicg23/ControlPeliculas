@@ -79,7 +79,7 @@ public class EstadoDAO {
         SQLiteDatabase db = dbhelperEstado.getReadableDatabase();
         String selectQuery = "SELECT " +
                 Estado.KEY_ID + "," +
-                Estado.KEY_Estado + "," +
+                Estado.KEY_Estado +
                 " FROM " + Estado.TABLE +
                 " WHERE " + Estado.KEY_ID + "=?";
 

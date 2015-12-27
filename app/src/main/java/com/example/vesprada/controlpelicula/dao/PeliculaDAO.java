@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 import com.example.vesprada.controlpelicula.conexion.DBHelperControlPeliculas;
 import com.example.vesprada.controlpelicula.modelo.Pelicula;
 
@@ -22,7 +21,6 @@ public class PeliculaDAO {
 
         //Le damos valor
         SQLiteDatabase db = dbHelperPelicula.getWritableDatabase();
-        Log.v("info", "estoy en insert");
         ContentValues values = new ContentValues();
         values.put(Pelicula.KEY_ID, pelicula.id);
         values.put(Pelicula.KEY_Nombre, pelicula.nombre);
@@ -30,6 +28,7 @@ public class PeliculaDAO {
         values.put(Pelicula.KEY_Duracion, pelicula.duracion);
         values.put(Pelicula.KEY_Sinopsis, pelicula.sinopsis);
         values.put(Pelicula.KEY_Puntuacion, pelicula.puntuacion);
+        values.put(Pelicula.KEY_Portada, pelicula.portada);
         values.put(Pelicula.KEY_Id_director, pelicula.id_director);
         values.put(Pelicula.KEY_Id_genero, pelicula.id_genero);
         values.put(Pelicula.KEY_Id_productor, pelicula.id_productor);
@@ -59,6 +58,7 @@ public class PeliculaDAO {
         values.put(Pelicula.KEY_Duracion, pelicula.duracion);
         values.put(Pelicula.KEY_Sinopsis, pelicula.sinopsis);
         values.put(Pelicula.KEY_Puntuacion, pelicula.puntuacion);
+        values.put(Pelicula.KEY_Portada, pelicula.portada);
         values.put(Pelicula.KEY_Id_director, pelicula.id_director);
         values.put(Pelicula.KEY_Id_genero, pelicula.id_genero);
         values.put(Pelicula.KEY_Id_productor, pelicula.id_productor);
@@ -79,10 +79,11 @@ public class PeliculaDAO {
                 Pelicula.KEY_Duracion + "," +
                 Pelicula.KEY_Sinopsis + "," +
                 Pelicula.KEY_Puntuacion + "," +
+                Pelicula.KEY_Portada + "," +
                 Pelicula.KEY_Id_director + "," +
                 Pelicula.KEY_Id_genero + "," +
                 Pelicula.KEY_Id_productor + "," +
-                Pelicula.KEY_Id_estado + "," +
+                Pelicula.KEY_Id_estado +
                 " FROM " + Pelicula.TABLE;
 
         ArrayList<Pelicula> peliculaList = new ArrayList<Pelicula>();
@@ -125,9 +126,11 @@ public class PeliculaDAO {
                 Pelicula.KEY_Duracion + "," +
                 Pelicula.KEY_Sinopsis + "," +
                 Pelicula.KEY_Puntuacion + "," +
+                Pelicula.KEY_Portada + "," +
                 Pelicula.KEY_Id_director + "," +
                 Pelicula.KEY_Id_genero + "," +
                 Pelicula.KEY_Id_productor + "," +
+                Pelicula.KEY_Id_estado +
                 " FROM " + Pelicula.TABLE +
                 " WHERE " + Pelicula.KEY_Nombre + " LIKE ?";
 
@@ -165,7 +168,7 @@ public class PeliculaDAO {
         SQLiteDatabase db = dbHelperPelicula.getReadableDatabase();
         String selectQuery = "SELECT " +
                 Pelicula.KEY_ID + "," +
-                Pelicula.KEY_Nombre + "," +
+                Pelicula.KEY_Nombre +
                 " FROM " + Pelicula.TABLE
                 + " WHERE " +
                 Pelicula.KEY_ID + "=?";
@@ -194,5 +197,4 @@ public class PeliculaDAO {
         db.close();
         return p;
     }
-
 }

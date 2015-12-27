@@ -1,5 +1,6 @@
 package com.example.vesprada.controlpelicula.recyclerview;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,8 +42,21 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.Pelicu
             }
 
             tvNombrePelicula.setText(pelicula.nombre);
-            tvPuntuacionPelicula.setText((int) pelicula.puntuacion);
-            tvEstadoPelicula.setText(pelicula.id_estado);
+            tvPuntuacionPelicula.setText(String.valueOf(pelicula.puntuacion));
+            switch (pelicula.id_estado) {
+                case 1:
+                    tvEstadoPelicula.setBackgroundColor(Color.parseColor("#FF0000"));
+                    break;
+                case 2:
+                    tvEstadoPelicula.setBackgroundColor(Color.parseColor("#FFFF00"));
+                    break;
+                case 3:
+                    tvEstadoPelicula.setBackgroundColor(Color.parseColor("#00FF00"));
+                    break;
+                case 4:
+                    tvEstadoPelicula.setBackgroundColor(Color.parseColor("#00FFFF"));
+                    break;
+            }
         }
     }
 
