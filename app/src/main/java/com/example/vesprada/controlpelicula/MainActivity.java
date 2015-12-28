@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.example.vesprada.controlpelicula.activity.CrearPelicula;
 import com.example.vesprada.controlpelicula.conexion.DBHelperControlPeliculas;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<Pelicula> listaPeliculas = new ArrayList<>();
     private RecyclerView recView;
     private EditText buscadorPeliculas;
+    private ImageButton imgButtonBuscador;
     private PeliculaAdapter adaptadorPelicula;
 
     private DBHelperControlPeliculas crearTablaPeliculas;
@@ -75,6 +77,7 @@ public class MainActivity extends AppCompatActivity
 
 
         buscadorPeliculas = (EditText) findViewById(R.id.etBuscador);
+        imgButtonBuscador = (ImageButton) findViewById(R.id.btnBuscador);
 
         crearTablaPeliculas = new DBHelperControlPeliculas(getApplicationContext());
 
@@ -82,26 +85,12 @@ public class MainActivity extends AppCompatActivity
 
         initList();
 
-        buscadorPeliculas.addTextChangedListener(new TextWatcher() {
+        imgButtonBuscador.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().equals("")) {
-                    initList();
-                }
-                else {
-                    searchItem(charSequence.toString().toLowerCase());
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
+            public void onClick(View view) {
+                searchItem(buscadorPeliculas.toString().toLowerCase());
             }
         });
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
