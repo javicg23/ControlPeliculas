@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
-        <LinearLayout
+    <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -20,9 +20,10 @@
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
             android:orientation="horizontal"
-            android:gravity="center"
-            android:weightSum="1"
-            android:id="@+id/linearLayout" >
+            android:gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:weightSum="1">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -30,52 +31,61 @@
                 android:text="Nombre"
                 android:textStyle="bold"/>
             <EditText
-                android:layout_width="wrap_content"
+                android:id="@+id/etCrearNombre"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="0.70"/>
+                android:maxLines="1"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="5dp"
             android:orientation="horizontal"
-            android:gravity="center"
-            android:weightSum="1"
-            android:id="@+id/linearLayout2">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sinopsis"
-                android:layout_marginRight="20dp"
-                android:textStyle="bold"/>
-            <EditText
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.70" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:weightSum="1">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Duracion"
                 android:layout_marginRight="20dp"
+                android:text="Sinopsis"
                 android:textStyle="bold"/>
             <EditText
-                android:layout_width="0dp"
+                android:id="@+id/etCrearSinopsis"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.70"
-                android:textStyle="bold"/>
+                android:maxLines="1" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="5dp"
             android:orientation="horizontal"
-            android:gravity="center"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:weightSum="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:text="Duración"
+                android:textStyle="bold"/>
+            <EditText
+                android:id="@+id/etCrearDuracion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:weightSum="1">
             <TextView
                 android:layout_width="wrap_content"
@@ -84,37 +94,52 @@
                 android:layout_marginRight="10dp"
                 android:textStyle="bold"/>
             <EditText
-                android:layout_width="wrap_content"
+                android:id="@+id/etCrearAnyo"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.28"
-                android:layout_marginRight="10dp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Puntuación "
-                android:layout_marginRight="10dp"
-                android:textStyle="bold"/>
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.21" />
+                android:maxLines="1" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="5dp"
             android:orientation="horizontal"
-            android:gravity="center"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:weightSum="1">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Actor "
                 android:layout_marginRight="20dp"
+                android:text="Puntuación"
                 android:textStyle="bold"/>
             <EditText
-                android:layout_width="0dp"
+                android:id="@+id/etCrearPuntuacion"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.70" />
+                android:maxLines="1" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:weightSum="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:text="Actor"
+                    android:textStyle="bold"/>
+                <EditText
+                    android:id="@+id/etCrearActor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -122,15 +147,20 @@
             android:orientation="horizontal"
             android:gravity="center">
             <Button
+                android:id="@+id/btnAgregarActor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:text="AGREGAR ACTOR" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="5dp"
             android:orientation="horizontal"
-            android:gravity="center"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:weightSum="1">
             <TextView
                 android:layout_width="wrap_content"
@@ -139,15 +169,19 @@
                 android:layout_marginRight="20dp"
                 android:textStyle="bold"/>
             <EditText
-                android:layout_width="0dp"
+                android:id="@+id/etCrearDirector"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.70" />
+                android:maxLines="1"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="5dp"
             android:orientation="horizontal"
-            android:gravity="center"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:weightSum="1">
             <TextView
                 android:layout_width="wrap_content"
@@ -156,9 +190,10 @@
                 android:layout_marginRight="20dp"
                 android:textStyle="bold"/>
             <EditText
-                android:layout_width="0dp"
+                android:id="@+id/etCrearProductor"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.70" />
+                android:maxLines="1"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -166,6 +201,7 @@
             android:orientation="horizontal"
             android:gravity="center">
             <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btnEstadoVista"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/fab_margin"
@@ -174,6 +210,7 @@
                 android:textStyle="bold"
                 android:layout_weight="1" />
             <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btnEstadoPendiente"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -188,6 +225,7 @@
             android:orientation="horizontal"
             android:gravity="center">
             <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btnEstadoNoVista"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -196,6 +234,7 @@
                 android:textStyle="bold"
                 android:backgroundTint="#ff0000"/>
             <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btnEstadoFavorita"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -211,10 +250,12 @@
             android:gravity="center"
             android:weightSum="1">
             <Button
+                android:id="@+id/btnConfirmarPelicula"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:layout_marginTop="5dp"
+                android:textStyle="bold"
                 android:text="CONFIRMAR" />
         </LinearLayout>
     </LinearLayout>

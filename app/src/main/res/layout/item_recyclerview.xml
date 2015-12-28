@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="2dp">
 
     <TextView
         android:id="@+id/tvEstadoPelicula"
@@ -16,10 +17,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/sa_ca"
-        android:maxHeight="150dp"
-        android:maxWidth="300dp"
-        android:minHeight="150dp"
-        android:minWidth="300dp"
+        android:maxHeight="105dp"
+        android:maxWidth="200dp"
+        android:minHeight="105dp"
+        android:minWidth="200dp"
         android:scaleType="centerInside"
         android:adjustViewBounds="true"
         android:layout_gravity="center_vertical"
@@ -29,15 +30,14 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_margin="5dp">
+        android:layout_gravity="center_vertical">
 
         <TextView
             android:id="@+id/tvNombrePelicula"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="El Señor de los Anillos: La Comunidad del Anillo"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginBottom="5dp"
             android:gravity="right" />
@@ -50,14 +50,14 @@
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:text="Puntuación: "
-               android:textSize="20sp"
+               android:textSize="15sp"
                android:gravity="right" />
             <TextView
                 android:id="@+id/tvPuntuacionPelicula"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="9.1"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:gravity="right" />
        </LinearLayout>
     </LinearLayout>
