@@ -21,6 +21,9 @@
         <activity
             android:name=".activity.CrearPelicula" >
         </activity>
+        <activity
+            android:name=".activity.DetallePelicula" >
+        </activity>
     </application>
 
 </manifest>

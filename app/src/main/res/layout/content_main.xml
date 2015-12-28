@@ -12,12 +12,24 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.vesprada.controlpelicula.MainActivity"
     tools:showIn="@layout/app_bar_main">
-
-    <EditText
-        android:id="@+id/etBuscador"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Buscar..."/>
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/etBuscador"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Buscar..."/>
+
+        <ImageButton
+            android:id="@+id/btnBuscador"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_magnify_grey600_24dp" />
+
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/RecView"
