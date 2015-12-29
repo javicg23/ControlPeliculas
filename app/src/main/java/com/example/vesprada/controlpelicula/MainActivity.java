@@ -3,6 +3,7 @@ package com.example.vesprada.controlpelicula;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -20,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.example.vesprada.controlpelicula.activity.CrearPelicula;
+import com.example.vesprada.controlpelicula.activity.DetallePelicula;
 import com.example.vesprada.controlpelicula.conexion.DBHelperControlPeliculas;
 import com.example.vesprada.controlpelicula.dao.ActorDAO;
 import com.example.vesprada.controlpelicula.dao.Actor_PeliculaDAO;
@@ -36,6 +38,7 @@ import com.example.vesprada.controlpelicula.modelo.Genero;
 import com.example.vesprada.controlpelicula.modelo.Pelicula;
 import com.example.vesprada.controlpelicula.modelo.Productor;
 import com.example.vesprada.controlpelicula.recyclerview.PeliculaAdapter;
+import com.example.vesprada.controlpelicula.recyclerview.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 
@@ -91,6 +94,19 @@ public class MainActivity extends AppCompatActivity
                 searchItem(buscadorPeliculas.toString().toLowerCase());
             }
         });
+
+        recView.setItemAnimator(new DefaultItemAnimator());
+        recView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                   // Pelicula peliculaConDetalle = null;
+                    Intent myIntent = new Intent(view.getContext(), DetallePelicula.class);
+                    //myIntent.putExtra("new variable name",peliculaConDetalle);
+                    startActivity(myIntent);
+
+                }
+                })
+        );
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
