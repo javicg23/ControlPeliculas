@@ -24,15 +24,15 @@ import java.util.ArrayList;
 
 public class CrearPelicula extends AppCompatActivity {
 
-    private EditText tvPeliNombre;
-    private EditText tvPeliSinopsis;
-    private EditText tvPeliDuracion;
-    private EditText tvPeliAnyo;
-    private EditText tvPeliPuntuacion;
-    private EditText tvPeliActor;
-    private EditText tvPeliDirector;
-    private EditText tvPeliProductor;
-    private EditText tvPeliGenero;
+    private EditText etPeliNombre;
+    private EditText etPeliSinopsis;
+    private EditText etPeliDuracion;
+    private EditText etPeliAnyo;
+    private EditText etPeliPuntuacion;
+    private EditText etPeliActor;
+    private EditText etPeliDirector;
+    private EditText etPeliProductor;
+    private EditText etPeliGenero;
 
     private Button btnConfirmar;
 
@@ -62,15 +62,15 @@ public class CrearPelicula extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crearpeliculas);
 
-        tvPeliNombre = (EditText) findViewById(R.id.etCrearNombre);
-        tvPeliSinopsis = (EditText) findViewById(R.id.etCrearSinopsis);
-        tvPeliDuracion = (EditText) findViewById(R.id.etCrearDuracion);
-        tvPeliAnyo = (EditText) findViewById(R.id.etCrearAnyo);
-        tvPeliPuntuacion = (EditText) findViewById(R.id.etCrearPuntuacion);
-        tvPeliActor = (EditText) findViewById(R.id.etCrearActor);
-        tvPeliDirector = (EditText) findViewById(R.id.etCrearDirector);
-        tvPeliProductor = (EditText) findViewById(R.id.etCrearProductor);
-        tvPeliGenero = (EditText) findViewById(R.id.etCrearGenero);
+        etPeliNombre = (EditText) findViewById(R.id.etCrearNombre);
+        etPeliSinopsis = (EditText) findViewById(R.id.etCrearSinopsis);
+        etPeliDuracion = (EditText) findViewById(R.id.etCrearDuracion);
+        etPeliAnyo = (EditText) findViewById(R.id.etCrearAnyo);
+        etPeliPuntuacion = (EditText) findViewById(R.id.etCrearPuntuacion);
+        etPeliActor = (EditText) findViewById(R.id.etCrearActor);
+        etPeliDirector = (EditText) findViewById(R.id.etCrearDirector);
+        etPeliProductor = (EditText) findViewById(R.id.etCrearProductor);
+        etPeliGenero = (EditText) findViewById(R.id.etCrearGenero);
 
 
         dbhelpercrearpelicula = new DBHelperControlPeliculas(this);
@@ -87,43 +87,43 @@ public class CrearPelicula extends AppCompatActivity {
                  * Pelicula
                  */
 
-                if (tvPeliNombre.getText().toString().equalsIgnoreCase("")) {
+                if (etPeliNombre.getText().toString().equalsIgnoreCase("")) {
                     Toast toastVacioPel =
                             Toast.makeText(getApplicationContext(), "El campo Nombre está vacío", Toast.LENGTH_SHORT);
                     toastVacioPel.show();
                     vacio = true;
                 } else {
-                    nuevapelicula.nombre = tvPeliNombre.getText().toString();
+                    nuevapelicula.nombre = etPeliNombre.getText().toString();
                 }
 
-                if (tvPeliDuracion.getText().toString().equalsIgnoreCase("")) {
+                if (etPeliDuracion.getText().toString().equalsIgnoreCase("")) {
                     Toast toastVacioDur =
                             Toast.makeText(getApplicationContext(), "El campo Duración está vacío", Toast.LENGTH_SHORT);
                     toastVacioDur.show();
                     vacio = true;
                 } else {
-                    nuevapelicula.duracion = Integer.parseInt(tvPeliDuracion.getText().toString());
+                    nuevapelicula.duracion = Integer.parseInt(etPeliDuracion.getText().toString());
                 }
 
-                if (tvPeliAnyo.getText().toString().equalsIgnoreCase("")) {
+                if (etPeliAnyo.getText().toString().equalsIgnoreCase("")) {
                     Toast toastVacioAny =
                             Toast.makeText(getApplicationContext(), "El campo Año está vacío", Toast.LENGTH_SHORT);
                     toastVacioAny.show();
                     vacio = true;
                 } else {
-                    nuevapelicula.anyo = Integer.parseInt(tvPeliAnyo.getText().toString());
+                    nuevapelicula.anyo = Integer.parseInt(etPeliAnyo.getText().toString());
                 }
 
-                if (tvPeliPuntuacion.getText().toString().equalsIgnoreCase("")) {
+                if (etPeliPuntuacion.getText().toString().equalsIgnoreCase("")) {
                     Toast toastVacioPun =
                             Toast.makeText(getApplicationContext(), "El campo Puntuación está vacío", Toast.LENGTH_SHORT);
                     toastVacioPun.show();
                     vacio = true;
                 } else {
-                    nuevapelicula.puntuacion = Float.parseFloat(tvPeliPuntuacion.getText().toString());
+                    nuevapelicula.puntuacion = Float.parseFloat(etPeliPuntuacion.getText().toString());
                 }
 
-                nuevapelicula.sinopsis = tvPeliSinopsis.getText().toString();
+                nuevapelicula.sinopsis = etPeliSinopsis.getText().toString();
                 nuevapelicula.id_estado = 1;
 
                 if (!vacio) {
@@ -148,7 +148,7 @@ public class CrearPelicula extends AppCompatActivity {
                     dbPelicula.close();
 
                     for (int i = 0; i < listapeliculas.size(); i++) {
-                        if ((listapeliculas.get(i).nombre).equalsIgnoreCase(tvPeliNombre.getText().toString())) {
+                        if ((listapeliculas.get(i).nombre).equalsIgnoreCase(etPeliNombre.getText().toString())) {
 
                             Toast toastExistePel =
                                     Toast.makeText(getApplicationContext(), "Ya existe esa pelicula", Toast.LENGTH_SHORT);
@@ -171,13 +171,13 @@ public class CrearPelicula extends AppCompatActivity {
                  * Actor
                  */
 
-                if (tvPeliActor.getText().toString().equalsIgnoreCase("")) {
+                if (etPeliActor.getText().toString().equalsIgnoreCase("")) {
                     Toast toastVacioAct =
                             Toast.makeText(getApplicationContext(), "El campo Actor está vacío", Toast.LENGTH_SHORT);
                     toastVacioAct.show();
                     vacio = true;
                 } else {
-                    nuevoActor.nombre_completo = tvPeliActor.getText().toString();
+                    nuevoActor.nombre_completo = etPeliActor.getText().toString();
                 }
 
                 if (!vacio) {
@@ -203,7 +203,7 @@ public class CrearPelicula extends AppCompatActivity {
                     dbActor.close();
 
                     for (int i = 0; i < listactores.size(); i++) {
-                        if ((listactores.get(i).nombre_completo).equalsIgnoreCase(tvPeliActor.getText().toString())) {
+                        if ((listactores.get(i).nombre_completo).equalsIgnoreCase(etPeliActor.getText().toString())) {
 
                             Toast toastExisteAct =
                                     Toast.makeText(getApplicationContext(), "Ya existe ese actor", Toast.LENGTH_SHORT);
@@ -225,13 +225,13 @@ public class CrearPelicula extends AppCompatActivity {
                  * Director
                  */
 
-                if (tvPeliDirector.getText().toString().equalsIgnoreCase("")) {
+                if (etPeliDirector.getText().toString().equalsIgnoreCase("")) {
                     Toast toastVacioDir =
                             Toast.makeText(getApplicationContext(), "El campo Director está vacío", Toast.LENGTH_SHORT);
                     toastVacioDir.show();
                     vacio = true;
                 } else {
-                    nuevoDirector.nombre_completo = tvPeliDirector.getText().toString();
+                    nuevoDirector.nombre_completo = etPeliDirector.getText().toString();
                 }
 
                 if (!vacio) {
@@ -256,7 +256,7 @@ public class CrearPelicula extends AppCompatActivity {
                     dbDirector.close();
 
                     for (int i = 0; i < listadirectores.size(); i++) {
-                        if ((listadirectores.get(i).nombre_completo).equalsIgnoreCase(tvPeliDirector.getText().toString())) {
+                        if ((listadirectores.get(i).nombre_completo).equalsIgnoreCase(etPeliDirector.getText().toString())) {
 
                             Toast toastExisteDir =
                                     Toast.makeText(getApplicationContext(), "Ya existe ese director", Toast.LENGTH_SHORT);
@@ -279,13 +279,13 @@ public class CrearPelicula extends AppCompatActivity {
                  * Productor
                  */
 
-                if (tvPeliProductor.getText().toString().equalsIgnoreCase("")) {
+                if (etPeliProductor.getText().toString().equalsIgnoreCase("")) {
                     Toast toastVacioPro =
                             Toast.makeText(getApplicationContext(), "El campo Productor está vacío", Toast.LENGTH_SHORT);
                     toastVacioPro.show();
                     vacio = true;
                 } else {
-                    nuevoProductor.nombre = tvPeliProductor.getText().toString();
+                    nuevoProductor.nombre = etPeliProductor.getText().toString();
                 }
 
                 if (!vacio) {
@@ -310,7 +310,7 @@ public class CrearPelicula extends AppCompatActivity {
                     dbProductor.close();
 
                     for (int i = 0; i < listaproductores.size(); i++) {
-                        if ((listaproductores.get(i).nombre).equalsIgnoreCase(tvPeliProductor.getText().toString())) {
+                        if ((listaproductores.get(i).nombre).equalsIgnoreCase(etPeliProductor.getText().toString())) {
 
                             Toast toastExistePro =
                                     Toast.makeText(getApplicationContext(), "Ya existe ese productor", Toast.LENGTH_SHORT);
@@ -333,13 +333,13 @@ public class CrearPelicula extends AppCompatActivity {
                  * Genero
                  */
 
-                if (tvPeliGenero.getText().toString().equalsIgnoreCase("")) {
+                if (etPeliGenero.getText().toString().equalsIgnoreCase("")) {
                     Toast toastVacioGen =
                             Toast.makeText(getApplicationContext(), "El campo Género está vacío", Toast.LENGTH_SHORT);
                     toastVacioGen.show();
                     vacio = true;
                 } else {
-                    nuevoGenero.nombre = tvPeliGenero.getText().toString();
+                    nuevoGenero.nombre = etPeliGenero.getText().toString();
                 }
 
                 if (!vacio) {
@@ -364,7 +364,7 @@ public class CrearPelicula extends AppCompatActivity {
                     dbGenero.close();
 
                     for (int i = 0; i < listageneros.size(); i++) {
-                        if ((listageneros.get(i).nombre).equalsIgnoreCase(tvPeliGenero.getText().toString())) {
+                        if ((listageneros.get(i).nombre).equalsIgnoreCase(etPeliGenero.getText().toString())) {
 
                             Toast toastExisteGen =
                                     Toast.makeText(getApplicationContext(), "Ya existe ese Genero", Toast.LENGTH_SHORT);
