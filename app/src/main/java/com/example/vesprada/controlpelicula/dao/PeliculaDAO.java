@@ -4,7 +4,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
 import com.example.vesprada.controlpelicula.conexion.DBHelperControlPeliculas;
+import com.example.vesprada.controlpelicula.modelo.Actor_Pelicula;
 import com.example.vesprada.controlpelicula.modelo.Pelicula;
 
 import java.util.ArrayList;
@@ -97,7 +100,7 @@ public class PeliculaDAO {
                 p.id = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_ID));
                 p.nombre = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Nombre));
                 p.portada = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Portada));
-                p.puntuacion = cursor.getFloat(cursor.getColumnIndex(Pelicula.KEY_Puntuacion));
+                p.puntuacion = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Puntuacion));
                 p.sinopsis = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Sinopsis));
                 p.anyo = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Anyo));
                 p.duracion = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Duracion));
@@ -118,6 +121,7 @@ public class PeliculaDAO {
 
     public ArrayList<Pelicula>  getPeliculaListByName(String nombrePelicula) {
         //Open connection to read only
+
         SQLiteDatabase db = dbHelperPelicula.getReadableDatabase();
         String selectQuery =  "SELECT  " +
                 Pelicula.KEY_ID + "," +
@@ -134,18 +138,21 @@ public class PeliculaDAO {
                 " FROM " + Pelicula.TABLE +
                 " WHERE " + Pelicula.KEY_Nombre + " LIKE ?";
 
+
+
         ArrayList<Pelicula> peliculaList = new ArrayList<Pelicula>();
 
         Cursor cursor = db.rawQuery(selectQuery, new String[] {"%" + nombrePelicula + "%"});
         // looping through all rows and adding to list
 
         if (cursor.moveToFirst()) {
+
             do {
                 Pelicula p = new Pelicula();
                 p.id = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_ID));
                 p.nombre = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Nombre));
                 p.portada = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Portada));
-                p.puntuacion = cursor.getFloat(cursor.getColumnIndex(Pelicula.KEY_Puntuacion));
+                p.puntuacion = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Puntuacion));
                 p.sinopsis = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Sinopsis));
                 p.anyo = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Anyo));
                 p.duracion = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Duracion));
@@ -153,7 +160,9 @@ public class PeliculaDAO {
                 p.id_estado = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Id_estado));
                 p.id_genero = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Id_genero));
                 p.id_productor =  cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Id_productor));
+
                 peliculaList.add(p);
+
 
             } while (cursor.moveToNext());
         }
@@ -168,10 +177,18 @@ public class PeliculaDAO {
         SQLiteDatabase db = dbHelperPelicula.getReadableDatabase();
         String selectQuery = "SELECT " +
                 Pelicula.KEY_ID + "," +
-                Pelicula.KEY_Nombre +
+                Pelicula.KEY_Nombre + "," +
+                Pelicula.KEY_Anyo + "," +
+                Pelicula.KEY_Duracion + "," +
+                Pelicula.KEY_Sinopsis + "," +
+                Pelicula.KEY_Puntuacion + "," +
+                Pelicula.KEY_Portada + "," +
+                Pelicula.KEY_Id_director + "," +
+                Pelicula.KEY_Id_genero + "," +
+                Pelicula.KEY_Id_productor + "," +
+                Pelicula.KEY_Id_estado +
                 " FROM " + Pelicula.TABLE
-                + " WHERE " +
-                Pelicula.KEY_ID + "=?";
+                + " WHERE " + Pelicula.KEY_Id_director + "=?";
 
         Pelicula p = new Pelicula();
 
@@ -182,7 +199,7 @@ public class PeliculaDAO {
                 p.id = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_ID));
                 p.nombre = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Nombre));
                 p.portada = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Portada));
-                p.puntuacion = cursor.getFloat(cursor.getColumnIndex(Pelicula.KEY_Puntuacion));
+                p.puntuacion = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Puntuacion));
                 p.sinopsis = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Sinopsis));
                 p.anyo = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Anyo));
                 p.duracion = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Duracion));
@@ -196,5 +213,96 @@ public class PeliculaDAO {
         cursor.close();
         db.close();
         return p;
+    }
+
+    public ArrayList<Pelicula>  getPeliculaListByIdDirector(int idDirector) {
+        SQLiteDatabase db = dbHelperPelicula.getReadableDatabase();
+        String selectQuery = "SELECT " +
+                Pelicula.KEY_ID + "," +
+                Pelicula.KEY_Nombre + "," +
+                Pelicula.KEY_Anyo + "," +
+                Pelicula.KEY_Duracion + "," +
+                Pelicula.KEY_Sinopsis + "," +
+                Pelicula.KEY_Puntuacion + "," +
+                Pelicula.KEY_Portada + "," +
+                Pelicula.KEY_Id_director + "," +
+                Pelicula.KEY_Id_genero + "," +
+                Pelicula.KEY_Id_productor + "," +
+                Pelicula.KEY_Id_estado +
+                " FROM " + Pelicula.TABLE
+                + " WHERE " + Pelicula.KEY_Id_director + "=?";
+
+        ArrayList<Pelicula> peliculaList = new ArrayList<Pelicula>();
+
+        Cursor cursor = db.rawQuery(selectQuery, new String[] { String.valueOf(idDirector)});
+
+        if (cursor.moveToFirst()){
+            do{
+
+                Pelicula pelicula = new Pelicula();
+                pelicula.id = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_ID));
+                pelicula.nombre = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Nombre));
+                pelicula.portada = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Portada));
+                pelicula.puntuacion = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Puntuacion));
+                pelicula.sinopsis = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Sinopsis));
+                pelicula.anyo = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Anyo));
+                pelicula.duracion = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Duracion));
+                pelicula.id_director = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Id_director));
+                pelicula.id_estado = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Id_estado));
+                pelicula.id_genero = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Id_genero));
+                pelicula.id_productor =  cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Id_productor));
+
+                peliculaList.add(pelicula);
+
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return peliculaList;
+    }
+    public ArrayList<Pelicula>  getPeliculaListByIdActor(int idActor){
+        SQLiteDatabase db = dbHelperPelicula.getReadableDatabase();
+        Log.v("info","Entro en pelicula DAO");
+        String selectQuery = "SELECT " +
+                Pelicula.KEY_ID + "," +
+                Pelicula.KEY_Nombre + "," +
+                Pelicula.KEY_Anyo + "," +
+                Pelicula.KEY_Duracion + "," +
+                Pelicula.KEY_Sinopsis + "," +
+                Pelicula.KEY_Puntuacion + "," +
+                Pelicula.KEY_Portada + "," +
+                Pelicula.KEY_Id_director + "," +
+                Pelicula.KEY_Id_genero + "," +
+                Pelicula.KEY_Id_productor + "," +
+                Pelicula.KEY_Id_estado +
+                " FROM " + Pelicula.TABLE
+                + " WHERE " + Pelicula.KEY_ID + " IN " + " (SELECT " + Actor_Pelicula.KEY_ID_Pelicula + " FROM " + Actor_Pelicula.TABLE
+                + " WHERE " + Actor_Pelicula.KEY_ID_Actor + "=?)";
+        ArrayList<Pelicula> peliculaList = new ArrayList<Pelicula>();
+
+        Cursor cursor = db.rawQuery(selectQuery, new String[] { String.valueOf(idActor)});
+
+        if (cursor.moveToFirst()){
+            do{
+                Pelicula pelicula = new Pelicula();
+                pelicula.id = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_ID));
+                pelicula.nombre = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Nombre));
+                pelicula.portada = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Portada));
+                pelicula.puntuacion = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Puntuacion));
+                pelicula.sinopsis = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Sinopsis));
+                pelicula.anyo = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Anyo));
+                pelicula.duracion = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Duracion));
+                pelicula.id_director = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Id_director));
+                pelicula.id_estado = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Id_estado));
+                pelicula.id_genero = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Id_genero));
+                pelicula.id_productor =  cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Id_productor));
+
+                peliculaList.add(pelicula);
+
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return peliculaList;
     }
 }

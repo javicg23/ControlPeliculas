@@ -120,7 +120,7 @@ public class CrearPelicula extends AppCompatActivity {
                     toastVacioPun.show();
                     vacio = true;
                 } else {
-                    nuevapelicula.puntuacion = Float.parseFloat(etPeliPuntuacion.getText().toString());
+                    nuevapelicula.puntuacion = Integer.parseInt(etPeliPuntuacion.getText().toString());
                 }
 
                 nuevapelicula.sinopsis = etPeliSinopsis.getText().toString();
