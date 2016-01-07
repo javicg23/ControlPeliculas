@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 
 public class GeneroDAO {
-    private DBHelperControlPeliculas dbHelperGenero;
+    private static DBHelperControlPeliculas dbHelperGenero;
 
     public GeneroDAO(Context context) { dbHelperGenero = new DBHelperControlPeliculas(context); }
 

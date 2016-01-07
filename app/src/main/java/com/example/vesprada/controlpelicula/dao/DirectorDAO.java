@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DirectorDAO {
-    private DBHelperControlPeliculas dbHelperDirector;
+    private static DBHelperControlPeliculas dbHelperDirector;
 
     public DirectorDAO(Context context) { dbHelperDirector = new DBHelperControlPeliculas(context); }
 

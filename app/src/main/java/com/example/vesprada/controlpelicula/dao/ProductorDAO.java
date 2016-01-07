@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ProductorDAO {
-    private DBHelperControlPeliculas dbHelperProductor;
+    private static DBHelperControlPeliculas dbHelperProductor;
 
     public ProductorDAO(Context context) { dbHelperProductor = new DBHelperControlPeliculas(context); }
 

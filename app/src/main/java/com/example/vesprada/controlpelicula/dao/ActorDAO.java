@@ -14,7 +14,7 @@ import java.util.HashMap;
 
 public class ActorDAO {
 
-    private DBHelperControlPeliculas dbHelperActor;
+    private static DBHelperControlPeliculas dbHelperActor;
 
     public ActorDAO(Context context) {
         dbHelperActor = new DBHelperControlPeliculas(context);
@@ -54,7 +54,7 @@ public class ActorDAO {
         db.close(); // Closing database connection
     }
 
-    public ArrayList<HashMap<String, String>>  getActorList() {
+    public ArrayList<Actor>  getActorList() {
         //Open connection to read only
         SQLiteDatabase db = dbHelperActor.getReadableDatabase();
         String selectQuery =  "SELECT  " +
@@ -63,18 +63,17 @@ public class ActorDAO {
                 " FROM " + Actor.TABLE;
 
         //Student student = new Student();
-        ArrayList<HashMap<String, String>> actorList = new ArrayList<HashMap<String, String>>();
+        ArrayList<Actor> actorList = new ArrayList<Actor>();
 
         Cursor cursor = db.rawQuery(selectQuery, null);
         // looping through all rows and adding to list
 
         if (cursor.moveToFirst()) {
             do {
-                HashMap<String, String> student = new HashMap<String, String>();
-                student.put("id", cursor.getString(cursor.getColumnIndex(Actor.KEY_ID)));
-                student.put("name", cursor.getString(cursor.getColumnIndex(Actor.KEY_Nombre_completo)));
-                actorList.add(student);
-
+                Actor a = new Actor();
+                a.id = cursor.getInt(cursor.getColumnIndex(Actor.KEY_ID));
+                a.nombre_completo = cursor.getString(cursor.getColumnIndex(Actor.KEY_Nombre_completo));
+                actorList.add(a);
             } while (cursor.moveToNext());
         }
 

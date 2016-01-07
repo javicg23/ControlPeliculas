@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 
 public class PeliculaDAO {
-    private DBHelperControlPeliculas dbHelperPelicula;
+    private static DBHelperControlPeliculas dbHelperPelicula;
 
     public PeliculaDAO(Context context) {
         dbHelperPelicula = new DBHelperControlPeliculas(context);
@@ -69,7 +69,7 @@ public class PeliculaDAO {
         db.close(); // Closing database connection
     }
 
-    public ArrayList<Pelicula> getPeliculaList() {
+    public static ArrayList<Pelicula> getPeliculaList() {
         //Open connection to read only
         SQLiteDatabase db = dbHelperPelicula.getReadableDatabase();
         String selectQuery =  "SELECT  " +
