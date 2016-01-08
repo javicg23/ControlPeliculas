@@ -136,7 +136,7 @@ public class ProductorDAO {
                 Productor.KEY_ID + "," +
                 Productor.KEY_Nombre +
                 " FROM " + Productor.TABLE
-                + " WHERE " + Productor.KEY_Nombre +  "LIKE ?";
+                + " WHERE " + Productor.KEY_Nombre +  " LIKE ?";
 
         Productor productor = new Productor();
 

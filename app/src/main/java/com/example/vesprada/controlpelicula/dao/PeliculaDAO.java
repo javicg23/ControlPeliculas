@@ -311,7 +311,7 @@ public class PeliculaDAO {
                 Pelicula.KEY_ID + "," +
                 Pelicula.KEY_Nombre +
                 " FROM " + Pelicula.TABLE
-                + " WHERE " + Pelicula.KEY_Nombre +  "LIKE ?";
+                + " WHERE " + Pelicula.KEY_Nombre +  " LIKE ?";
 
         Pelicula pelicula = new Pelicula();
 
