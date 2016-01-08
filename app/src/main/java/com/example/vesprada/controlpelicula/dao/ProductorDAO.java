@@ -21,7 +21,7 @@ public class ProductorDAO {
 
         SQLiteDatabase db = dbHelperProductor.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Productor.KEY_ID, productor.id);
+
         values.put(Productor.KEY_Nombre, productor.nombre);
 
 
@@ -42,7 +42,6 @@ public class ProductorDAO {
         SQLiteDatabase db = dbHelperProductor.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(Productor.KEY_ID, productor.id);
         values.put(Productor.KEY_Nombre, productor.nombre);
 
         db.update(Productor.TABLE, values, Productor.KEY_ID + "= ?", new String[]{String.valueOf(productor.id)});

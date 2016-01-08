@@ -70,15 +70,15 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         /** Inserts por defecto */
-
-        insertsGeneroDefecto();
-        InstertsProductorDefecto();
-        insertarActoresDefecto();
-        insertarDirectoresDefecto();
-        insertsEstadosDefecto();
-        insertsPeliculasDefecto();
-        insertsPeliculasActoresDefecto();
-
+        if(conectorGenero.getGeneroById(1) == null) {
+            insertsGeneroDefecto();
+            InstertsProductorDefecto();
+            insertarActoresDefecto();
+            insertarDirectoresDefecto();
+            insertsEstadosDefecto();
+            insertsPeliculasDefecto();
+            insertsPeliculasActoresDefecto();
+        }
 
         buscadorPeliculas = (EditText) findViewById(R.id.etBuscador);
         imgButtonBuscador = (ImageButton) findViewById(R.id.btnBuscador);
@@ -206,42 +206,34 @@ public class MainActivity extends AppCompatActivity
     public void insertsGeneroDefecto() {
 
         Genero generoAccion = new Genero();
-        generoAccion.id = 1;
         generoAccion.nombre ="Accion";
         conectorGenero.insert(generoAccion);
 
         Genero generoComedia = new Genero();
-        generoComedia.id = 2;
         generoComedia.nombre = "Comedia";
         conectorGenero.insert(generoComedia);
 
         Genero generoTerror = new Genero();
-        generoTerror.id = 3;
         generoTerror.nombre = "Terror";
         conectorGenero.insert(generoTerror);
 
         Genero generoCienciaFicción = new Genero();
-        generoCienciaFicción.id = 4;
         generoCienciaFicción.nombre = "Ciencia Ficción";
         conectorGenero.insert(generoCienciaFicción);
 
         Genero generoFantasia = new Genero();
-        generoFantasia.id = 5;
         generoFantasia.nombre = "Fantasia";
         conectorGenero.insert(generoFantasia);
 
         Genero generoDrama = new Genero();
-        generoDrama.id = 6;
         generoDrama.nombre = "Drama";
         conectorGenero.insert(generoDrama);
 
         Genero generoRomance = new Genero();
-        generoRomance.id = 7;
         generoRomance.nombre = "Romance";
         conectorGenero.insert(generoRomance);
 
         Genero generoSuspense = new Genero();
-        generoSuspense.id = 8;
         generoSuspense.nombre = "Suspense";
         conectorGenero.insert(generoSuspense);
     }
@@ -250,47 +242,38 @@ public class MainActivity extends AppCompatActivity
     public void InstertsProductorDefecto() {
 
         Productor productorParamount = new Productor();
-        productorParamount.id = 1;
         productorParamount.nombre = "Paramount Pictures";
         conectorProductor.insert(productorParamount);
 
         Productor productorDreamWorks = new Productor();
-        productorDreamWorks.id = 2;
         productorDreamWorks.nombre = "DreamWorks";
         conectorProductor.insert(productorDreamWorks);
 
         Productor productorWarnerBros = new Productor();
-        productorWarnerBros.id = 3;
         productorWarnerBros.nombre = "Warner Bros";
         conectorProductor.insert(productorWarnerBros);
 
         Productor productorLucasfilm = new Productor();
-        productorLucasfilm.id = 4;
         productorLucasfilm.nombre = "Lucasfilm";
         conectorProductor.insert(productorLucasfilm);
 
         Productor productorScottFreeProductions = new Productor();
-        productorScottFreeProductions.id = 5;
         productorScottFreeProductions.nombre = "Scott Free Productions";
         conectorProductor.insert(productorScottFreeProductions);
 
         Productor productorBanksideFilms = new Productor();
-        productorBanksideFilms.id = 6;
         productorBanksideFilms.nombre = "Bankside Films";
         conectorProductor.insert(productorBanksideFilms);
 
         Productor productorSkydanceProductions = new Productor();
-        productorSkydanceProductions.id = 7;
         productorSkydanceProductions.nombre = "Skydance Productions";
         conectorProductor.insert(productorSkydanceProductions);
 
         Productor productor20thCenturyFox = new Productor();
-        productor20thCenturyFox.id = 8;
         productor20thCenturyFox.nombre = "20th Century Fox";
         conectorProductor.insert(productor20thCenturyFox);
 
         Productor productorMileniumFilms = new Productor();
-        productorMileniumFilms.id = 9;
         productorMileniumFilms.nombre = "Millenium Films";
         conectorProductor.insert(productorMileniumFilms);
     }
@@ -298,52 +281,42 @@ public class MainActivity extends AppCompatActivity
     public void insertarActoresDefecto(){
 
         Actor actorTomCruise = new Actor();
-        actorTomCruise.id = 1;
         actorTomCruise.nombre_completo = "Tom Cruise";
         conectorActor.insert(actorTomCruise);
 
         Actor actorEddieMurphy = new Actor();
-        actorEddieMurphy.id = 2;
         actorEddieMurphy.nombre_completo = "Eddie Murphy";
         conectorActor.insert(actorEddieMurphy);
 
         Actor actorWillSmith = new Actor();
-        actorWillSmith.id = 3;
         actorWillSmith.nombre_completo = "Will Smith";
         conectorActor.insert(actorWillSmith);
 
         Actor actorMarkHammilk = new Actor();
-        actorMarkHammilk.id = 4;
         actorMarkHammilk.nombre_completo = "Mark Hammilk";
         conectorActor.insert(actorMarkHammilk);
 
         Actor actorHarrisonFord = new Actor();
-        actorHarrisonFord.id = 5;
         actorHarrisonFord.nombre_completo = "Harrison Ford";
         conectorActor.insert(actorHarrisonFord);
 
         Actor actorJavierBardem = new Actor();
-        actorJavierBardem.id = 6;
         actorJavierBardem.nombre_completo = "Javier Bardem";
         conectorActor.insert(actorJavierBardem);
 
         Actor actorEmiliaClarke = new Actor();
-        actorEmiliaClarke.id = 7;
         actorEmiliaClarke.nombre_completo = "Emilia Clarke";
         conectorActor.insert(actorEmiliaClarke);
 
         Actor actorJasonClarke = new Actor();
-        actorJasonClarke.id = 8;
         actorJasonClarke.nombre_completo = "Jason Clarke";
         conectorActor.insert(actorJasonClarke);
 
         Actor actorBruceWillis = new Actor();
-        actorBruceWillis.id = 9;
         actorBruceWillis.nombre_completo = "Bruce Willis";
         conectorActor.insert(actorBruceWillis);
 
         Actor actorJasonStatham = new Actor();
-        actorJasonStatham.id = 10;
         actorJasonStatham.nombre_completo = "Jason Statham";
         conectorActor.insert(actorJasonStatham);
 
@@ -351,52 +324,42 @@ public class MainActivity extends AppCompatActivity
     public void insertarDirectoresDefecto(){
 
         Director directorJJAbrams = new Director();
-        directorJJAbrams.id = 1;
         directorJJAbrams.nombre_completo = "J.J Abrams";
         conectorDirector.insert(directorJJAbrams);
 
         Director directorBrianRobbins = new Director();
-        directorBrianRobbins.id = 2;
         directorBrianRobbins.nombre_completo = "Brian Robbins";
         conectorDirector.insert(directorBrianRobbins);
 
         Director directorFrancisLawrence = new Director();
-        directorFrancisLawrence.id = 3;
         directorFrancisLawrence.nombre_completo = "Francis Lawrence";
         conectorDirector.insert(directorFrancisLawrence);
 
         Director directorGeorgeLucas = new Director();
-        directorGeorgeLucas.id = 4;
         directorGeorgeLucas.nombre_completo = "George Lucas";
         conectorDirector.insert(directorGeorgeLucas);
 
         Director directorStevenSpielberg = new Director();
-        directorStevenSpielberg.id = 5;
         directorStevenSpielberg.nombre_completo = "Steven Spielberg";
         conectorDirector.insert(directorStevenSpielberg);
 
         Director directorRidleyScott = new Director();
-        directorRidleyScott.id = 6;
         directorRidleyScott.nombre_completo = "Ridley Scott";
         conectorDirector.insert(directorRidleyScott);
 
         Director directorMatWhitecross = new Director();
-        directorMatWhitecross.id = 7;
         directorMatWhitecross.nombre_completo = "Mat Whitecross";
         conectorDirector.insert(directorMatWhitecross);
 
         Director directorAlanTaylor = new Director();
-        directorAlanTaylor.id = 8;
         directorAlanTaylor.nombre_completo = "Alan Taylor";
         conectorDirector.insert(directorAlanTaylor);
 
         Director directorLenWiseman = new Director();
-        directorLenWiseman.id = 9;
         directorLenWiseman.nombre_completo = "Len Wiseman";
         conectorDirector.insert(directorLenWiseman);
 
         Director directorSimonWest = new Director();
-        directorSimonWest.id = 10;
         directorSimonWest.nombre_completo = "Simon West";
         conectorDirector.insert(directorSimonWest);
 
@@ -406,22 +369,18 @@ public class MainActivity extends AppCompatActivity
     public void insertsEstadosDefecto() {
 
         Estado estadoNoVista = new Estado();
-        estadoNoVista.id = 1;
         estadoNoVista.nombre_estado = "No Vista";
         conectorEstado.insert(estadoNoVista);
 
         Estado estadoPendiente = new Estado();
-        estadoPendiente.id = 2;
         estadoPendiente.nombre_estado = "Pendiente";
         conectorEstado.insert(estadoPendiente);
 
         Estado estadoVista = new Estado();
-        estadoVista.id = 3;
         estadoVista.nombre_estado = "Vista";
         conectorEstado.insert(estadoVista);
 
         Estado estadoFavorita = new Estado();
-        estadoFavorita.id = 4;
         estadoFavorita.nombre_estado = "Favorita";
         conectorEstado.insert(estadoFavorita);
 
@@ -430,7 +389,6 @@ public class MainActivity extends AppCompatActivity
     public void insertsPeliculasDefecto() {
 
         Pelicula misionImposible3 = new Pelicula();
-        misionImposible3.id = 1;
         misionImposible3.anyo = 2006;
         misionImposible3.duracion = 126;
         misionImposible3.nombre = "Mision Imposible 3";
@@ -444,7 +402,6 @@ public class MainActivity extends AppCompatActivity
         conectorPelicula.insert(misionImposible3);
 
         Pelicula norbit = new Pelicula();
-        norbit.id = 2;
         norbit.anyo = 2007;
         norbit.duracion = 102;
         norbit.nombre = "Norbit";
@@ -458,7 +415,6 @@ public class MainActivity extends AppCompatActivity
         conectorPelicula.insert(norbit);
 
         Pelicula soyLeyenda = new Pelicula();
-        soyLeyenda.id = 3;
         soyLeyenda.anyo = 2007;
         soyLeyenda.duracion = 100;
         soyLeyenda.nombre = "Soy Leyenda";
@@ -472,7 +428,6 @@ public class MainActivity extends AppCompatActivity
         conectorPelicula.insert(soyLeyenda);
 
         Pelicula starWarsVI = new Pelicula();
-        starWarsVI.id = 4;
         starWarsVI.anyo = 1983;
         starWarsVI.duracion = 133;
         starWarsVI.nombre = "Star Wars El Retorno del Jedi";
@@ -486,7 +441,6 @@ public class MainActivity extends AppCompatActivity
         conectorPelicula.insert(starWarsVI);
 
         Pelicula indianaCalavera = new Pelicula();
-        indianaCalavera.id = 5;
         indianaCalavera.anyo = 2008;
         indianaCalavera.duracion = 125;
         indianaCalavera.nombre = "Indiana Jones y el reino de la calavera de cristal";
@@ -500,7 +454,6 @@ public class MainActivity extends AppCompatActivity
         conectorPelicula.insert(indianaCalavera);
 
         Pelicula theCounselor = new Pelicula();
-        theCounselor.id = 6;
         theCounselor.anyo = 2013;
         theCounselor.duracion = 113;
         theCounselor.nombre = "The Counselor";
@@ -514,7 +467,6 @@ public class MainActivity extends AppCompatActivity
         conectorPelicula.insert(theCounselor);
 
         Pelicula spikeIsland = new Pelicula();
-        spikeIsland.id = 7;
         spikeIsland.anyo = 2012;
         spikeIsland.duracion = 105;
         spikeIsland.nombre = "Spike Island";
@@ -528,7 +480,6 @@ public class MainActivity extends AppCompatActivity
         conectorPelicula.insert(spikeIsland);
 
         Pelicula terminatorGenesis = new Pelicula();
-        terminatorGenesis.id = 8;
         terminatorGenesis.anyo = 2015;
         terminatorGenesis.duracion = 126;
         terminatorGenesis.nombre = "Terminator Génesis";
@@ -542,7 +493,6 @@ public class MainActivity extends AppCompatActivity
         conectorPelicula.insert(terminatorGenesis);
 
         Pelicula laJungla4 = new Pelicula();
-        laJungla4.id = 9;
         laJungla4.anyo = 2007;
         laJungla4.duracion = 130;
         laJungla4.nombre = "La jungla 4.0";
@@ -556,7 +506,6 @@ public class MainActivity extends AppCompatActivity
         conectorPelicula.insert(laJungla4);
 
         Pelicula losMercenarios2 = new Pelicula();
-        losMercenarios2.id = 10;
         losMercenarios2.anyo = 2012;
         losMercenarios2.duracion = 102;
         losMercenarios2.nombre = "Los Mercenarios 2";

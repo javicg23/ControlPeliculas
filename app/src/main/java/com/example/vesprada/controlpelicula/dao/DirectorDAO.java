@@ -22,7 +22,6 @@ public class DirectorDAO {
 
         SQLiteDatabase db = dbHelperDirector.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Director.KEY_ID, director.id);
         values.put(Director.KEY_Nombre_completo, director.nombre_completo);
 
         long ID = db.insert(Director.TABLE, null, values);
@@ -42,7 +41,6 @@ public class DirectorDAO {
         SQLiteDatabase db = dbHelperDirector.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(Director.KEY_ID, director.id);
         values.put(Director.KEY_Nombre_completo, director.nombre_completo);
 
         db.update(Director.TABLE, values, Director.KEY_ID + "= ?", new String[]{String.valueOf(director.id)});
