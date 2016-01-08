@@ -66,7 +66,7 @@ public class PeliculaDAO {
         values.put(Pelicula.KEY_Id_estado, pelicula.id_estado);
 
         // It's a good practice to use parameter ?, instead of concatenate string
-        db.update(Pelicula.TABLE, values, Pelicula.KEY_ID + "= ?", new String[]{String.valueOf(pelicula.id)});
+        db.update(Pelicula.TABLE, values, Pelicula.KEY_ID + " =?", new String[]{String.valueOf(pelicula.id)});
         db.close(); // Closing database connection
     }
 
@@ -311,7 +311,7 @@ public class PeliculaDAO {
                 Pelicula.KEY_ID + "," +
                 Pelicula.KEY_Nombre +
                 " FROM " + Pelicula.TABLE
-                + " WHERE " + Pelicula.KEY_Nombre +  " LIKE ?";
+                + " WHERE " + Pelicula.KEY_Nombre +  " =?";
 
         Pelicula pelicula = new Pelicula();
 

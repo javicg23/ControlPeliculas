@@ -30,7 +30,7 @@ public class EstadoDAO {
     public void delete(int ID) {
 
         SQLiteDatabase db = dbhelperEstado.getWritableDatabase();
-        db.delete(Estado.TABLE, Estado.KEY_ID + "= ?", new String[] {String.valueOf(ID)});
+        db.delete(Estado.TABLE, Estado.KEY_ID + " =?", new String[] {String.valueOf(ID)});
         db.close();
     }
 
