@@ -27,7 +27,7 @@ public class Pelicula {
     public String portada;
     public int duracion;
     public String sinopsis;
-    public float puntuacion;
+    public int puntuacion;
     public int id_director;
     public int id_productor;
     public int id_genero;

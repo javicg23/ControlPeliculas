@@ -21,7 +21,7 @@ import com.example.vesprada.controlpelicula.modelo.Productor;
 
 public class DBHelperControlPeliculas extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 16;
+    private static final int DATABASE_VERSION = 21;
 
     private static final String DATABASE_NAME = "ControlPeliculas.db";
 
@@ -64,7 +64,7 @@ public class DBHelperControlPeliculas extends SQLiteOpenHelper {
                 + Pelicula.KEY_Anyo + " DATE, "
                 + Pelicula.KEY_Duracion + " INTEGER, "
                 + Pelicula.KEY_Sinopsis + " TEXT, "
-                + Pelicula.KEY_Puntuacion + " FLOAT, "
+                + Pelicula.KEY_Puntuacion + " INTEGER, "
                 + Pelicula.KEY_Portada + " TEXT, "
                 + Pelicula.KEY_Id_genero + " INTEGER, "
                 + Pelicula.KEY_Id_director + " INTEGER, "

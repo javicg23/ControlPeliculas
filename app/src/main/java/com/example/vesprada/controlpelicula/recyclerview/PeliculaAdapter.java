@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.example.vesprada.controlpelicula.R;
 import com.example.vesprada.controlpelicula.modelo.Pelicula;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.PeliculaViewHolder> {
@@ -23,10 +25,12 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.Pelicu
         private TextView tvNombrePelicula;
         private TextView tvPuntuacionPelicula;
         private TextView tvEstadoPelicula;
+        private TextView tvIdPelicula;
 
         public PeliculaViewHolder(View itemView) {
             super(itemView);
 
+            tvIdPelicula = (TextView) itemView.findViewById(R.id.tvIdPelicula);
             ivPortada = (ImageView) itemView.findViewById(R.id.ivPortada);
             tvNombrePelicula = (TextView) itemView.findViewById(R.id.tvNombrePelicula);
             tvPuntuacionPelicula = (TextView) itemView.findViewById(R.id.tvPuntuacionPelicula);
@@ -34,6 +38,8 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.Pelicu
         }
 
         public void bindPelicula(Pelicula pelicula) {
+
+            tvIdPelicula.setText(String.valueOf(pelicula.id));
 
             ivPortada.setImageResource(itemView.getContext().getResources().getIdentifier(pelicula.portada, "drawable", itemView.getContext().getPackageName()));
 

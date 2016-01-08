@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.vesprada.controlpelicula.conexion.DBHelperControlPeliculas;
 import com.example.vesprada.controlpelicula.modelo.Actor;
@@ -70,10 +71,10 @@ public class ActorDAO {
 
         if (cursor.moveToFirst()) {
             do {
-                Actor a = new Actor();
-                a.id = cursor.getInt(cursor.getColumnIndex(Actor.KEY_ID));
-                a.nombre_completo = cursor.getString(cursor.getColumnIndex(Actor.KEY_Nombre_completo));
-                actorList.add(a);
+                Actor actor = new Actor();
+                actor.id = cursor.getInt(cursor.getColumnIndex(Actor.KEY_ID));
+                actor.nombre_completo = cursor.getString((cursor.getColumnIndex(Actor.KEY_Nombre_completo)));
+                actorList.add(actor);
             } while (cursor.moveToNext());
         }
 
@@ -83,7 +84,7 @@ public class ActorDAO {
 
     }
 
-    public ArrayList<HashMap<String, String>>  getActorListByName(String nameStudentSearch) {
+    public ArrayList<Actor>  getActorListByName(String nameStudentSearch) {
         //Open connection to read only
         SQLiteDatabase db = dbHelperActor.getReadableDatabase();
         String selectQuery =  "SELECT  " +
@@ -91,26 +92,26 @@ public class ActorDAO {
                 Actor.KEY_Nombre_completo +
                 " FROM " + Actor.TABLE +
                 " WHERE " + Actor.KEY_Nombre_completo + " LIKE ?";
-
         //Student student = new Student();
-        ArrayList<HashMap<String, String>> studentList = new ArrayList<HashMap<String, String>>();
+        ArrayList<Actor> actorList = new ArrayList<Actor>();
 
         Cursor cursor = db.rawQuery(selectQuery, new String[] {"%" + nameStudentSearch + "%"});
         // looping through all rows and adding to list
 
         if (cursor.moveToFirst()) {
+
             do {
-                HashMap<String, String> student = new HashMap<String, String>();
-                student.put("id", cursor.getString(cursor.getColumnIndex(Actor.KEY_ID)));
-                student.put("name", cursor.getString(cursor.getColumnIndex(Actor.KEY_Nombre_completo)));
-                studentList.add(student);
+                Actor actor = new Actor();
+                actor.id = cursor.getInt(cursor.getColumnIndex(Actor.KEY_ID));
+                actor.nombre_completo = cursor.getString((cursor.getColumnIndex(Actor.KEY_Nombre_completo)));
+                actorList.add(actor);
 
             } while (cursor.moveToNext());
         }
 
         cursor.close();
         db.close();
-        return studentList;
+        return actorList;
 
     }
     public Actor getActorById(int Id){
@@ -130,11 +131,32 @@ public class ActorDAO {
             do {
                 actor.id = cursor.getInt(cursor.getColumnIndex(Actor.KEY_ID));
                 actor.nombre_completo = cursor.getString(cursor.getColumnIndex(Actor.KEY_Nombre_completo));
-
-
             } while (cursor.moveToNext());
         }
+        cursor.close();
+        db.close();
+        return actor;
+    }
 
+    public Actor getActorByName(String name){
+        SQLiteDatabase db = dbHelperActor.getReadableDatabase();
+
+        String selectQuery = "SELECT " +
+                Actor.KEY_ID + "," +
+                Actor.KEY_Nombre_completo +
+                " FROM " + Actor.TABLE
+                + " WHERE " + Actor.KEY_Nombre_completo +  "LIKE ?";
+
+        Actor actor = new Actor();
+
+        Cursor cursor = db.rawQuery(selectQuery, new String[] {"%" + name + "%"});
+
+        if(cursor.moveToFirst()){
+            do{
+                actor.id = cursor.getInt(cursor.getColumnIndex(Actor.KEY_ID));
+                actor.nombre_completo = cursor.getString(cursor.getColumnIndex(actor.KEY_Nombre_completo));
+            }while(cursor.moveToNext());
+        }
         cursor.close();
         db.close();
         return actor;

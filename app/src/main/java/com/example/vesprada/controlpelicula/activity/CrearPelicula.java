@@ -36,8 +36,8 @@ public class CrearPelicula extends AppCompatActivity {
     private EditText etPeliProductor;
     private EditText etPeliGenero;
 
-    private Button btnConfirmar;
-    private Button btnAgregar;
+    Button btnConfirmar;
+    Button btnAgregar;
 
     private PeliculaDAO conectorPelicula = new PeliculaDAO(this);
     private ProductorDAO conectorProductor = new ProductorDAO(this);
@@ -85,7 +85,7 @@ public class CrearPelicula extends AppCompatActivity {
         dbhelpercrearpelicula = new DBHelperControlPeliculas(this);
 
 
-        btnAgregar.findViewById(R.id.btnAgregarActor);
+        btnAgregar = (Button) findViewById(R.id.btnAgregarActor);
         btnAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,7 +109,7 @@ public class CrearPelicula extends AppCompatActivity {
                 if (!vacio) {
 
 
-                    if (conectorActor.getActorListByName(nuevoActor.nombre_completo)!=null) {
+                    if (conectorActor.getActorByName(nuevoActor.nombre_completo)!=null) {
                         conectorActor.insert(nuevoActor);
                         actoresNuevos.add(nuevoActor.id);
                         etPeliActor.setText("");
@@ -140,7 +140,7 @@ public class CrearPelicula extends AppCompatActivity {
         });
 
 
-        btnConfirmar.findViewById(R.id.btnConfirmarPelicula);
+        btnConfirmar = (Button) findViewById(R.id.btnConfirmarPelicula);
         btnConfirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -194,7 +194,7 @@ public class CrearPelicula extends AppCompatActivity {
                      */
 
 
-                    if (conectorPelicula.getPeliculaListByName(nuevapelicula.nombre)!=null) {
+                    if (conectorPelicula.getPeliculaByName(nuevapelicula.nombre)==null) {
                         id_pelicula = conectorPelicula.insert(nuevapelicula);
                     }
                 /**
@@ -218,7 +218,7 @@ public class CrearPelicula extends AppCompatActivity {
                      * Director
                      */
 
-                    if (conectorDirector.getDirectorListByName(nuevoDirector.nombre_completo)!=null) {
+                    if (conectorDirector.getDirectorByName(nuevoDirector.nombre_completo)==null) {
                         conectorDirector.insert(nuevoDirector);
                     }
 
@@ -243,7 +243,7 @@ public class CrearPelicula extends AppCompatActivity {
                      * Productor
                      */
 
-                    if (conectorProductor.getProductorListByName(nuevoProductor.nombre)!=null) {
+                    if (conectorProductor.getProductorByName(nuevoProductor.nombre)==null) {
                         conectorProductor.insert(nuevoProductor);
                     }
 
@@ -268,7 +268,7 @@ public class CrearPelicula extends AppCompatActivity {
                      * Genero
                      */
 
-                    if (conectorGenero.getGeneroListByName(nuevoGenero.nombre)!=null) {
+                    if (conectorGenero.getGeneroByName(nuevoGenero.nombre)==null) {
                         conectorGenero.insert(nuevoGenero);
                     }
 
