@@ -116,8 +116,8 @@ public class CrearPelicula extends AppCompatActivity {
                 if (!vacio) {
                     encuentraActor = conectorActor.getActorByName(nuevoActor.nombre_completo).nombre_completo;
                     if (encuentraActor == null) {
-                        conectorActor.insert(nuevoActor);
-                        actoresNuevos.add(nuevoActor.id);
+                        int id_actor = conectorActor.insert(nuevoActor);
+                        actoresNuevos.add(id_actor);
                         etPeliActor.setText("");
                     }
 
