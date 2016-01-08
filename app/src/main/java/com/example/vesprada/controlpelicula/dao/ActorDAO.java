@@ -26,7 +26,6 @@ public class ActorDAO {
         //Cojemos los valores
         SQLiteDatabase db = dbHelperActor.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Actor.KEY_ID, actor.id);
         values.put(Actor.KEY_Nombre_completo, actor.nombre_completo);
 
         // hacemos el insert
@@ -47,7 +46,6 @@ public class ActorDAO {
         SQLiteDatabase db = dbHelperActor.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(Actor.KEY_ID, actor.id);
         values.put(Actor.KEY_Nombre_completo,actor.nombre_completo);
 
         // It's a good practice to use parameter ?, instead of concatenate string

@@ -21,7 +21,7 @@ public class GeneroDAO {
 
         SQLiteDatabase db = dbHelperGenero.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Genero.KEY_ID, genero.id);
+
         values.put(Genero.KEY_Nombre, genero.nombre);
 
         long ID = db.insert(Genero.TABLE, null, values);
@@ -41,7 +41,6 @@ public class GeneroDAO {
         SQLiteDatabase db = dbHelperGenero.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(Genero.KEY_ID, genero.id);
         values.put(Genero.KEY_Nombre, genero.nombre);
 
         db.update(Genero.TABLE, values, Genero.KEY_ID + "= ?", new String[]{String.valueOf(genero.id)});

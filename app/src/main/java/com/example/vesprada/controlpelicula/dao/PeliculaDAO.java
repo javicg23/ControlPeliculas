@@ -25,7 +25,6 @@ public class PeliculaDAO {
         //Le damos valor
         SQLiteDatabase db = dbHelperPelicula.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Pelicula.KEY_ID, pelicula.id);
         values.put(Pelicula.KEY_Nombre, pelicula.nombre);
         values.put(Pelicula.KEY_Anyo, pelicula.anyo);
         values.put(Pelicula.KEY_Duracion, pelicula.duracion);
@@ -55,7 +54,6 @@ public class PeliculaDAO {
         SQLiteDatabase db = dbHelperPelicula.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(Pelicula.KEY_ID, pelicula.id);
         values.put(Pelicula.KEY_Nombre, pelicula.nombre);
         values.put(Pelicula.KEY_Anyo, pelicula.anyo);
         values.put(Pelicula.KEY_Duracion, pelicula.duracion);

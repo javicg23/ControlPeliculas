@@ -20,7 +20,6 @@ public class EstadoDAO {
         SQLiteDatabase db = dbhelperEstado.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(Estado.KEY_ID, estado.id);
         values.put(Estado.KEY_Estado, estado.nombre_estado);
 
         long ID = db.insert(Estado.TABLE, null, values);
@@ -40,7 +39,6 @@ public class EstadoDAO {
         SQLiteDatabase db = dbhelperEstado.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(Estado.KEY_ID, estado.id);
         values.put(Estado.KEY_Estado, estado.nombre_estado);
 
         db.update(Estado.TABLE, values, Estado.KEY_ID + "= ?", new String[]{String.valueOf(estado.id)});
