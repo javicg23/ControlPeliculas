@@ -53,7 +53,7 @@
                     android:layout_marginBottom="10dp">
                     <TextView
                         android:id="@+id/tvPuntuacionDetalle"
-                        android:layout_width="70dp"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:background="#00ff00"
                         android:layout_gravity="center"

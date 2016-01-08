@@ -1,13 +1,18 @@
 package com.example.vesprada.controlpelicula.activity;
 
+import android.app.Application;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.vesprada.controlpelicula.MainActivity;
 import com.example.vesprada.controlpelicula.R;
 import com.example.vesprada.controlpelicula.conexion.DBHelperControlPeliculas;
 import com.example.vesprada.controlpelicula.dao.ActorDAO;
@@ -101,7 +106,7 @@ public class CrearPelicula extends AppCompatActivity {
                 } else {
                     String nombreActor = etPeliActor.getText().toString();
                     nombreActor = nombreActor.trim();
-                    nombreActor = nombreActor.replaceAll("\\s+", "");
+                    nombreActor = nombreActor.replaceAll("\\s+", " ");
                     nuevoActor.nombre_completo = nombreActor;
                     vacio = false;
                 }
@@ -109,7 +114,7 @@ public class CrearPelicula extends AppCompatActivity {
                 if (!vacio) {
 
 
-                    if (conectorActor.getActorByName(nuevoActor.nombre_completo)!=null) {
+                    if (conectorActor.getActorByName(nuevoActor.nombre_completo) == null) {
                         conectorActor.insert(nuevoActor);
                         actoresNuevos.add(nuevoActor.id);
                         etPeliActor.setText("");
@@ -144,7 +149,7 @@ public class CrearPelicula extends AppCompatActivity {
         btnConfirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Log.v("hola","sharandonga");
 
                 if (
                         etPeliNombre.getText().toString().equalsIgnoreCase("") ||
@@ -166,7 +171,7 @@ public class CrearPelicula extends AppCompatActivity {
 
                     String nombrePeli = etPeliNombre.getText().toString();
                     nombrePeli = nombrePeli.trim();
-                    nombrePeli = nombrePeli.replaceAll("\\s+", "");
+                    nombrePeli = nombrePeli.replaceAll("\\s+", " ");
                     nuevapelicula.nombre = nombrePeli;
                     nuevapelicula.duracion = Integer.parseInt(etPeliDuracion.getText().toString());
                     nuevapelicula.anyo = Integer.parseInt(etPeliAnyo.getText().toString());
@@ -176,12 +181,12 @@ public class CrearPelicula extends AppCompatActivity {
 
                     String nombreDirector = etPeliDirector.getText().toString();
                     nombreDirector = nombreDirector.trim();
-                    nombreDirector = nombreDirector.replaceAll("\\s+", "");
+                    nombreDirector = nombreDirector.replaceAll("\\s+", " ");
                     nuevoDirector.nombre_completo = nombreDirector;
 
                     String nombreProductor = etPeliProductor.getText().toString();
                     nombreProductor = nombreProductor.trim();
-                    nombreProductor = nombreProductor.replaceAll("\\s+", "");
+                    nombreProductor = nombreProductor.replaceAll("\\s+", " ");
                     nuevoProductor.nombre = nombreProductor;
 
                     String nombreGenero = etPeliGenero.getText().toString();
@@ -194,7 +199,7 @@ public class CrearPelicula extends AppCompatActivity {
                      */
 
 
-                    if (conectorPelicula.getPeliculaByName(nuevapelicula.nombre)==null) {
+                    if (conectorPelicula.getPeliculaByName(nuevapelicula.nombre) == null) {
                         id_pelicula = conectorPelicula.insert(nuevapelicula);
                     }
                 /**
@@ -218,7 +223,7 @@ public class CrearPelicula extends AppCompatActivity {
                      * Director
                      */
 
-                    if (conectorDirector.getDirectorByName(nuevoDirector.nombre_completo)==null) {
+                    if (conectorDirector.getDirectorByName(nuevoDirector.nombre_completo) == null) {
                         conectorDirector.insert(nuevoDirector);
                     }
 
@@ -243,7 +248,7 @@ public class CrearPelicula extends AppCompatActivity {
                      * Productor
                      */
 
-                    if (conectorProductor.getProductorByName(nuevoProductor.nombre)==null) {
+                    if (conectorProductor.getProductorByName(nuevoProductor.nombre) == null) {
                         conectorProductor.insert(nuevoProductor);
                     }
 
@@ -268,7 +273,7 @@ public class CrearPelicula extends AppCompatActivity {
                      * Genero
                      */
 
-                    if (conectorGenero.getGeneroByName(nuevoGenero.nombre)==null) {
+                    if (conectorGenero.getGeneroByName(nuevoGenero.nombre) == null) {
                         conectorGenero.insert(nuevoGenero);
                     }
 
@@ -300,7 +305,8 @@ public class CrearPelicula extends AppCompatActivity {
                         conectorA_P.insert(nuevoA_P);
                     }
 
-                    //setContentView(R.layout.activity_main);
+                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(i);
                 }
             }
         });

@@ -136,7 +136,7 @@ public class DirectorDAO {
                 Director.KEY_ID + "," +
                 Director.KEY_Nombre_completo +
                 " FROM " + Director.TABLE
-                + " WHERE " + Director.KEY_Nombre_completo +  "LIKE ?";
+                + " WHERE " + Director.KEY_Nombre_completo +  " LIKE ?";
 
         Director director = new Director();
 

@@ -3,11 +3,11 @@ package com.example.vesprada.controlpelicula;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,10 +19,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.vesprada.controlpelicula.activity.CrearPelicula;
-import com.example.vesprada.controlpelicula.activity.DetallePelicula;
 import com.example.vesprada.controlpelicula.conexion.DBHelperControlPeliculas;
 import com.example.vesprada.controlpelicula.dao.ActorDAO;
 import com.example.vesprada.controlpelicula.dao.Actor_PeliculaDAO;
@@ -39,14 +38,22 @@ import com.example.vesprada.controlpelicula.modelo.Genero;
 import com.example.vesprada.controlpelicula.modelo.Pelicula;
 import com.example.vesprada.controlpelicula.modelo.Productor;
 import com.example.vesprada.controlpelicula.recyclerview.PeliculaAdapter;
-import com.example.vesprada.controlpelicula.recyclerview.RecyclerItemClickListener;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private ArrayList<Pelicula> listaPeliculas = new ArrayList<>();
+    private ArrayList<Pelicula> listaPeliculasProvisionales = new ArrayList<>();
+    private ArrayList<Director> listaDirectoresByName = new ArrayList<>();
+    private ArrayList<Actor> listaActoresPorNombre = new ArrayList<>();
+    private ArrayList<Pelicula> listaPeliculasOrdFavoritos = new ArrayList<>();
+    private ArrayList<Pelicula> listaPeliculasOrdNoVistas = new ArrayList<>();
+    private ArrayList<Pelicula> listaPeliculasOrdVistas = new ArrayList<>();
+    private ArrayList<Pelicula> listaPeliculasOrdPendientes = new ArrayList<>();
+    private ArrayList<Pelicula> listaPorPelis = new ArrayList<>();
     private RecyclerView recView;
     private EditText buscadorPeliculas;
     private ImageButton imgButtonBuscador;
@@ -60,6 +67,9 @@ public class MainActivity extends AppCompatActivity
     private ActorDAO conectorActor = new ActorDAO(this);
     private EstadoDAO conectorEstado = new EstadoDAO(this);
     private Actor_PeliculaDAO conectorActorPelicula = new Actor_PeliculaDAO(this);
+    private boolean buscarPorPelicula = true;
+    private boolean buscarPorActor = false;
+    private boolean buscarPorDirector = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +80,9 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         /** Inserts por defecto */
-        if(conectorGenero.getGeneroById(1) == null) {
+        File database = getApplicationContext().getDatabasePath("ControlPeliculas.db");
+
+        if (!database.exists()) {
             insertsGeneroDefecto();
             InstertsProductorDefecto();
             insertarActoresDefecto();
@@ -92,22 +104,14 @@ public class MainActivity extends AppCompatActivity
         imgButtonBuscador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                searchItem(buscadorPeliculas.toString().toLowerCase());
+                if(buscadorPeliculas.getText().toString().equals("")){
+                    initList();
+                }else{
+                    searchItem(buscadorPeliculas.getText().toString().toLowerCase());
+                }
+
             }
         });
-
-        recView.setItemAnimator(new DefaultItemAnimator());
-        recView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        TextView id_pelicula = (TextView)(view.findViewById(R.id.tvIdPelicula));
-                        int idPelicula = Integer.parseInt(id_pelicula.getText().toString());
-                        Intent myIntent = new Intent(view.getContext(), DetallePelicula.class);
-                        myIntent.putExtra("id_pelicula", idPelicula);
-                        startActivity(myIntent);
-                    }
-                })
-        );
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -138,10 +142,57 @@ public class MainActivity extends AppCompatActivity
 
     /** Método para buscar según el buscador de las películas */
     public void searchItem (String txtToSearch) {
-        listaPeliculas = conectorPelicula.getPeliculaListByName(txtToSearch);
-        adaptadorPelicula = new PeliculaAdapter(listaPeliculas);
-        recView.setAdapter(adaptadorPelicula);
-        recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        if(buscarPorPelicula){
+            listaPorPelis = conectorPelicula.getPeliculaListByName(txtToSearch);
+            adaptadorPelicula = new PeliculaAdapter(listaPorPelis);
+            recView.setAdapter(adaptadorPelicula);
+            recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+            if(listaPeliculas.size() == 0){
+                Toast toast1 = Toast.makeText(getApplicationContext(), "No se ha encontrado la pelicula", Toast.LENGTH_SHORT);
+                toast1.show();
+                initList();
+            }
+        }
+        if(buscarPorDirector){
+            listaPeliculas.clear();
+            listaDirectoresByName = conectorDirector.getDirectorListByName(txtToSearch);
+            for(int i = 0;i<listaDirectoresByName.size();i++){
+                listaPeliculasProvisionales = conectorPelicula.getPeliculaListByIdDirector(listaDirectoresByName.get(i).id);
+                for(int j = 0;j<listaPeliculasProvisionales.size();j++){
+                    listaPeliculas.add(listaPeliculasProvisionales.get(j));
+                }
+                listaPeliculasProvisionales.clear();
+            }
+            if(listaPeliculas.size() == 0){
+                Toast toast1 = Toast.makeText(getApplicationContext(), "No se ha encontrado el director", Toast.LENGTH_SHORT);
+                toast1.show();
+                initList();
+            }
+            adaptadorPelicula = new PeliculaAdapter(listaPeliculas);
+            recView.setAdapter(adaptadorPelicula);
+            recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        }
+        if(buscarPorActor){
+            listaPeliculas.clear();
+
+            listaActoresPorNombre = conectorActor.getActorListByName(txtToSearch);
+
+            for(int i = 0;i<listaActoresPorNombre.size();i++){
+                listaPeliculasProvisionales = conectorPelicula.getPeliculaListByIdActor(listaActoresPorNombre.get(i).id);
+                for(int j = 0;j<listaPeliculasProvisionales.size();j++){
+                    listaPeliculas.add(listaPeliculasProvisionales.get(j));
+                }
+                listaPeliculasProvisionales.clear();
+            }
+            if(listaPeliculas.size() == 0){
+                Toast toast1 = Toast.makeText(getApplicationContext(), "No se ha encontrado el actor", Toast.LENGTH_SHORT);
+                toast1.show();
+                initList();
+            }
+            adaptadorPelicula = new PeliculaAdapter(listaPeliculas);
+            recView.setAdapter(adaptadorPelicula);
+            recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        }
     }
 
     @Override
@@ -183,25 +234,99 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_ord_fav) {
-            // Handle the camera action
+            ordenarPorFavoritos();
         } else if (id == R.id.nav_ord_vistas) {
-
+            ordenarPorVistas();
         } else if (id == R.id.nav_ord_pendientes) {
-
+            ordenarPorPendientes();
         } else if (id == R.id.nav_ord_novistas) {
-
+            ordenarPorNoVistas();
         } else if (id == R.id.nav_movie) {
-
+            buscarPorPelicula = true;
+            buscarPorActor = false;
+            buscarPorDirector = false;
+            Log.v("info","Entro en buscarPorPelicula");
         } else if (id == R.id.nav_actor) {
-
+            buscarPorPelicula = false;
+            buscarPorActor = true;
+            buscarPorDirector = false;
+            Log.v("info","Entro en buscarPorActor");
         } else if (id == R.id.nav_view) {
-
+            buscarPorPelicula = false;
+            buscarPorActor = false;
+            buscarPorDirector = true;
+            Log.v("info","Entro en buscarPorDirector");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void ordenarPorFavoritos(){
+        for(int i = 0;i<listaPeliculas.size();i++){
+            if(listaPeliculas.get(i).id_estado == 4){
+                listaPeliculasOrdFavoritos.add(listaPeliculas.get(i));
+            }
+        }
+        for(int i = 0;i<listaPeliculas.size();i++){
+            if(listaPeliculas.get(i).id_estado != 4){
+                listaPeliculasOrdFavoritos.add(listaPeliculas.get(i));
+            }
+        }
+        adaptadorPelicula = new PeliculaAdapter(listaPeliculasOrdFavoritos);
+        recView.setAdapter(adaptadorPelicula);
+        recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+    }
+
+    public void ordenarPorNoVistas(){
+        for(int i = 0;i<listaPeliculas.size();i++){
+            if(listaPeliculas.get(i).id_estado == 1){
+                listaPeliculasOrdNoVistas.add(listaPeliculas.get(i));
+            }
+        }
+        for(int i = 0;i<listaPeliculas.size();i++){
+            if(listaPeliculas.get(i).id_estado != 1){
+                listaPeliculasOrdNoVistas.add(listaPeliculas.get(i));
+            }
+        }
+        adaptadorPelicula = new PeliculaAdapter(listaPeliculasOrdNoVistas);
+        recView.setAdapter(adaptadorPelicula);
+        recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+    }
+
+    public void ordenarPorVistas(){
+        for(int i = 0;i<listaPeliculas.size();i++){
+            if(listaPeliculas.get(i).id_estado == 3){
+                listaPeliculasOrdVistas.add(listaPeliculas.get(i));
+            }
+        }
+        for(int i = 0;i<listaPeliculas.size();i++){
+            if(listaPeliculas.get(i).id_estado != 3){
+                listaPeliculasOrdVistas.add(listaPeliculas.get(i));
+            }
+        }
+        adaptadorPelicula = new PeliculaAdapter(listaPeliculasOrdVistas);
+        recView.setAdapter(adaptadorPelicula);
+        recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+    }
+
+    public void ordenarPorPendientes(){
+        for(int i = 0;i<listaPeliculas.size();i++){
+            if(listaPeliculas.get(i).id_estado == 2){
+                listaPeliculasOrdPendientes.add(listaPeliculas.get(i));
+            }
+        }
+        for(int i = 0;i<listaPeliculas.size();i++){
+            if(listaPeliculas.get(i).id_estado != 2){
+                listaPeliculasOrdPendientes.add(listaPeliculas.get(i));
+            }
+        }
+        adaptadorPelicula = new PeliculaAdapter(listaPeliculasOrdPendientes);
+        recView.setAdapter(adaptadorPelicula);
+        recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+    }
+
 
     public void insertsGeneroDefecto() {
 
@@ -500,7 +625,7 @@ public class MainActivity extends AppCompatActivity
         laJungla4.puntuacion = 90;
         laJungla4.sinopsis = "Estados Unidos. Un grupo terrorista bloquea el sistema de ordenadores que controla las comunicaciones, el transporte y el suministro de energía. El cerebro de la operación había estudiado minuciosamente hasta el más mínimo detalle, pero no había contado con John McClane (Bruce Willis), un policía de la vieja escuela, pero con los conocimientos necesarios para frustrar una amenaza terrorista de esta índole.";
         laJungla4.id_director = 9;
-        laJungla4.id_estado = 1;
+        laJungla4.id_estado = 4;
         laJungla4.id_genero = 1;
         laJungla4.id_productor = 9;
         conectorPelicula.insert(laJungla4);
@@ -513,7 +638,7 @@ public class MainActivity extends AppCompatActivity
         losMercenarios2.puntuacion = 100;
         losMercenarios2.sinopsis = "Barney Ross (Sylvester Stallone), Lee Christmas (Jason Statham), Yin Yang (Jet Li), Gunner Jensen (Dolph Lundgren), Toll Road (Randy Couture) y Hale Caesar (Terry Crews) y Billy (Liam Hemsworth), un nuevo colega, se vuelven a reunir cuando el señor Church (Bruce Willis) les encarga un trabajo aparentemente sencillo y muy lucrativo. Sin embargo, el plan se tuerce cuando un peligroso terrorista llamado Villain (Jean-Claude Van Damme) les tiende una emboscada. Entonces su único deseo será vengarse. Así es como van sembrando a su paso la destrucción y el caos entre sus enemigos hasta que se encuentran con una amenaza inesperada: cinco toneladas de plutonio apto para uso militar, una cantidad más que suficiente para cambiar el equilibrio de poder en el mundo.";
         losMercenarios2.id_director = 10;
-        losMercenarios2.id_estado = 1;
+        losMercenarios2.id_estado = 4;
         losMercenarios2.id_genero = 1;
         losMercenarios2.id_productor = 10;
         conectorPelicula.insert(losMercenarios2);
