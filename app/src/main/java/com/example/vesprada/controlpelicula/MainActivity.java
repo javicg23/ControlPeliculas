@@ -241,21 +241,21 @@ public class MainActivity extends AppCompatActivity
             ordenarPorPendientes();
         } else if (id == R.id.nav_ord_novistas) {
             ordenarPorNoVistas();
-        } else if (id == R.id.nav_movie) {
+        } else if (id == R.id.nav_pelicula) {
             buscarPorPelicula = true;
             buscarPorActor = false;
             buscarPorDirector = false;
-            Log.v("info","Entro en buscarPorPelicula");
+            Toast.makeText(this, "Búsqueda por película", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_actor) {
             buscarPorPelicula = false;
             buscarPorActor = true;
             buscarPorDirector = false;
-            Log.v("info","Entro en buscarPorActor");
-        } else if (id == R.id.nav_view) {
+            Toast.makeText(this, "Búsqueda por actor", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_director) {
             buscarPorPelicula = false;
             buscarPorActor = false;
             buscarPorDirector = true;
-            Log.v("info","Entro en buscarPorDirector");
+            Toast.makeText(this, "Búsqueda por director", Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

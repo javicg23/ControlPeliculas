@@ -143,7 +143,7 @@ public class ActorDAO {
                 Actor.KEY_ID + "," +
                 Actor.KEY_Nombre_completo +
                 " FROM " + Actor.TABLE
-                + " WHERE " + Actor.KEY_Nombre_completo +  " LIKE ?";
+                + " WHERE " + Actor.KEY_Nombre_completo +  " =?";
 
         Actor actor = new Actor();
 

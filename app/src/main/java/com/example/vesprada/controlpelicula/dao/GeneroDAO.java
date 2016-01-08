@@ -85,7 +85,7 @@ public class GeneroDAO {
                 Genero.KEY_ID + "," +
                 Genero.KEY_Nombre +
                 " FROM " + Genero.TABLE
-                + " WHERE " + Genero.KEY_Nombre +  " LIKE ?";
+                + " WHERE " + Genero.KEY_Nombre +  " =?";
 
         Genero genero = new Genero();
 
