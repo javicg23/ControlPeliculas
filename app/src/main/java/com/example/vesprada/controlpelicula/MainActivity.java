@@ -3,6 +3,7 @@ package com.example.vesprada.controlpelicula;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -19,9 +20,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vesprada.controlpelicula.activity.CrearPelicula;
+import com.example.vesprada.controlpelicula.activity.DetallePelicula;
 import com.example.vesprada.controlpelicula.conexion.DBHelperControlPeliculas;
 import com.example.vesprada.controlpelicula.dao.ActorDAO;
 import com.example.vesprada.controlpelicula.dao.Actor_PeliculaDAO;
@@ -38,6 +41,7 @@ import com.example.vesprada.controlpelicula.modelo.Genero;
 import com.example.vesprada.controlpelicula.modelo.Pelicula;
 import com.example.vesprada.controlpelicula.modelo.Productor;
 import com.example.vesprada.controlpelicula.recyclerview.PeliculaAdapter;
+import com.example.vesprada.controlpelicula.recyclerview.RecyclerItemClickListener;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -101,6 +105,18 @@ public class MainActivity extends AppCompatActivity
 
         initList();
 
+        recView.setItemAnimator(new DefaultItemAnimator());
+
+        recView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                TextView id_pelicula = (TextView)(view.findViewById(R.id.tvIdPelicula));
+                int idPelicula = Integer.parseInt(id_pelicula.getText().toString());
+                Intent myIntent = new Intent(view.getContext(), DetallePelicula.class);
+                myIntent.putExtra("id_pelicula", idPelicula);
+                startActivity(myIntent);
+            }
+        }));
         imgButtonBuscador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

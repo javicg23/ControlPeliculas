@@ -1,5 +1,6 @@
 package com.example.vesprada.controlpelicula.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
@@ -72,7 +73,19 @@ public class DetallePelicula extends AppCompatActivity {
         }
 
         tvTituloDetalle.setText(pelicula.nombre);
-        tvPuntuacionDetalle.setText(String.valueOf(pelicula.puntuacion));
+
+        int puntuacionPeliDetalle = pelicula.puntuacion;
+        tvPuntuacionDetalle.setText(String.valueOf(puntuacionPeliDetalle));
+        if (puntuacionPeliDetalle >= 0 && puntuacionPeliDetalle <= 35){
+            tvPuntuacionDetalle.setBackgroundColor(Color.parseColor("#FF0000"));
+        }
+        else if (puntuacionPeliDetalle > 35 && puntuacionPeliDetalle < 70) {
+            tvPuntuacionDetalle.setBackgroundColor(Color.parseColor("#FFFF00"));
+        }
+        else if (puntuacionPeliDetalle >= 70 && puntuacionPeliDetalle <= 100){
+            tvPuntuacionDetalle.setBackgroundColor(Color.parseColor("#00FF00"));
+        }
+
         tvAnyoDetalle.setText(String.valueOf(pelicula.anyo));
         tvDuracionDetalle.setText(String.valueOf(pelicula.duracion));
 
