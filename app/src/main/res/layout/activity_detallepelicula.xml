@@ -186,7 +186,8 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="@dimen/fab_margin"
                 android:layout_marginLeft="@dimen/fab_margin"
-                android:layout_marginRight="@dimen/fab_margin">
+                android:layout_marginRight="@dimen/fab_margin"
+                android:layout_marginBottom="@dimen/fab_margin">
                 <ImageButton
                     android:id="@+id/btnActualizar"
                     android:layout_width="0dp"
