@@ -1,13 +1,18 @@
 package com.example.vesprada.controlpelicula.activity;
 
+import android.app.Application;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.vesprada.controlpelicula.MainActivity;
 import com.example.vesprada.controlpelicula.R;
 import com.example.vesprada.controlpelicula.conexion.DBHelperControlPeliculas;
 import com.example.vesprada.controlpelicula.dao.ActorDAO;
@@ -109,7 +114,6 @@ public class CrearPelicula extends AppCompatActivity {
                 }
 
                 if (!vacio) {
-
                     encuentraActor = conectorActor.getActorByName(nuevoActor.nombre_completo).nombre_completo;
                     if (encuentraActor == null) {
                         conectorActor.insert(nuevoActor);
@@ -146,7 +150,7 @@ public class CrearPelicula extends AppCompatActivity {
         btnConfirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Log.v("hola","sharandonga");
 
                 if (
                         etPeliNombre.getText().toString().equalsIgnoreCase("") ||
@@ -219,6 +223,7 @@ public class CrearPelicula extends AppCompatActivity {
                     /**
                      * Director
                      */
+
                     encuentraDirector = conectorDirector.getDirectorByName(nuevoDirector.nombre_completo).nombre_completo;
                     if (encuentraDirector == null) {
                         conectorDirector.insert(nuevoDirector);
@@ -244,6 +249,7 @@ public class CrearPelicula extends AppCompatActivity {
                     /**
                      * Productor
                      */
+
                     encuentraProductor = conectorProductor.getProductorByName(nuevoProductor.nombre).nombre;
                     if (encuentraProductor == null) {
                         conectorProductor.insert(nuevoProductor);
@@ -269,6 +275,7 @@ public class CrearPelicula extends AppCompatActivity {
                     /**
                      * Genero
                      */
+
                     encuentraGenero = conectorGenero.getGeneroByName(nuevoGenero.nombre).nombre;
                     if (encuentraGenero == null) {
                         conectorGenero.insert(nuevoGenero);
@@ -301,8 +308,8 @@ public class CrearPelicula extends AppCompatActivity {
                         nuevoA_P.id_pelicula = pelicula;
                         conectorA_P.insert(nuevoA_P);
                     }
-
-
+                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(i);
                 }
             }
         });

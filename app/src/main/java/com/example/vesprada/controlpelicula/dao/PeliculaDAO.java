@@ -70,7 +70,7 @@ public class PeliculaDAO {
         db.close(); // Closing database connection
     }
 
-    public static ArrayList<Pelicula> getPeliculaList() {
+    public ArrayList<Pelicula> getPeliculaList() {
         //Open connection to read only
         SQLiteDatabase db = dbHelperPelicula.getReadableDatabase();
         String selectQuery =  "SELECT  " +
