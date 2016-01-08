@@ -43,6 +43,10 @@ public class CrearPelicula extends AppCompatActivity {
 
     Button btnConfirmar;
     Button btnAgregar;
+    Button btnEstadoVista;
+    Button btnEstadoNoVista;
+    Button btnEstadoPendiente;
+    Button btnEstadoFavorita;
 
     private PeliculaDAO conectorPelicula = new PeliculaDAO(this);
     private ProductorDAO conectorProductor = new ProductorDAO(this);
@@ -59,12 +63,8 @@ public class CrearPelicula extends AppCompatActivity {
     private Actor_Pelicula nuevoA_P = new Actor_Pelicula();
 
     private int id_pelicula;
+    private int puntuacion;
 
-    private boolean encontrarPelicula = false;
-    private boolean encontrarActor = false;
-    private boolean encontrarDirector = false;
-    private boolean encontrarProductor = false;
-    private boolean encontrarGenero = false;
     private boolean vacio = false;
 
     private String encuentraActor, encuentraPelicula, encuentraDirector, encuentraProductor, encuentraGenero;
@@ -120,27 +120,6 @@ public class CrearPelicula extends AppCompatActivity {
                         actoresNuevos.add(id_actor);
                         etPeliActor.setText("");
                     }
-
-                    /**
-                     *
-                     *
-                     ArrayList<Actor> listaActores;
-
-                     listaActores = conectorActor.getActorList();
-
-                    for (int i = 0; i < listaActores.size(); i++) {
-                        if ((listaActores.get(i).nombre_completo).equalsIgnoreCase(etPeliActor.getText().toString())) {
-                            encontrarActor = true;
-                            break;
-                        }
-                    }
-
-                    if (!encontrarActor) {
-                        conectorActor.insert(nuevoActor);
-                        actoresNuevos.add(nuevoActor.id);
-                        etPeliActor.setText("");
-                    }
-                     */
                 }
             }
         });
@@ -168,6 +147,15 @@ public class CrearPelicula extends AppCompatActivity {
                     vacio = true;
                 }
 
+                puntuacion = Integer.parseInt(etPeliPuntuacion.getText().toString());
+
+                if (puntuacion< 0 && puntuacion >100) {
+                    Toast toastPuntuacion =
+                            Toast.makeText(getApplicationContext(), "La puntuación debe estar entre 0 y 100.", Toast.LENGTH_SHORT);
+                    toastPuntuacion.show();
+                    vacio = true;
+                }
+
                 if (!vacio) {
 
                     String nombrePeli = etPeliNombre.getText().toString();
@@ -176,6 +164,9 @@ public class CrearPelicula extends AppCompatActivity {
                     nuevapelicula.nombre = nombrePeli;
                     nuevapelicula.duracion = Integer.parseInt(etPeliDuracion.getText().toString());
                     nuevapelicula.anyo = Integer.parseInt(etPeliAnyo.getText().toString());
+
+
+
                     nuevapelicula.puntuacion = Integer.parseInt(etPeliPuntuacion.getText().toString());
                     nuevapelicula.sinopsis = etPeliSinopsis.getText().toString();
                     nuevapelicula.id_estado = 1;
@@ -195,6 +186,40 @@ public class CrearPelicula extends AppCompatActivity {
                     nombreGenero = nombreGenero.replaceAll("\\s+", " ");
                     nuevoGenero.nombre = nombreGenero;
 
+                    btnEstadoNoVista = (Button) findViewById(R.id.btnEstadoNoVista);
+                    btnEstadoPendiente = (Button) findViewById(R.id.btnEstadoPendiente);
+                    btnEstadoVista = (Button) findViewById(R.id.btnEstadoVista);
+                    btnEstadoFavorita = (Button) findViewById(R.id.btnEstadoFavorita);
+
+                    btnEstadoNoVista.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            nuevapelicula.id_estado = 1;
+                        }
+                    });
+
+                    btnEstadoPendiente.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            nuevapelicula.id_estado = 2;
+                        }
+                    });
+
+
+                    btnEstadoVista.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            nuevapelicula.id_estado = 3;
+                        }
+                    });
+
+                    btnEstadoFavorita.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            nuevapelicula.id_estado = 4;
+                        }
+                    });
+
                     /**
                      * Pelicula
                      */
@@ -203,22 +228,6 @@ public class CrearPelicula extends AppCompatActivity {
                     if (encuentraPelicula == null) {
                         id_pelicula = conectorPelicula.insert(nuevapelicula);
                     }
-                /**
-                    ArrayList<Pelicula> listapeliculas;
-
-                    listapeliculas = conectorPelicula.getPeliculaList();
-
-                    for (int i = 0; i < listapeliculas.size(); i++) {
-                        if ((listapeliculas.get(i).nombre).equalsIgnoreCase(etPeliNombre.getText().toString())) {
-                            encontrarPelicula = true;
-                            break;
-                        }
-                    }
-
-                    if (!encontrarPelicula) {
-                       id_pelicula = conectorPelicula.insert(nuevapelicula);
-                    }
-                 */
 
                     /**
                      * Director
@@ -230,23 +239,6 @@ public class CrearPelicula extends AppCompatActivity {
                     }
 
                     /**
-                    ArrayList<Director> listadirectores = new ArrayList<>();
-
-                    listadirectores = conectorDirector.getDirectorList();
-
-                    for (int i = 0; i < listadirectores.size(); i++) {
-                        if ((listadirectores.get(i).nombre_completo).equalsIgnoreCase(etPeliDirector.getText().toString())) {
-                            encontrarDirector = true;
-                            break;
-                        }
-                    }
-
-                    if (!encontrarDirector) {
-                        conectorDirector.insert(nuevoDirector);
-                    }
-                    */
-
-                    /**
                      * Productor
                      */
 
@@ -256,23 +248,6 @@ public class CrearPelicula extends AppCompatActivity {
                     }
 
                     /**
-                    ArrayList<Productor> listaproductores = new ArrayList<>();
-
-                    listaproductores = conectorProductor.getProductorList();
-
-                    for (int i = 0; i < listaproductores.size(); i++) {
-                        if ((listaproductores.get(i).nombre).equalsIgnoreCase(etPeliProductor.getText().toString())) {
-                            encontrarProductor = true;
-                            break;
-                        }
-                    }
-
-                    if (!encontrarProductor) {
-                        conectorProductor.insert(nuevoProductor);
-                    }
-                    */
-
-                    /**
                      * Genero
                      */
 
@@ -280,22 +255,6 @@ public class CrearPelicula extends AppCompatActivity {
                     if (encuentraGenero == null) {
                         conectorGenero.insert(nuevoGenero);
                     }
-
-                    /**
-                    ArrayList<Genero> listageneros = new ArrayList<>();
-
-                    listageneros = conectorGenero.getGeneroList();
-
-                    for (int i = 0; i < listageneros.size(); i++) {
-                        if ((listageneros.get(i).nombre).equalsIgnoreCase(etPeliGenero.getText().toString())) {
-                            encontrarGenero = true;
-                            break;
-                        }
-                    }
-                    if (!encontrarGenero) {
-                        conectorGenero.insert(nuevoGenero);
-                    }
-                    */
 
                     /**
                      * Actor_Pelicula
