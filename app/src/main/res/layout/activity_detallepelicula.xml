@@ -58,6 +58,7 @@
                         android:padding="5dp"
                         android:background="#00ff00"
                         android:layout_gravity="center"
+                        android:gravity="center"
                         android:text="85"
                         android:textAlignment="center"
                         android:textSize="40sp"
@@ -189,7 +190,7 @@
                 android:layout_marginRight="@dimen/fab_margin"
                 android:layout_marginBottom="@dimen/fab_margin">
                 <ImageButton
-                    android:id="@+id/btnActualizar"
+                    android:id="@+id/btnEditar"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

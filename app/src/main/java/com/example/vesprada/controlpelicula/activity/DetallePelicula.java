@@ -1,8 +1,12 @@
 package com.example.vesprada.controlpelicula.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,6 +38,10 @@ public class DetallePelicula extends AppCompatActivity {
     private TextView tvProductorDetalle;
     private TextView tvActoresDetalle;
     private TextView tvSinopsisDetalle;
+    private ImageButton btnBorrar;
+    private ImageButton btnEditar;
+
+
     private PeliculaDAO conectorPelicula = new PeliculaDAO(this);
     private GeneroDAO conectorGenero = new GeneroDAO(this);
     private ActorDAO conectorActor = new ActorDAO(this);
@@ -41,6 +49,7 @@ public class DetallePelicula extends AppCompatActivity {
     private ProductorDAO conectorProductor = new ProductorDAO(this);
     private DirectorDAO conectorDirector = new DirectorDAO(this);
     private int idPelicula;
+    private Pelicula pelicula;
     private ArrayList<Actor_Pelicula> listaActoresEnteros = new ArrayList<Actor_Pelicula>();
 
     @Override
@@ -58,13 +67,15 @@ public class DetallePelicula extends AppCompatActivity {
         tvProductorDetalle = (TextView)findViewById(R.id.tvProductorDetalle);
         tvActoresDetalle = (TextView)findViewById(R.id.tvActoresDetalle);
         tvSinopsisDetalle = (TextView)findViewById(R.id.tvSinopsisDetalle);
+        btnEditar = (ImageButton) findViewById(R.id.btnEditar);
+        btnBorrar = (ImageButton) findViewById(R.id.btnBorrar);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             idPelicula = extras.getInt("id_pelicula");
         }
 
-        Pelicula pelicula = conectorPelicula.getPeliculaById(idPelicula);
+        pelicula = conectorPelicula.getPeliculaById(idPelicula);
 
         ivPortadaDetalle.setImageResource(this.getApplicationContext().getResources().getIdentifier(pelicula.portada, "drawable", this.getApplicationContext().getPackageName()));
 
@@ -80,7 +91,7 @@ public class DetallePelicula extends AppCompatActivity {
             tvPuntuacionDetalle.setBackgroundColor(Color.parseColor("#FF0000"));
         }
         else if (puntuacionPeliDetalle > 35 && puntuacionPeliDetalle < 70) {
-            tvPuntuacionDetalle.setBackgroundColor(Color.parseColor("#FFFF00"));
+            tvPuntuacionDetalle.setBackgroundColor(Color.parseColor("#DDDD00"));
         }
         else if (puntuacionPeliDetalle >= 70 && puntuacionPeliDetalle <= 100){
             tvPuntuacionDetalle.setBackgroundColor(Color.parseColor("#00FF00"));
@@ -113,5 +124,14 @@ public class DetallePelicula extends AppCompatActivity {
             }
         }
         tvActoresDetalle.setText(listaActores);
+
+        btnEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(view.getContext(), ModificarPelicula.class);
+                myIntent.putExtra("idpeli", idPelicula);
+                startActivity(myIntent);
+            }
+        });
     }
 }

@@ -41,6 +41,28 @@
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
             android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:weightSum="1">
+            <ImageView
+                android:id="@+id/ivPortadaEditar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/sa_ca"
+                android:maxHeight="150dp"
+                android:maxWidth="250dp"
+                android:minHeight="150dp"
+                android:minWidth="250dp"
+                android:scaleType="centerInside"
+                android:adjustViewBounds="true"
+                android:contentDescription="PortadaEditar" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -255,7 +277,7 @@
                 android:textStyle="bold"
                 android:backgroundTint="#ff0000"/>
             <android.support.v7.widget.AppCompatButton
-                android:id="@+id/btnEstadoFavorita"
+                android:id="@+id/btnEstadoFavoritaEditar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

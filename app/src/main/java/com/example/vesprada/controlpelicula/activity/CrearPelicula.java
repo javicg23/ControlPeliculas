@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -41,12 +42,12 @@ public class CrearPelicula extends AppCompatActivity {
     private EditText etPeliProductor;
     private EditText etPeliGenero;
 
-    Button btnConfirmar;
-    Button btnAgregar;
-    Button btnEstadoVista;
-    Button btnEstadoNoVista;
-    Button btnEstadoPendiente;
-    Button btnEstadoFavorita;
+    private Button btnConfirmar;
+    private Button btnAgregar;
+    private AppCompatButton btnEstadoVista;
+    private AppCompatButton btnEstadoNoVista;
+    private AppCompatButton btnEstadoPendiente;
+    private AppCompatButton btnEstadoFavorita;
 
     private PeliculaDAO conectorPelicula = new PeliculaDAO(this);
     private ProductorDAO conectorProductor = new ProductorDAO(this);
@@ -186,10 +187,10 @@ public class CrearPelicula extends AppCompatActivity {
                     nombreGenero = nombreGenero.replaceAll("\\s+", " ");
                     nuevoGenero.nombre = nombreGenero;
 
-                    btnEstadoNoVista = (Button) findViewById(R.id.btnEstadoNoVista);
-                    btnEstadoPendiente = (Button) findViewById(R.id.btnEstadoPendiente);
-                    btnEstadoVista = (Button) findViewById(R.id.btnEstadoVista);
-                    btnEstadoFavorita = (Button) findViewById(R.id.btnEstadoFavorita);
+                    btnEstadoNoVista = (AppCompatButton) findViewById(R.id.btnEstadoNoVista);
+                    btnEstadoPendiente = (AppCompatButton) findViewById(R.id.btnEstadoPendiente);
+                    btnEstadoVista = (AppCompatButton) findViewById(R.id.btnEstadoVista);
+                    btnEstadoFavorita = (AppCompatButton) findViewById(R.id.btnEstadoFavorita);
 
                     btnEstadoNoVista.setOnClickListener(new View.OnClickListener() {
                         @Override
