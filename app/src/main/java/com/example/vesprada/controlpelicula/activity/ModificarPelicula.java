@@ -41,6 +41,8 @@ public class ModificarPelicula extends AppCompatActivity {
 
     private Button btnConfirmarEditar;
     private Button btnAgregarEditar;
+    private Button btnCambiarPortadaPeliculaEditar;
+    private Button btnCancelarPeliculaEditar;
     private AppCompatButton btnEstadoVistaEditar;
     private AppCompatButton btnEstadoNoVistaEditar;
     private AppCompatButton btnEstadoPendienteEditar;
@@ -53,12 +55,14 @@ public class ModificarPelicula extends AppCompatActivity {
     private GeneroDAO conectorGenero = new GeneroDAO(this);
     private Actor_PeliculaDAO conectorA_P = new Actor_PeliculaDAO(this);
     private int idPelicula;
+    private static final int PICK_IMAGE = 1;
+    private int puntuacionPeliculaEditar;
     private Pelicula peliculaEditar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crearpeliculas);
+        setContentView(R.layout.activity_modificarpelicula);
 
         etPeliNombreEditar = (EditText) findViewById(R.id.etEditarNombre);
         etPeliSinopsisEditar = (EditText) findViewById(R.id.etEditarSinopsis);
@@ -73,6 +77,8 @@ public class ModificarPelicula extends AppCompatActivity {
         ivPortadaEditar = (ImageView) findViewById(R.id.ivPortadaEditar);
 
         btnConfirmarEditar = (Button) findViewById(R.id.btnConfirmarPeliculaEditar);
+        btnCambiarPortadaPeliculaEditar = (Button) findViewById(R.id.btnCambiarPortadaPeliculaEditar);
+        btnCancelarPeliculaEditar = (Button) findViewById(R.id.btnCancelarPeliculaEditar);
         btnAgregarEditar = (Button) findViewById(R.id.btnAgregarActorEditar);
         btnEstadoNoVistaEditar = (AppCompatButton) findViewById(R.id.btnEstadoNoVistaEditar);
         btnEstadoVistaEditar = (AppCompatButton) findViewById(R.id.btnEstadoVistaEditar);
@@ -86,9 +92,6 @@ public class ModificarPelicula extends AppCompatActivity {
         }
 
         peliculaEditar = conectorPelicula.getPeliculaById(idPelicula);
-
-        Log.i("AQUIIIIIIIIIIIIIIIIIII", String.valueOf(idPelicula));
-        Log.i("AQUIIIIIIIIIIIIIIIIIII", String.valueOf(peliculaEditar.id));
 
         ivPortadaEditar.setImageResource(this.getApplicationContext().getResources().getIdentifier(peliculaEditar.portada, "drawable", this.getApplicationContext().getPackageName()));
 
@@ -113,6 +116,23 @@ public class ModificarPelicula extends AppCompatActivity {
         etPeliProductorEditar.setText(productor.nombre);
 
         etPeliSinopsisEditar.setText(peliculaEditar.sinopsis);
+        btnCambiarPortadaPeliculaEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                getIntent.setType("image/*");
+
+                Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                pickIntent.setType("image/*");
+
+                Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
+                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{pickIntent});
+                if (chooserIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(chooserIntent, PICK_IMAGE);
+                }
+                Log.v("AQUIIIIIIIII", String.valueOf(PICK_IMAGE));
+            }
+        });
 
         btnConfirmarEditar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,6 +141,13 @@ public class ModificarPelicula extends AppCompatActivity {
                 ////////////////////////////////////
                 Intent intent = new Intent(view.getContext(), MainActivity.class);
                 startActivity(intent);
+            }
+        });
+        btnCancelarPeliculaEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentCancelar = new Intent(v.getContext(), MainActivity.class);
+                startActivity(intentCancelar);
             }
         });
     }

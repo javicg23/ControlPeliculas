@@ -34,7 +34,7 @@
                 android:id="@+id/etEditarNombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="1"/>
+                android:maxLines="3"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,6 +63,24 @@
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
             android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:weightSum="1">
+            <Button
+                android:id="@+id/btnCambiarPortadaPeliculaEditar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_margin="@dimen/fab_margin"
+                android:textStyle="bold"
+                android:text="CAMBIAR PORTADA" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -77,7 +95,7 @@
                 android:id="@+id/etEditarSinopsis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="1" />
+                android:maxLines="5" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -297,9 +315,18 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:layout_marginTop="5dp"
+                android:layout_margin="@dimen/fab_margin"
                 android:textStyle="bold"
                 android:text="CONFIRMAR" />
+            <Button
+                android:id="@+id/btnCancelarPeliculaEditar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_marginTop="5dp"
+                android:layout_margin="@dimen/fab_margin"
+                android:textStyle="bold"
+                android:text="CANCELAR" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

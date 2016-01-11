@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.vesprada.controlpelicula.MainActivity;
 import com.example.vesprada.controlpelicula.R;
 import com.example.vesprada.controlpelicula.dao.ActorDAO;
 import com.example.vesprada.controlpelicula.dao.Actor_PeliculaDAO;
@@ -131,6 +132,14 @@ public class DetallePelicula extends AppCompatActivity {
                 Intent myIntent = new Intent(view.getContext(), ModificarPelicula.class);
                 myIntent.putExtra("idpeli", idPelicula);
                 startActivity(myIntent);
+            }
+        });
+        btnBorrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                conectorPelicula.delete(idPelicula);
+                Intent intentBorrar = new Intent(v.getContext(), MainActivity.class);
+                startActivity(intentBorrar);
             }
         });
     }
