@@ -85,11 +85,11 @@ public class GeneroDAO {
                 Genero.KEY_ID + "," +
                 Genero.KEY_Nombre +
                 " FROM " + Genero.TABLE
-                + " WHERE " + Genero.KEY_Nombre +  " =?";
+                + " WHERE " + Genero.KEY_Nombre +  " = ?";
 
         Genero genero = new Genero();
 
-        Cursor cursor = db.rawQuery(selectQuery, new String[] {"%" + name + "%"});
+        Cursor cursor = db.rawQuery(selectQuery, new String[] {String.valueOf(name)});
 
         if(cursor.moveToFirst()){
             do{

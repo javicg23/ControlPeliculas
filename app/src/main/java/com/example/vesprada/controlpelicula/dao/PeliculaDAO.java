@@ -30,7 +30,6 @@ public class PeliculaDAO {
         values.put(Pelicula.KEY_Duracion, pelicula.duracion);
         values.put(Pelicula.KEY_Sinopsis, pelicula.sinopsis);
         values.put(Pelicula.KEY_Puntuacion, pelicula.puntuacion);
-        values.put(Pelicula.KEY_Portada, pelicula.portada);
         values.put(Pelicula.KEY_Id_director, pelicula.id_director);
         values.put(Pelicula.KEY_Id_genero, pelicula.id_genero);
         values.put(Pelicula.KEY_Id_productor, pelicula.id_productor);
@@ -59,7 +58,6 @@ public class PeliculaDAO {
         values.put(Pelicula.KEY_Duracion, pelicula.duracion);
         values.put(Pelicula.KEY_Sinopsis, pelicula.sinopsis);
         values.put(Pelicula.KEY_Puntuacion, pelicula.puntuacion);
-        values.put(Pelicula.KEY_Portada, pelicula.portada);
         values.put(Pelicula.KEY_Id_director, pelicula.id_director);
         values.put(Pelicula.KEY_Id_genero, pelicula.id_genero);
         values.put(Pelicula.KEY_Id_productor, pelicula.id_productor);
@@ -80,7 +78,6 @@ public class PeliculaDAO {
                 Pelicula.KEY_Duracion + "," +
                 Pelicula.KEY_Sinopsis + "," +
                 Pelicula.KEY_Puntuacion + "," +
-                Pelicula.KEY_Portada + "," +
                 Pelicula.KEY_Id_director + "," +
                 Pelicula.KEY_Id_genero + "," +
                 Pelicula.KEY_Id_productor + "," +
@@ -97,7 +94,6 @@ public class PeliculaDAO {
                 Pelicula p = new Pelicula();
                 p.id = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_ID));
                 p.nombre = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Nombre));
-                p.portada = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Portada));
                 p.puntuacion = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Puntuacion));
                 p.sinopsis = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Sinopsis));
                 p.anyo = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Anyo));
@@ -128,7 +124,6 @@ public class PeliculaDAO {
                 Pelicula.KEY_Duracion + "," +
                 Pelicula.KEY_Sinopsis + "," +
                 Pelicula.KEY_Puntuacion + "," +
-                Pelicula.KEY_Portada + "," +
                 Pelicula.KEY_Id_director + "," +
                 Pelicula.KEY_Id_genero + "," +
                 Pelicula.KEY_Id_productor + "," +
@@ -149,7 +144,6 @@ public class PeliculaDAO {
                 Pelicula p = new Pelicula();
                 p.id = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_ID));
                 p.nombre = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Nombre));
-                p.portada = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Portada));
                 p.puntuacion = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Puntuacion));
                 p.sinopsis = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Sinopsis));
                 p.anyo = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Anyo));
@@ -180,7 +174,6 @@ public class PeliculaDAO {
                 Pelicula.KEY_Duracion + "," +
                 Pelicula.KEY_Sinopsis + "," +
                 Pelicula.KEY_Puntuacion + "," +
-                Pelicula.KEY_Portada + "," +
                 Pelicula.KEY_Id_director + "," +
                 Pelicula.KEY_Id_genero + "," +
                 Pelicula.KEY_Id_productor + "," +
@@ -196,7 +189,6 @@ public class PeliculaDAO {
             do {
                 p.id = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_ID));
                 p.nombre = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Nombre));
-                p.portada = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Portada));
                 p.puntuacion = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Puntuacion));
                 p.sinopsis = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Sinopsis));
                 p.anyo = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Anyo));
@@ -222,7 +214,6 @@ public class PeliculaDAO {
                 Pelicula.KEY_Duracion + "," +
                 Pelicula.KEY_Sinopsis + "," +
                 Pelicula.KEY_Puntuacion + "," +
-                Pelicula.KEY_Portada + "," +
                 Pelicula.KEY_Id_director + "," +
                 Pelicula.KEY_Id_genero + "," +
                 Pelicula.KEY_Id_productor + "," +
@@ -240,7 +231,6 @@ public class PeliculaDAO {
                 Pelicula pelicula = new Pelicula();
                 pelicula.id = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_ID));
                 pelicula.nombre = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Nombre));
-                pelicula.portada = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Portada));
                 pelicula.puntuacion = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Puntuacion));
                 pelicula.sinopsis = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Sinopsis));
                 pelicula.anyo = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Anyo));
@@ -268,7 +258,6 @@ public class PeliculaDAO {
                 Pelicula.KEY_Duracion + "," +
                 Pelicula.KEY_Sinopsis + "," +
                 Pelicula.KEY_Puntuacion + "," +
-                Pelicula.KEY_Portada + "," +
                 Pelicula.KEY_Id_director + "," +
                 Pelicula.KEY_Id_genero + "," +
                 Pelicula.KEY_Id_productor + "," +
@@ -285,7 +274,6 @@ public class PeliculaDAO {
                 Pelicula pelicula = new Pelicula();
                 pelicula.id = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_ID));
                 pelicula.nombre = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Nombre));
-                pelicula.portada = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Portada));
                 pelicula.puntuacion = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Puntuacion));
                 pelicula.sinopsis = cursor.getString(cursor.getColumnIndex(Pelicula.KEY_Sinopsis));
                 pelicula.anyo = cursor.getInt(cursor.getColumnIndex(Pelicula.KEY_Anyo));
@@ -311,11 +299,11 @@ public class PeliculaDAO {
                 Pelicula.KEY_ID + "," +
                 Pelicula.KEY_Nombre +
                 " FROM " + Pelicula.TABLE
-                + " WHERE " + Pelicula.KEY_Nombre +  " =?";
+                + " WHERE " + Pelicula.KEY_Nombre +  " = ?";
 
         Pelicula pelicula = new Pelicula();
 
-        Cursor cursor = db.rawQuery(selectQuery, new String[] {"%" + name + "%"});
+        Cursor cursor = db.rawQuery(selectQuery, new String[] {String.valueOf(name)});
 
         if(cursor.moveToFirst()){
             do{

@@ -136,11 +136,11 @@ public class ProductorDAO {
                 Productor.KEY_ID + "," +
                 Productor.KEY_Nombre +
                 " FROM " + Productor.TABLE
-                + " WHERE " + Productor.KEY_Nombre +  " =?";
+                + " WHERE " + Productor.KEY_Nombre +  " = ?";
 
         Productor productor = new Productor();
 
-        Cursor cursor = db.rawQuery(selectQuery, new String[] {"%" + name + "%"});
+        Cursor cursor = db.rawQuery(selectQuery, new String[] {String.valueOf(name)});
 
         if(cursor.moveToFirst()){
             do{

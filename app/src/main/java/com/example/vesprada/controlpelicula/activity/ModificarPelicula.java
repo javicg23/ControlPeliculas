@@ -2,15 +2,13 @@ package com.example.vesprada.controlpelicula.activity;
 
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.vesprada.controlpelicula.MainActivity;
 import com.example.vesprada.controlpelicula.R;
@@ -20,10 +18,14 @@ import com.example.vesprada.controlpelicula.dao.DirectorDAO;
 import com.example.vesprada.controlpelicula.dao.GeneroDAO;
 import com.example.vesprada.controlpelicula.dao.PeliculaDAO;
 import com.example.vesprada.controlpelicula.dao.ProductorDAO;
+import com.example.vesprada.controlpelicula.modelo.Actor;
+import com.example.vesprada.controlpelicula.modelo.Actor_Pelicula;
 import com.example.vesprada.controlpelicula.modelo.Director;
 import com.example.vesprada.controlpelicula.modelo.Genero;
 import com.example.vesprada.controlpelicula.modelo.Pelicula;
 import com.example.vesprada.controlpelicula.modelo.Productor;
+
+import java.util.ArrayList;
 
 public class ModificarPelicula extends AppCompatActivity {
 
@@ -36,12 +38,10 @@ public class ModificarPelicula extends AppCompatActivity {
     private EditText etPeliDirectorEditar;
     private EditText etPeliProductorEditar;
     private EditText etPeliGeneroEditar;
-
-    private ImageView ivPortadaEditar;
+    private TextView tvActoresEditar;
 
     private Button btnConfirmarEditar;
     private Button btnAgregarEditar;
-    private Button btnCambiarPortadaPeliculaEditar;
     private Button btnCancelarPeliculaEditar;
     private AppCompatButton btnEstadoVistaEditar;
     private AppCompatButton btnEstadoNoVistaEditar;
@@ -55,9 +55,9 @@ public class ModificarPelicula extends AppCompatActivity {
     private GeneroDAO conectorGenero = new GeneroDAO(this);
     private Actor_PeliculaDAO conectorA_P = new Actor_PeliculaDAO(this);
     private int idPelicula;
-    private static final int PICK_IMAGE = 1;
     private int puntuacionPeliculaEditar;
     private Pelicula peliculaEditar;
+    private ArrayList<Actor_Pelicula> listaActoresEditar = new ArrayList<Actor_Pelicula>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,18 +73,15 @@ public class ModificarPelicula extends AppCompatActivity {
         etPeliDirectorEditar = (EditText) findViewById(R.id.etEditarDirector);
         etPeliProductorEditar = (EditText) findViewById(R.id.etEditarProductor);
         etPeliGeneroEditar = (EditText) findViewById(R.id.etEditarGenero);
-
-        ivPortadaEditar = (ImageView) findViewById(R.id.ivPortadaEditar);
+        tvActoresEditar = (TextView) findViewById(R.id.tvActoresEditar);
 
         btnConfirmarEditar = (Button) findViewById(R.id.btnConfirmarPeliculaEditar);
-        btnCambiarPortadaPeliculaEditar = (Button) findViewById(R.id.btnCambiarPortadaPeliculaEditar);
         btnCancelarPeliculaEditar = (Button) findViewById(R.id.btnCancelarPeliculaEditar);
         btnAgregarEditar = (Button) findViewById(R.id.btnAgregarActorEditar);
         btnEstadoNoVistaEditar = (AppCompatButton) findViewById(R.id.btnEstadoNoVistaEditar);
         btnEstadoVistaEditar = (AppCompatButton) findViewById(R.id.btnEstadoVistaEditar);
         btnEstadoPendienteEditar = (AppCompatButton) findViewById(R.id.btnEstadoPendienteEditar);
         btnEstadoFavoritaEditar = (AppCompatButton) findViewById(R.id.btnEstadoFavoritaEditar);
-
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -93,18 +90,25 @@ public class ModificarPelicula extends AppCompatActivity {
 
         peliculaEditar = conectorPelicula.getPeliculaById(idPelicula);
 
-        ivPortadaEditar.setImageResource(this.getApplicationContext().getResources().getIdentifier(peliculaEditar.portada, "drawable", this.getApplicationContext().getPackageName()));
-
-        if (ivPortadaEditar.getDrawable() == null) {
-            ivPortadaEditar.setImageResource(this.getApplicationContext().getResources().getIdentifier("pe_null", "drawable", this.getApplicationContext().getPackageName()));
-        }
-
         etPeliNombreEditar.setText(peliculaEditar.nombre);
 
         etPeliPuntuacionEditar.setText(String.valueOf(peliculaEditar.puntuacion));
 
         etPeliAnyoEditar.setText(String.valueOf(peliculaEditar.anyo));
         etPeliDuracionEditar.setText(String.valueOf(peliculaEditar.duracion));
+
+        listaActoresEditar = conectorA_P.getIdActorByIdPelicula(idPelicula);
+        String listaActores = "";
+        for (int i = 0; i < listaActoresEditar.size(); i++){
+            Actor actor = conectorActor.getActorById(listaActoresEditar.get(i).id_actor);
+            if (i < listaActoresEditar.size()-1){
+                listaActores = listaActores + actor.nombre_completo + ", ";
+            }
+            else{
+                listaActores = listaActores + actor.nombre_completo;
+            }
+        }
+        tvActoresEditar.setText(listaActores);
 
         Director director = conectorDirector.getDirectorById(peliculaEditar.id_director);
         etPeliDirectorEditar.setText(String.valueOf(director.nombre_completo));
@@ -116,23 +120,6 @@ public class ModificarPelicula extends AppCompatActivity {
         etPeliProductorEditar.setText(productor.nombre);
 
         etPeliSinopsisEditar.setText(peliculaEditar.sinopsis);
-        btnCambiarPortadaPeliculaEditar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
-                getIntent.setType("image/*");
-
-                Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                pickIntent.setType("image/*");
-
-                Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
-                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{pickIntent});
-                if (chooserIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(chooserIntent, PICK_IMAGE);
-                }
-                Log.v("AQUIIIIIIIII", String.valueOf(PICK_IMAGE));
-            }
-        });
 
         btnConfirmarEditar.setOnClickListener(new View.OnClickListener() {
             @Override

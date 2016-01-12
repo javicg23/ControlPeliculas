@@ -43,8 +43,4 @@ public class EstadoDAO {
 
         db.update(Estado.TABLE, values, Estado.KEY_ID + "= ?", new String[]{String.valueOf(estado.id)});
     }
-
-
-
-
 }

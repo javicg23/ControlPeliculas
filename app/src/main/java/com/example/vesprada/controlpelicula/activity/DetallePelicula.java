@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -78,10 +77,37 @@ public class DetallePelicula extends AppCompatActivity {
 
         pelicula = conectorPelicula.getPeliculaById(idPelicula);
 
-        ivPortadaDetalle.setImageResource(this.getApplicationContext().getResources().getIdentifier(pelicula.portada, "drawable", this.getApplicationContext().getPackageName()));
-
-        if (ivPortadaDetalle.getDrawable() == null) {
-            ivPortadaDetalle.setImageResource(this.getApplicationContext().getResources().getIdentifier("pe_null", "drawable", this.getApplicationContext().getPackageName()));
+        switch (pelicula.id_genero) {
+            case 1:
+                ivPortadaDetalle.setImageResource(this.getApplicationContext().getResources().getIdentifier("action", "drawable", this.getApplicationContext().getPackageName()));
+                break;
+            case 2:
+                ivPortadaDetalle.setImageResource(this.getApplicationContext().getResources().getIdentifier("comedy", "drawable", this.getApplicationContext().getPackageName()));
+                break;
+            case 3:
+                ivPortadaDetalle.setImageResource(this.getApplicationContext().getResources().getIdentifier("fear", "drawable", this.getApplicationContext().getPackageName()));
+                break;
+            case 4:
+                ivPortadaDetalle.setImageResource(this.getApplicationContext().getResources().getIdentifier("scifi", "drawable", this.getApplicationContext().getPackageName()));
+                break;
+            case 5:
+                ivPortadaDetalle.setImageResource(this.getApplicationContext().getResources().getIdentifier("fantasy", "drawable", this.getApplicationContext().getPackageName()));
+                break;
+            case 6:
+                ivPortadaDetalle.setImageResource(this.getApplicationContext().getResources().getIdentifier("drama", "drawable", this.getApplicationContext().getPackageName()));
+                break;
+            case 7:
+                ivPortadaDetalle.setImageResource(this.getApplicationContext().getResources().getIdentifier("romance", "drawable", this.getApplicationContext().getPackageName()));
+                break;
+            case 8:
+                ivPortadaDetalle.setImageResource(this.getApplicationContext().getResources().getIdentifier("suspense", "drawable", this.getApplicationContext().getPackageName()));
+                break;
+            case 9:
+                ivPortadaDetalle.setImageResource(this.getApplicationContext().getResources().getIdentifier("animation", "drawable", this.getApplicationContext().getPackageName()));
+                break;
+            default:
+                ivPortadaDetalle.setImageResource(this.getApplicationContext().getResources().getIdentifier("pe_null", "drawable", this.getApplicationContext().getPackageName()));
+                break;
         }
 
         tvTituloDetalle.setText(pelicula.nombre);

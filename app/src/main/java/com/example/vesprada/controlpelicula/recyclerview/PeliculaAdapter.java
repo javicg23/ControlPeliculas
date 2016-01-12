@@ -23,6 +23,7 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.Pelicu
 
         private ImageView ivPortada;
         private TextView tvNombrePelicula;
+        private TextView tvIdGenero;
         private TextView tvPuntuacionPelicula;
         private TextView tvEstadoPelicula;
         private TextView tvIdPelicula;
@@ -31,6 +32,7 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.Pelicu
             super(itemView);
 
             tvIdPelicula = (TextView) itemView.findViewById(R.id.tvIdPelicula);
+            tvIdGenero = (TextView) itemView.findViewById(R.id.tvIdGenero);
             ivPortada = (ImageView) itemView.findViewById(R.id.ivPortada);
             tvNombrePelicula = (TextView) itemView.findViewById(R.id.tvNombrePelicula);
             tvPuntuacionPelicula = (TextView) itemView.findViewById(R.id.tvPuntuacionPelicula);
@@ -41,10 +43,39 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.Pelicu
 
             tvIdPelicula.setText(String.valueOf(pelicula.id));
 
-            ivPortada.setImageResource(itemView.getContext().getResources().getIdentifier(pelicula.portada, "drawable", itemView.getContext().getPackageName()));
+            tvIdGenero.setText(String.valueOf(pelicula.id_genero));
 
-            if (ivPortada.getDrawable() == null) {
-                ivPortada.setImageResource(itemView.getContext().getResources().getIdentifier("pe_null", "drawable", itemView.getContext().getPackageName()));
+            switch (pelicula.id_genero) {
+                case 1:
+                    ivPortada.setImageResource(itemView.getContext().getResources().getIdentifier("action", "drawable", itemView.getContext().getPackageName()));
+                    break;
+                case 2:
+                    ivPortada.setImageResource(itemView.getContext().getResources().getIdentifier("comedy", "drawable", itemView.getContext().getPackageName()));
+                    break;
+                case 3:
+                    ivPortada.setImageResource(itemView.getContext().getResources().getIdentifier("fear", "drawable", itemView.getContext().getPackageName()));
+                    break;
+                case 4:
+                    ivPortada.setImageResource(itemView.getContext().getResources().getIdentifier("scifi", "drawable", itemView.getContext().getPackageName()));
+                    break;
+                case 5:
+                    ivPortada.setImageResource(itemView.getContext().getResources().getIdentifier("fantasy", "drawable", itemView.getContext().getPackageName()));
+                    break;
+                case 6:
+                    ivPortada.setImageResource(itemView.getContext().getResources().getIdentifier("drama", "drawable", itemView.getContext().getPackageName()));
+                    break;
+                case 7:
+                    ivPortada.setImageResource(itemView.getContext().getResources().getIdentifier("romance", "drawable", itemView.getContext().getPackageName()));
+                    break;
+                case 8:
+                    ivPortada.setImageResource(itemView.getContext().getResources().getIdentifier("suspense", "drawable", itemView.getContext().getPackageName()));
+                    break;
+                case 9:
+                    ivPortada.setImageResource(itemView.getContext().getResources().getIdentifier("animation", "drawable", itemView.getContext().getPackageName()));
+                    break;
+                default:
+                    ivPortada.setImageResource(itemView.getContext().getResources().getIdentifier("pe_null", "drawable", itemView.getContext().getPackageName()));
+                    break;
             }
 
             tvNombrePelicula.setText(pelicula.nombre);

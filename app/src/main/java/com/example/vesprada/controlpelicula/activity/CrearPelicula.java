@@ -1,13 +1,9 @@
 package com.example.vesprada.controlpelicula.activity;
 
-import android.app.Application;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,7 +52,7 @@ public class CrearPelicula extends AppCompatActivity {
     private GeneroDAO conectorGenero = new GeneroDAO(this);
     private Actor_PeliculaDAO conectorA_P = new Actor_PeliculaDAO(this);
 
-    private Pelicula nuevapelicula = new Pelicula();
+    private Pelicula nuevaPelicula = new Pelicula();
     private Actor nuevoActor = new Actor();
     private Director nuevoDirector = new Director();
     private Productor nuevoProductor = new Productor();
@@ -65,6 +61,11 @@ public class CrearPelicula extends AppCompatActivity {
 
     private int id_pelicula;
     private int puntuacion;
+    private int id_estado = 1;
+    private int id_Director;
+    private int id_Productor;
+    private int id_Genero;
+    private int id_Actor;
 
     private boolean vacio = false;
 
@@ -115,13 +116,61 @@ public class CrearPelicula extends AppCompatActivity {
                 }
 
                 if (!vacio) {
-                    encuentraActor = conectorActor.getActorByName(nuevoActor.nombre_completo).nombre_completo;
+                    Actor actor = conectorActor.getActorByName(nuevoActor.nombre_completo);
+                    encuentraActor = actor.nombre_completo;
                     if (encuentraActor == null) {
-                        int id_actor = conectorActor.insert(nuevoActor);
-                        actoresNuevos.add(id_actor);
+                        id_Actor = conectorActor.insert(nuevoActor);
+                        actoresNuevos.add(id_Actor);
+                        etPeliActor.setText("");
+                    }
+                    else {
+                        id_Actor = actor.id;
+                        actoresNuevos.add(id_Actor);
                         etPeliActor.setText("");
                     }
                 }
+            }
+        });
+
+        /**
+         * Guardar el Estado de la película conforme haga click sobre un botón u otro
+         */
+
+        btnEstadoNoVista = (AppCompatButton) findViewById(R.id.btnEstadoNoVista);
+        btnEstadoPendiente = (AppCompatButton) findViewById(R.id.btnEstadoPendiente);
+        btnEstadoVista = (AppCompatButton) findViewById(R.id.btnEstadoVista);
+        btnEstadoFavorita = (AppCompatButton) findViewById(R.id.btnEstadoFavorita);
+
+        btnEstadoNoVista.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                id_estado = 1;
+            }
+        });
+
+        btnEstadoPendiente.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                id_estado = 2;
+            }
+        });
+
+
+        btnEstadoVista.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                id_estado = 3;
+            }
+        });
+
+        btnEstadoFavorita.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                id_estado = 4;
             }
         });
 
@@ -130,16 +179,15 @@ public class CrearPelicula extends AppCompatActivity {
         btnConfirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.v("hola","sharandonga");
 
                 if (
                         etPeliNombre.getText().toString().equalsIgnoreCase("") ||
-                                etPeliDuracion.getText().toString().equalsIgnoreCase("") ||
-                                etPeliAnyo.getText().toString().equalsIgnoreCase("") ||
-                                etPeliPuntuacion.getText().toString().equalsIgnoreCase("") ||
-                                etPeliDirector.getText().toString().equalsIgnoreCase("") ||
-                                etPeliProductor.getText().toString().equalsIgnoreCase("") ||
-                                etPeliGenero.getText().toString().equalsIgnoreCase("")
+                        etPeliDuracion.getText().toString().equalsIgnoreCase("") ||
+                        etPeliAnyo.getText().toString().equalsIgnoreCase("") ||
+                        etPeliPuntuacion.getText().toString().equalsIgnoreCase("") ||
+                        etPeliDirector.getText().toString().equalsIgnoreCase("") ||
+                        etPeliProductor.getText().toString().equalsIgnoreCase("") ||
+                        etPeliGenero.getText().toString().equalsIgnoreCase("")
                         ) {
 
                     Toast toastVacio =
@@ -150,7 +198,7 @@ public class CrearPelicula extends AppCompatActivity {
 
                 puntuacion = Integer.parseInt(etPeliPuntuacion.getText().toString());
 
-                if (puntuacion< 0 && puntuacion >100) {
+                if (puntuacion < 0 || puntuacion > 100) {
                     Toast toastPuntuacion =
                             Toast.makeText(getApplicationContext(), "La puntuación debe estar entre 0 y 100.", Toast.LENGTH_SHORT);
                     toastPuntuacion.show();
@@ -162,20 +210,33 @@ public class CrearPelicula extends AppCompatActivity {
                     String nombrePeli = etPeliNombre.getText().toString();
                     nombrePeli = nombrePeli.trim();
                     nombrePeli = nombrePeli.replaceAll("\\s+", " ");
-                    nuevapelicula.nombre = nombrePeli;
-                    nuevapelicula.duracion = Integer.parseInt(etPeliDuracion.getText().toString());
-                    nuevapelicula.anyo = Integer.parseInt(etPeliAnyo.getText().toString());
+                    nuevaPelicula.nombre = nombrePeli;
+                    nuevaPelicula.duracion = Integer.parseInt(etPeliDuracion.getText().toString());
+                    nuevaPelicula.anyo = Integer.parseInt(etPeliAnyo.getText().toString());
 
 
+                    nuevaPelicula.puntuacion = Integer.parseInt(etPeliPuntuacion.getText().toString());
+                    nuevaPelicula.sinopsis = etPeliSinopsis.getText().toString();
 
-                    nuevapelicula.puntuacion = Integer.parseInt(etPeliPuntuacion.getText().toString());
-                    nuevapelicula.sinopsis = etPeliSinopsis.getText().toString();
-                    nuevapelicula.id_estado = 1;
+                    if (id_estado == 1) {
+                        nuevaPelicula.id_estado = 1;
+                    }
+                    else if (id_estado == 2) {
+                        nuevaPelicula.id_estado = 2;
+                    }
+                    else if (id_estado == 3) {
+                        nuevaPelicula.id_estado = 3;
+                    }
+                    else {
+                        nuevaPelicula.id_estado = 4;
+                    }
+
 
                     String nombreDirector = etPeliDirector.getText().toString();
                     nombreDirector = nombreDirector.trim();
                     nombreDirector = nombreDirector.replaceAll("\\s+", " ");
                     nuevoDirector.nombre_completo = nombreDirector;
+
 
                     String nombreProductor = etPeliProductor.getText().toString();
                     nombreProductor = nombreProductor.trim();
@@ -187,85 +248,68 @@ public class CrearPelicula extends AppCompatActivity {
                     nombreGenero = nombreGenero.replaceAll("\\s+", " ");
                     nuevoGenero.nombre = nombreGenero;
 
-                    btnEstadoNoVista = (AppCompatButton) findViewById(R.id.btnEstadoNoVista);
-                    btnEstadoPendiente = (AppCompatButton) findViewById(R.id.btnEstadoPendiente);
-                    btnEstadoVista = (AppCompatButton) findViewById(R.id.btnEstadoVista);
-                    btnEstadoFavorita = (AppCompatButton) findViewById(R.id.btnEstadoFavorita);
-
-                    btnEstadoNoVista.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            nuevapelicula.id_estado = 1;
-                        }
-                    });
-
-                    btnEstadoPendiente.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            nuevapelicula.id_estado = 2;
-                        }
-                    });
-
-
-                    btnEstadoVista.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            nuevapelicula.id_estado = 3;
-                        }
-                    });
-
-                    btnEstadoFavorita.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            nuevapelicula.id_estado = 4;
-                        }
-                    });
-
-                    /**
-                     * Pelicula
-                     */
-
-                    encuentraPelicula = conectorPelicula.getPeliculaByName(nuevapelicula.nombre).nombre;
-                    if (encuentraPelicula == null) {
-                        id_pelicula = conectorPelicula.insert(nuevapelicula);
-                    }
-
                     /**
                      * Director
                      */
 
-                    encuentraDirector = conectorDirector.getDirectorByName(nuevoDirector.nombre_completo).nombre_completo;
-                    if (encuentraDirector == null) {
-                        conectorDirector.insert(nuevoDirector);
-                    }
+                    Director director = conectorDirector.getDirectorByName(nuevoDirector.nombre_completo);
+                    encuentraDirector = director.nombre_completo;
 
+                    if (encuentraDirector == null) {
+                        id_Director = conectorDirector.insert(nuevoDirector);
+                    }
+                    else {
+                        id_Director = director.id;
+                    }
                     /**
                      * Productor
                      */
 
-                    encuentraProductor = conectorProductor.getProductorByName(nuevoProductor.nombre).nombre;
+                    Productor productor = conectorProductor.getProductorByName(nuevoProductor.nombre);
+                    encuentraProductor = productor.nombre;
                     if (encuentraProductor == null) {
-                        conectorProductor.insert(nuevoProductor);
+                        id_Productor = conectorProductor.insert(nuevoProductor);
+                    }
+                    else {
+                        id_Productor = productor.id;
                     }
 
                     /**
                      * Genero
                      */
 
-                    encuentraGenero = conectorGenero.getGeneroByName(nuevoGenero.nombre).nombre;
+                    Genero genero = conectorGenero.getGeneroByName(nuevoGenero.nombre);
+                    encuentraGenero = genero.nombre;
                     if (encuentraGenero == null) {
-                        conectorGenero.insert(nuevoGenero);
+                        id_Genero = conectorGenero.insert(nuevoGenero);
+                    }
+                    else {
+                        id_Genero = genero.id;
+                    }
+
+
+                    /**
+                     * Pelicula
+                     */
+
+                    Pelicula pelicula = conectorPelicula.getPeliculaByName(nuevaPelicula.nombre);
+                    encuentraPelicula = pelicula.nombre;
+                    if (encuentraPelicula == null) {
+                        nuevaPelicula.id_director = id_Director;
+                        nuevaPelicula.id_productor = id_Productor;
+                        nuevaPelicula.id_genero = id_Genero;
+                        id_pelicula = conectorPelicula.insert(nuevaPelicula);
                     }
 
                     /**
                      * Actor_Pelicula
                      */
 
-                    for (int i = 0; i<actoresNuevos.size(); i++) {
+                    for (int i = 0; i < actoresNuevos.size(); i++) {
                         int actor = actoresNuevos.get(i);
-                        int pelicula = id_pelicula;
+                        int pelicula2 = id_pelicula;
                         nuevoA_P.id_actor = actor;
-                        nuevoA_P.id_pelicula = pelicula;
+                        nuevoA_P.id_pelicula = pelicula2;
                         conectorA_P.insert(nuevoA_P);
                     }
                     Intent i = new Intent(getApplicationContext(), MainActivity.class);

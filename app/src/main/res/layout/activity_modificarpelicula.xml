@@ -41,46 +41,6 @@
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
             android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:weightSum="1">
-            <ImageView
-                android:id="@+id/ivPortadaEditar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/sa_ca"
-                android:maxHeight="150dp"
-                android:maxWidth="250dp"
-                android:minHeight="150dp"
-                android:minWidth="250dp"
-                android:scaleType="centerInside"
-                android:adjustViewBounds="true"
-                android:contentDescription="PortadaEditar" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="5dp"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:weightSum="1">
-            <Button
-                android:id="@+id/btnCambiarPortadaPeliculaEditar"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:layout_margin="@dimen/fab_margin"
-                android:textStyle="bold"
-                android:text="CAMBIAR PORTADA" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="5dp"
-            android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -180,6 +140,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Actores actuales en la película"
+                android:textStyle="bold"
+                android:textSize="@dimen/fab_margin"
+                android:layout_gravity="center_horizontal" />
+            <TextView
+                android:id="@+id/tvActoresEditar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

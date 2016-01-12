@@ -110,7 +110,7 @@ public class DirectorDAO {
                 Director.KEY_Nombre_completo +
                 " FROM " + Director.TABLE +
                 " WHERE " + Director.KEY_ID + "=?";
-        
+
 
         Director director = new Director();
 
@@ -131,16 +131,15 @@ public class DirectorDAO {
 
     public Director getDirectorByName(String nombre){
         SQLiteDatabase db = dbHelperDirector.getReadableDatabase();
-
         String selectQuery = "SELECT " +
                 Director.KEY_ID + "," +
                 Director.KEY_Nombre_completo +
                 " FROM " + Director.TABLE
-                + " WHERE " + Director.KEY_Nombre_completo +  " =?";
+                + " WHERE " + Director.KEY_Nombre_completo +  " = ?";
 
         Director director = new Director();
 
-        Cursor cursor = db.rawQuery(selectQuery, new String[] {"%" + nombre + "%"});
+        Cursor cursor = db.rawQuery(selectQuery, new String[] {String.valueOf(nombre)});
 
         if(cursor.moveToFirst()){
             do{
