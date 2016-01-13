@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -42,7 +43,6 @@ public class ModificarPelicula extends AppCompatActivity {
 
     private Button btnConfirmarEditar;
     private Button btnAgregarEditar;
-    private Button btnCancelarPeliculaEditar;
     private AppCompatButton btnEstadoVistaEditar;
     private AppCompatButton btnEstadoNoVistaEditar;
     private AppCompatButton btnEstadoPendienteEditar;
@@ -76,7 +76,6 @@ public class ModificarPelicula extends AppCompatActivity {
         tvActoresEditar = (TextView) findViewById(R.id.tvActoresEditar);
 
         btnConfirmarEditar = (Button) findViewById(R.id.btnConfirmarPeliculaEditar);
-        btnCancelarPeliculaEditar = (Button) findViewById(R.id.btnCancelarPeliculaEditar);
         btnAgregarEditar = (Button) findViewById(R.id.btnAgregarActorEditar);
         btnEstadoNoVistaEditar = (AppCompatButton) findViewById(R.id.btnEstadoNoVistaEditar);
         btnEstadoVistaEditar = (AppCompatButton) findViewById(R.id.btnEstadoVistaEditar);
@@ -130,12 +129,24 @@ public class ModificarPelicula extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        btnCancelarPeliculaEditar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentCancelar = new Intent(v.getContext(), MainActivity.class);
-                startActivity(intentCancelar);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        unbindDrawables(findViewById(R.id.modificarPelicula));
+        System.gc();
+    }
+
+    private void unbindDrawables(View view) {
+        if (view.getBackground() != null) {
+            view.getBackground().setCallback(null);
+        }
+        if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                unbindDrawables(((ViewGroup) view).getChildAt(i));
             }
-        });
+            ((ViewGroup) view).removeAllViews();
+        }
     }
 }
