@@ -61,14 +61,15 @@ public class CrearPelicula extends AppCompatActivity {
     private Actor_Pelicula nuevoA_P = new Actor_Pelicula();
 
     private int id_pelicula;
-    private int puntuacion;
     private int id_estado = 1;
     private int id_Director;
     private int id_Productor;
     private int id_Genero;
     private int id_Actor;
+    private int duracionRevisarEntero, anyoRevisarEntero, puntuacionRevisarEntero;
 
     private boolean vacio = false;
+    private boolean controlEnteros = false;
 
     private String encuentraActor, encuentraPelicula, encuentraDirector, encuentraProductor, encuentraGenero;
 
@@ -175,11 +176,17 @@ public class CrearPelicula extends AppCompatActivity {
             }
         });
 
-
+        if (controlEnteros){
+            vacio = false;
+        }
         btnConfirmar = (Button) findViewById(R.id.btnConfirmarPelicula);
         btnConfirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (controlEnteros){
+                    vacio = false;
+                }
 
                 if (
                         etPeliNombre.getText().toString().equalsIgnoreCase("") ||
@@ -197,14 +204,6 @@ public class CrearPelicula extends AppCompatActivity {
                     vacio = true;
                 }
 
-                puntuacion = Integer.parseInt(etPeliPuntuacion.getText().toString());
-
-                if (puntuacion < 0 || puntuacion > 100) {
-                    Toast toastPuntuacion =
-                            Toast.makeText(getApplicationContext(), "La puntuación debe estar entre 0 y 100.", Toast.LENGTH_SHORT);
-                    toastPuntuacion.show();
-                    vacio = true;
-                }
                 /**
                  * Busca si hay una pelicula en la base de datos y si hay alguna pelicula pone vacio = true para que no cree la nueva pelicula.
                  */
@@ -216,6 +215,33 @@ public class CrearPelicula extends AppCompatActivity {
                     toastPuntuacion.show();
                     vacio = true;
                 }
+                else{
+                    vacio = false;
+                }
+
+                if (!vacio) {
+                    try {
+                        duracionRevisarEntero = Integer.parseInt(etPeliDuracion.getText().toString());
+                        anyoRevisarEntero = Integer.parseInt(etPeliAnyo.getText().toString());
+                        puntuacionRevisarEntero = Integer.parseInt(etPeliPuntuacion.getText().toString());
+
+                        if (puntuacionRevisarEntero < 0 || puntuacionRevisarEntero > 100) {
+                            Toast toastPuntuacion =
+                                    Toast.makeText(getApplicationContext(), "La puntuación debe estar entre 0 y 100.", Toast.LENGTH_SHORT);
+                            toastPuntuacion.show();
+                            vacio = true;
+                        }
+                        else{
+                            vacio = false;
+                        }
+                    } catch (NumberFormatException e) {
+                        Toast toastErrorNumerico =
+                                Toast.makeText(getApplicationContext(), "Hay algún campo numérico que tiene letras.", Toast.LENGTH_SHORT);
+                        toastErrorNumerico.show();
+                        vacio = true;
+                        controlEnteros = true;
+                    }
+                }
 
                 if (!vacio) {
 
@@ -223,11 +249,11 @@ public class CrearPelicula extends AppCompatActivity {
                     nombrePeli = nombrePeli.trim();
                     nombrePeli = nombrePeli.replaceAll("\\s+", " ");
                     nuevaPelicula.nombre = nombrePeli;
-                    nuevaPelicula.duracion = Integer.parseInt(etPeliDuracion.getText().toString());
-                    nuevaPelicula.anyo = Integer.parseInt(etPeliAnyo.getText().toString());
 
+                    nuevaPelicula.duracion = duracionRevisarEntero;
+                    nuevaPelicula.anyo = anyoRevisarEntero;
+                    nuevaPelicula.puntuacion = puntuacionRevisarEntero;
 
-                    nuevaPelicula.puntuacion = Integer.parseInt(etPeliPuntuacion.getText().toString());
                     nuevaPelicula.sinopsis = etPeliSinopsis.getText().toString();
 
                     if (id_estado == 1) {

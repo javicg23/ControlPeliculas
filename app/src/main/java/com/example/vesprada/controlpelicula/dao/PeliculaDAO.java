@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.example.vesprada.controlpelicula.conexion.DBHelperControlPeliculas;
 import com.example.vesprada.controlpelicula.modelo.Actor_Pelicula;
@@ -65,6 +64,7 @@ public class PeliculaDAO {
 
         // It's a good practice to use parameter ?, instead of concatenate string
         db.update(Pelicula.TABLE, values, Pelicula.KEY_ID + " =?", new String[]{String.valueOf(pelicula.id)});
+
         db.close(); // Closing database connection
     }
 
@@ -250,7 +250,7 @@ public class PeliculaDAO {
     }
     public ArrayList<Pelicula>  getPeliculaListByIdActor(int idActor){
         SQLiteDatabase db = dbHelperPelicula.getReadableDatabase();
-        Log.v("info","Entro en pelicula DAO");
+
         String selectQuery = "SELECT " +
                 Pelicula.KEY_ID + "," +
                 Pelicula.KEY_Nombre + "," +
