@@ -204,6 +204,17 @@ public class CrearPelicula extends AppCompatActivity {
                     toastPuntuacion.show();
                     vacio = true;
                 }
+                /**
+                 * Busca si hay una pelicula en la base de datos y si hay alguna pelicula pone vacio = true para que no cree la nueva pelicula.
+                 */
+                Pelicula pelicula = conectorPelicula.getPeliculaByName(etPeliNombre.getText().toString());
+                encuentraPelicula = pelicula.nombre;
+                if (encuentraPelicula != null) {
+                    Toast toastPuntuacion =
+                            Toast.makeText(getApplicationContext(), "Esa Pelicula ya existe.", Toast.LENGTH_SHORT);
+                    toastPuntuacion.show();
+                    vacio = true;
+                }
 
                 if (!vacio) {
 
@@ -292,14 +303,11 @@ public class CrearPelicula extends AppCompatActivity {
                      * Pelicula
                      */
 
-                    Pelicula pelicula = conectorPelicula.getPeliculaByName(nuevaPelicula.nombre);
-                    encuentraPelicula = pelicula.nombre;
-                    if (encuentraPelicula == null) {
                         nuevaPelicula.id_director = id_Director;
                         nuevaPelicula.id_productor = id_Productor;
                         nuevaPelicula.id_genero = id_Genero;
                         id_pelicula = conectorPelicula.insert(nuevaPelicula);
-                    }
+
 
                     /**
                      * Actor_Pelicula
