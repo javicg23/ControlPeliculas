@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:layout_marginLeft="40dp"
+                android:layout_marginLeft="30dp"
                 android:src="@drawable/sa_ca"
                 android:maxHeight="200dp"
                 android:maxWidth="350dp"
@@ -182,31 +182,30 @@
                     android:layout_height="wrap_content"
                     android:text="En la Tierra Media, el Señor Oscuro Saurón ordenó a los Elfos que forjaran los Grandes Anillos de Poder. Tres para los reyes Elfos, siete para los Señores Enanos, y nueve para los Hombres Mortales. Pero Saurón también forjó, en secreto, el Anillo Único, que tiene el poder de esclavizar toda la Tierra Media. Con la ayuda de sus amigos y de valientes aliados, el joven hobbit Frodo emprende un peligroso viaje con la misión de destruir el Anillo Único. Pero el malvado Sauron ordena la persecución del grupo, compuesto por Frodo y sus leales amigos hobbits, un mago, un hombre, un elfo y un enano. La misión es casi suicida pero necesaria, pues si Sauron con su ejército de orcos lograra recuperar el Anillo, sería el final de la Tierra Media." />
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_marginBottom="@dimen/fab_margin">
+            <ImageButton
+                android:id="@+id/btnEditar"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/fab_margin"
+                android:layout_weight="1"
+                android:src="@drawable/ic_pencil_grey600_36dp"
                 android:layout_marginLeft="@dimen/fab_margin"
-                android:layout_marginRight="@dimen/fab_margin"
-                android:layout_marginBottom="@dimen/fab_margin">
-                <ImageButton
-                    android:id="@+id/btnEditar"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_pencil_grey600_36dp"
-                    android:layout_marginLeft="@dimen/fab_margin"
-                    />
-                <ImageButton
-                    android:id="@+id/btnBorrar"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/ic_delete_grey600_36dp"
-                    android:layout_marginLeft="@dimen/fab_margin"
-                    />
-            </LinearLayout>
+                />
+            <ImageButton
+                android:id="@+id/btnBorrar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_delete_grey600_36dp"
+                android:layout_marginLeft="@dimen/fab_margin" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

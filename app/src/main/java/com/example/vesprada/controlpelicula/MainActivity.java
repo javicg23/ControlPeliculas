@@ -147,30 +147,10 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
-
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        unbindDrawables(findViewById(R.id.drawer_layout));
-        System.gc();
-    }
-
-    private void unbindDrawables(View view) {
-        if (view.getBackground() != null)
-            view.getBackground().setCallback(null);
-
-        if (view instanceof ImageView) {
-            ImageView imageView = (ImageView) view;
-            imageView.setImageBitmap(null);
-        } else if (view instanceof ViewGroup) {
-            ViewGroup viewGroup = (ViewGroup) view;
-            for (int i = 0; i < viewGroup.getChildCount(); i++)
-                unbindDrawables(viewGroup.getChildAt(i));
-
-            if (!(view instanceof AdapterView))
-                viewGroup.removeAllViews();
-        }
+    protected void onResume(){
+        super.onResume();
+        initList();
     }
 
     /** Método para iniciar la lista de peliculas */
@@ -244,13 +224,6 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
     }
 
     @Override

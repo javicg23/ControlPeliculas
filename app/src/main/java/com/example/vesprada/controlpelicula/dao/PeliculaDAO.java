@@ -47,7 +47,7 @@ public class PeliculaDAO {
         db.close();
     }
 
-    public void update(Pelicula pelicula) {
+    public void update(Pelicula pelicula,int idPelicula) {
 
         SQLiteDatabase db = dbHelperPelicula.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -63,7 +63,7 @@ public class PeliculaDAO {
         values.put(Pelicula.KEY_Id_estado, pelicula.id_estado);
 
         // It's a good practice to use parameter ?, instead of concatenate string
-        db.update(Pelicula.TABLE, values, Pelicula.KEY_ID + " =?", new String[]{String.valueOf(pelicula.id)});
+        db.update(Pelicula.TABLE, values, Pelicula.KEY_ID + " =?", new String[]{String.valueOf(idPelicula)});
 
         db.close(); // Closing database connection
     }
@@ -179,7 +179,7 @@ public class PeliculaDAO {
                 Pelicula.KEY_Id_productor + "," +
                 Pelicula.KEY_Id_estado +
                 " FROM " + Pelicula.TABLE
-                + " WHERE " + Pelicula.KEY_Id_director + "=?";
+                + " WHERE " + Pelicula.KEY_ID + "=?";
 
         Pelicula p = new Pelicula();
 

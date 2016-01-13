@@ -58,8 +58,7 @@ public class ModificarPelicula extends AppCompatActivity {
     private Actor_PeliculaDAO conectorA_P = new Actor_PeliculaDAO(this);
 
     private int idPeliculaEditar;
-    private int id_peliculaEditar;
-    private int id_estadoEditar = 1;
+    private int id_estadoEditar;
     private int id_DirectorEditar;
     private int id_ProductorEditar;
     private int id_GeneroEditar;
@@ -111,6 +110,8 @@ public class ModificarPelicula extends AppCompatActivity {
         }
 
         peliculaEditar = conectorPelicula.getPeliculaById(idPeliculaEditar);
+
+        id_estadoEditar = peliculaEditar.id_estado;
 
         etPeliNombreEditar.setText(peliculaEditar.nombre);
 
@@ -249,20 +250,6 @@ public class ModificarPelicula extends AppCompatActivity {
                     vacioEditar = true;
                 }
 
-                /**
-                 * Busca si hay una pelicula en la base de datos y si hay alguna pelicula pone vacio = true para que no cree la nueva pelicula.
-                 */
-                Pelicula pelicula = conectorPelicula.getPeliculaByName(etPeliNombreEditar.getText().toString());
-                encuentraPeliculaEditar = pelicula.nombre;
-                if (encuentraPeliculaEditar != null) {
-                    Toast toastPuntuacion =
-                            Toast.makeText(getApplicationContext(), "Esa Pelicula ya existe.", Toast.LENGTH_SHORT);
-                    toastPuntuacion.show();
-                    vacioEditar = true;
-                }
-                else{
-                    vacioEditar = false;
-                }
 
                 if (!vacioEditar) {
                     try {
@@ -350,6 +337,7 @@ public class ModificarPelicula extends AppCompatActivity {
 
                     Productor productor = conectorProductor.getProductorByName(nuevoProductorEditar.nombre);
                     encuentraProductorEditar = productor.nombre;
+
                     if (encuentraProductorEditar == null) {
                         id_ProductorEditar = conectorProductor.insert(nuevoProductorEditar);
                     }
@@ -386,37 +374,17 @@ public class ModificarPelicula extends AppCompatActivity {
 
                     for (int i = 0; i < actoresNuevosEditar.size(); i++) {
                         int actor = actoresNuevosEditar.get(i);
-                        int pelicula2 = id_peliculaEditar;
+                        int pelicula2 = idPeliculaEditar;
                         nuevoA_PEditar.id_actor = actor;
                         nuevoA_PEditar.id_pelicula = pelicula2;
                         conectorA_P.insert(nuevoA_PEditar);
                     }
+                    nuevaPeliculaEditar.id = idPeliculaEditar;
+                    conectorPelicula.update(nuevaPeliculaEditar,idPeliculaEditar);
 
-                    conectorPelicula.update(nuevaPeliculaEditar);
-
-                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(i);
+                    finish();
                 }
             }
         });
-    }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        unbindDrawables(findViewById(R.id.modificarPelicula));
-        System.gc();
-    }
-
-    private void unbindDrawables(View view) {
-        if (view.getBackground() != null) {
-            view.getBackground().setCallback(null);
-        }
-        if (view instanceof ViewGroup) {
-            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
-                unbindDrawables(((ViewGroup) view).getChildAt(i));
-            }
-            ((ViewGroup) view).removeAllViews();
-        }
     }
 }

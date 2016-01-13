@@ -347,29 +347,10 @@ public class CrearPelicula extends AppCompatActivity {
                         nuevoA_P.id_pelicula = pelicula2;
                         conectorA_P.insert(nuevoA_P);
                     }
-                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(i);
+
+                    finish();
                 }
             }
         });
-    }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        unbindDrawables(findViewById(R.id.crearPeliculas));
-        System.gc();
-    }
-
-    private void unbindDrawables(View view) {
-        if (view.getBackground() != null) {
-            view.getBackground().setCallback(null);
-        }
-        if (view instanceof ViewGroup) {
-            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
-                unbindDrawables(((ViewGroup) view).getChildAt(i));
-            }
-            ((ViewGroup) view).removeAllViews();
-        }
     }
 }
