@@ -1,6 +1,5 @@
 package com.example.vesprada.controlpelicula.modelo;
 
-
 public class Pelicula {
 
     //Nombre de la tabla

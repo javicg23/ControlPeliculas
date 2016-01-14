@@ -8,9 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.vesprada.controlpelicula.conexion.DBHelperControlPeliculas;
 import com.example.vesprada.controlpelicula.modelo.Genero;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 
 public class GeneroDAO {
     private static DBHelperControlPeliculas dbHelperGenero;

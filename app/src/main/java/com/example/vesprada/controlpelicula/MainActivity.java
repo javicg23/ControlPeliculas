@@ -13,13 +13,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +42,7 @@ import com.example.vesprada.controlpelicula.recyclerview.RecyclerItemClickListen
 import java.io.File;
 import java.util.ArrayList;
 
+/** Activity principal donde tenemos el navigation drawer, el buscador y el recyclerview */
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -83,7 +80,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /** Inserts por defecto */
+        /** Inserts por defecto donde comprobamos si la base de datos existe */
         File database = getApplicationContext().getDatabasePath("ControlPeliculas.db");
 
         if (!database.exists()) {
@@ -107,6 +104,7 @@ public class MainActivity extends AppCompatActivity
 
         recView.setItemAnimator(new DefaultItemAnimator());
 
+        /** Cuando se pulsa en un item mandamos el id de la pelicula que se ha pulsado */
         recView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -117,6 +115,10 @@ public class MainActivity extends AppCompatActivity
                 startActivity(myIntent);
             }
         }));
+
+        /** Si se pulsa en el buscador y no hay nada escrito se vuelve a rellenar
+         * tod el recyclerview sino, se busca lo que se haya puesto
+         */
         imgButtonBuscador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -277,6 +279,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    /** Método para ordenar por favoritos */
     public void ordenarPorFavoritos(){
         for(int i = 0;i<listaPeliculas.size();i++){
             if(listaPeliculas.get(i).id_estado == 4){
@@ -293,6 +296,7 @@ public class MainActivity extends AppCompatActivity
         recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     }
 
+    /** Método para ordenar por no vistas */
     public void ordenarPorNoVistas(){
         for(int i = 0;i<listaPeliculas.size();i++){
             if(listaPeliculas.get(i).id_estado == 1){
@@ -309,6 +313,7 @@ public class MainActivity extends AppCompatActivity
         recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     }
 
+    /** Método para ordenar por vistas */
     public void ordenarPorVistas(){
         for(int i = 0;i<listaPeliculas.size();i++){
             if(listaPeliculas.get(i).id_estado == 3){
@@ -325,6 +330,7 @@ public class MainActivity extends AppCompatActivity
         recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     }
 
+    /** Método para ordenar por pendientes */
     public void ordenarPorPendientes(){
         for(int i = 0;i<listaPeliculas.size();i++){
             if(listaPeliculas.get(i).id_estado == 2){
@@ -341,9 +347,8 @@ public class MainActivity extends AppCompatActivity
         recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     }
 
-
+    /** Método para insertar por defecto algunos géneros */
     public void insertsGeneroDefecto() {
-
         Genero generoAccion = new Genero();
         generoAccion.nombre ="Accion";
         conectorGenero.insert(generoAccion);
@@ -381,6 +386,7 @@ public class MainActivity extends AppCompatActivity
         conectorGenero.insert(generoAnimacion);
     }
 
+    /** Método para insertar por defecto algunos productores */
     public void InstertsProductorDefecto() {
 
         Productor productorParamount = new Productor();
@@ -428,6 +434,7 @@ public class MainActivity extends AppCompatActivity
         conectorProductor.insert(productorTenlit);
     }
 
+    /** Método para insertar por defecto algunos actores */
     public void insertarActoresDefecto(){
 
         Actor actorTomCruise = new Actor();
@@ -490,6 +497,8 @@ public class MainActivity extends AppCompatActivity
         actorJayBaruchel.nombre_completo = "Jay Baruchel";
         conectorActor.insert(actorJayBaruchel);
     }
+
+    /** Método para insertar por defecto algunos directores */
     public void insertarDirectoresDefecto(){
 
         Director directorJJAbrams = new Director();
@@ -553,6 +562,7 @@ public class MainActivity extends AppCompatActivity
         conectorDirector.insert(directorDeanDeBlois);
     }
 
+    /** Método para insertar por defecto algunos estados */
     public void insertsEstadosDefecto() {
 
         Estado estadoNoVista = new Estado();
@@ -573,6 +583,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    /** Método para insertar por defecto algunas películas */
     public void insertsPeliculasDefecto() {
 
         Pelicula misionImposible3 = new Pelicula();
@@ -756,6 +767,7 @@ public class MainActivity extends AppCompatActivity
         conectorPelicula.insert(ComoEntrenaraTuDragon);
     }
 
+    /** Método para insertar por defecto algunos actores con sus películas correspondientes */
     public void insertsPeliculasActoresDefecto() {
         Actor_Pelicula misionImposible3 = new Actor_Pelicula();
         misionImposible3.id_pelicula = 1;

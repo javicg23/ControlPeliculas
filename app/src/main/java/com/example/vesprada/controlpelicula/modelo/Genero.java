@@ -1,7 +1,7 @@
 package com.example.vesprada.controlpelicula.modelo;
 
-
 public class Genero {
+
     public static final String TABLE = "Genero";
 
     public static final String KEY_ID = "id";

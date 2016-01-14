@@ -11,10 +11,9 @@ import android.widget.TextView;
 import com.example.vesprada.controlpelicula.R;
 import com.example.vesprada.controlpelicula.modelo.Pelicula;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
+/** Clase que sirve para rellenar la informacion de cada item del recyclerview */
 public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.PeliculaViewHolder> {
 
     private ArrayList<Pelicula> peliculas;

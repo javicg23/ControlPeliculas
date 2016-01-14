@@ -4,11 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.example.vesprada.controlpelicula.conexion.DBHelperControlPeliculas;
 import com.example.vesprada.controlpelicula.modelo.Actor_Pelicula;
-import com.example.vesprada.controlpelicula.modelo.Pelicula;
 
 import java.util.ArrayList;
 

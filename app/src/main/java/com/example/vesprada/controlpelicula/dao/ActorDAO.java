@@ -4,13 +4,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.example.vesprada.controlpelicula.conexion.DBHelperControlPeliculas;
 import com.example.vesprada.controlpelicula.modelo.Actor;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 public class ActorDAO {

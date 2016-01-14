@@ -2,13 +2,10 @@ package com.example.vesprada.controlpelicula.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.vesprada.controlpelicula.conexion.DBHelperControlPeliculas;
 import com.example.vesprada.controlpelicula.modelo.Estado;
-
-import java.util.ArrayList;
 
 public class EstadoDAO {
     private DBHelperControlPeliculas dbhelperEstado;

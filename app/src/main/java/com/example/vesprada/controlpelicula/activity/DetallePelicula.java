@@ -4,14 +4,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.vesprada.controlpelicula.MainActivity;
 import com.example.vesprada.controlpelicula.R;
 import com.example.vesprada.controlpelicula.dao.ActorDAO;
 import com.example.vesprada.controlpelicula.dao.Actor_PeliculaDAO;
@@ -28,6 +25,7 @@ import com.example.vesprada.controlpelicula.modelo.Productor;
 
 import java.util.ArrayList;
 
+/** Activty que sirve para sacar toda la información de una película */
 public class DetallePelicula extends AppCompatActivity {
 
     private TextView tvTituloDetalle;
@@ -72,6 +70,8 @@ public class DetallePelicula extends AppCompatActivity {
         btnEditar = (ImageButton) findViewById(R.id.btnEditar);
         btnBorrar = (ImageButton) findViewById(R.id.btnBorrar);
 
+        /** Nos traemos el id del item en el cual hayamos pulsado del recyclerview */
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             idPelicula = extras.getInt("id_pelicula");
@@ -86,8 +86,10 @@ public class DetallePelicula extends AppCompatActivity {
     }
 
     protected void fillFields(){
+
         pelicula = conectorPelicula.getPeliculaById(idPelicula);
 
+        /** Le ponemos una imagen diferente dependiendo del género al que corresponda */
         switch (pelicula.id_genero) {
             case 1:
                 ivPortadaDetalle.setImageResource(this.getApplicationContext().getResources().getIdentifier("action", "drawable", this.getApplicationContext().getPackageName()));
@@ -123,6 +125,7 @@ public class DetallePelicula extends AppCompatActivity {
 
         tvTituloDetalle.setText(pelicula.nombre);
 
+        /** Dependiendo de la puntuacion se muestra diferente el color donde sale el número */
         int puntuacionPeliDetalle = pelicula.puntuacion;
         tvPuntuacionDetalle.setText(String.valueOf(puntuacionPeliDetalle));
         if (puntuacionPeliDetalle >= 0 && puntuacionPeliDetalle <= 35){
@@ -150,7 +153,7 @@ public class DetallePelicula extends AppCompatActivity {
 
         tvSinopsisDetalle.setText(pelicula.sinopsis);
 
-
+        /** Para mostrar todos los actores recorremos un arraylist */
         listaActoresEnteros = conectorActorPelicula.getIdActorByIdPelicula(idPelicula);
         String listaActores = "";
         for (int i = 0; i < listaActoresEnteros.size(); i++){
@@ -176,8 +179,7 @@ public class DetallePelicula extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 conectorPelicula.delete(idPelicula);
-                Intent intentBorrar = new Intent(v.getContext(), MainActivity.class);
-                startActivity(intentBorrar);
+                finish();
             }
         });
     }

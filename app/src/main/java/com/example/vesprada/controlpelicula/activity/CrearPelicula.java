@@ -1,16 +1,13 @@
 package com.example.vesprada.controlpelicula.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.vesprada.controlpelicula.MainActivity;
 import com.example.vesprada.controlpelicula.R;
 import com.example.vesprada.controlpelicula.conexion.DBHelperControlPeliculas;
 import com.example.vesprada.controlpelicula.dao.ActorDAO;
@@ -27,6 +24,7 @@ import com.example.vesprada.controlpelicula.modelo.Pelicula;
 import com.example.vesprada.controlpelicula.modelo.Productor;
 import java.util.ArrayList;
 
+/** Activty que sirve para crear una nueva pelicula */
 public class CrearPelicula extends AppCompatActivity {
 
     private EditText etPeliNombre;
@@ -100,10 +98,8 @@ public class CrearPelicula extends AppCompatActivity {
         btnAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /**
-                 * Actor
-                 */
 
+                /** Con actor hacemos las diferentes comprobaciones y cada vez nos guardamos el actor en un arraylist para luego hacer los inserts en la tabla Actor_Pelicula */
                 if (etPeliActor.getText().toString().equalsIgnoreCase("")) {
                     Toast toastVacio =
                             Toast.makeText(getApplicationContext(), "El campo Actor está vacío", Toast.LENGTH_SHORT);
@@ -134,10 +130,7 @@ public class CrearPelicula extends AppCompatActivity {
             }
         });
 
-        /**
-         * Guardar el Estado de la película conforme haga click sobre un botón u otro
-         */
-
+        /** Guardar el estado de la película conforme haga click sobre un botón u otro */
         btnEstadoNoVista = (AppCompatButton) findViewById(R.id.btnEstadoNoVista);
         btnEstadoPendiente = (AppCompatButton) findViewById(R.id.btnEstadoPendiente);
         btnEstadoVista = (AppCompatButton) findViewById(R.id.btnEstadoVista);
@@ -176,27 +169,29 @@ public class CrearPelicula extends AppCompatActivity {
             }
         });
 
-        if (controlEnteros){
-            vacio = false;
-        }
+
+
+
         btnConfirmar = (Button) findViewById(R.id.btnConfirmarPelicula);
         btnConfirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                /** Para controlar que todos los campos numéricos sean números */
                 if (controlEnteros){
                     vacio = false;
                 }
 
+                /** Para comprobar los campos vacíos */
                 if (
-                        etPeliNombre.getText().toString().equalsIgnoreCase("") ||
+                    etPeliNombre.getText().toString().equalsIgnoreCase("") ||
                         etPeliDuracion.getText().toString().equalsIgnoreCase("") ||
                         etPeliAnyo.getText().toString().equalsIgnoreCase("") ||
                         etPeliPuntuacion.getText().toString().equalsIgnoreCase("") ||
                         etPeliDirector.getText().toString().equalsIgnoreCase("") ||
                         etPeliProductor.getText().toString().equalsIgnoreCase("") ||
                         etPeliGenero.getText().toString().equalsIgnoreCase("")
-                        ) {
+                    ) {
 
                     Toast toastVacio =
                             Toast.makeText(getApplicationContext(), "Hay algún campo vacío.", Toast.LENGTH_SHORT);
@@ -204,9 +199,8 @@ public class CrearPelicula extends AppCompatActivity {
                     vacio = true;
                 }
 
-                /**
-                 * Busca si hay una pelicula en la base de datos y si hay alguna pelicula pone vacio = true para que no cree la nueva pelicula.
-                 */
+                /** Busca si hay una pelicula con ese nombre en la base de datos y si hay alguna pelicula pone vacio = true para que no cree la nueva pelicula. */
+
                 Pelicula pelicula = conectorPelicula.getPeliculaByName(etPeliNombre.getText().toString());
                 encuentraPelicula = pelicula.nombre;
                 if (encuentraPelicula != null) {
@@ -286,9 +280,7 @@ public class CrearPelicula extends AppCompatActivity {
                     nombreGenero = nombreGenero.replaceAll("\\s+", " ");
                     nuevoGenero.nombre = nombreGenero;
 
-                    /**
-                     * Director
-                     */
+                    /** Buscamos el director y si existe no hace falta crearlo */
 
                     Director director = conectorDirector.getDirectorByName(nuevoDirector.nombre_completo);
                     encuentraDirector = director.nombre_completo;
@@ -299,9 +291,7 @@ public class CrearPelicula extends AppCompatActivity {
                     else {
                         id_Director = director.id;
                     }
-                    /**
-                     * Productor
-                     */
+                    /** Lo mismo que con director pero para el productor */
 
                     Productor productor = conectorProductor.getProductorByName(nuevoProductor.nombre);
                     encuentraProductor = productor.nombre;
@@ -312,9 +302,7 @@ public class CrearPelicula extends AppCompatActivity {
                         id_Productor = productor.id;
                     }
 
-                    /**
-                     * Genero
-                     */
+                    /** Idem con Genero*/
 
                     Genero genero = conectorGenero.getGeneroByName(nuevoGenero.nombre);
                     encuentraGenero = genero.nombre;
@@ -326,20 +314,14 @@ public class CrearPelicula extends AppCompatActivity {
                     }
 
 
-                    /**
-                     * Pelicula
-                     */
-
-                        nuevaPelicula.id_director = id_Director;
-                        nuevaPelicula.id_productor = id_Productor;
-                        nuevaPelicula.id_genero = id_Genero;
-                        id_pelicula = conectorPelicula.insert(nuevaPelicula);
+                    /** Pelicula */
+                    nuevaPelicula.id_director = id_Director;
+                    nuevaPelicula.id_productor = id_Productor;
+                    nuevaPelicula.id_genero = id_Genero;
+                    id_pelicula = conectorPelicula.insert(nuevaPelicula);
 
 
-                    /**
-                     * Actor_Pelicula
-                     */
-
+                    /** Actor_Pelicula */
                     for (int i = 0; i < actoresNuevos.size(); i++) {
                         int actor = actoresNuevos.get(i);
                         int pelicula2 = id_pelicula;
@@ -348,6 +330,7 @@ public class CrearPelicula extends AppCompatActivity {
                         conectorA_P.insert(nuevoA_P);
                     }
 
+                    /** Cerramos la activity */
                     finish();
                 }
             }

@@ -3,7 +3,6 @@ package com.example.vesprada.controlpelicula.conexion;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.example.vesprada.controlpelicula.modelo.Actor;
 import com.example.vesprada.controlpelicula.modelo.Actor_Pelicula;
@@ -23,8 +22,6 @@ public class DBHelperControlPeliculas extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
-
 
         String CREATE_TABLE_ACTOR = "CREATE TABLE " + Actor.TABLE + "("
                 + Actor.KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
@@ -75,12 +72,9 @@ public class DBHelperControlPeliculas extends SQLiteOpenHelper {
                 + " PRIMARY KEY (" + Actor_Pelicula.KEY_ID_Pelicula + "," + Actor_Pelicula.KEY_ID_Actor + "), "
                 + " FOREIGN KEY (" + Actor_Pelicula.KEY_ID_Actor + ") REFERENCES " + Actor.TABLE + "(" + Actor.KEY_ID + ") ON UPDATE CASCADE ON DELETE CASCADE, "
                 + " FOREIGN KEY (" + Actor_Pelicula.KEY_ID_Pelicula + ") REFERENCES " + Pelicula.TABLE + "(" + Pelicula.KEY_ID + ") ON UPDATE CASCADE ON DELETE CASCADE)";
-        Log.v("info", CREATE_TABLE_ACTOR_PELICULA);
         db.execSQL(CREATE_TABLE_ACTOR_PELICULA);
 
-
     }
-
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

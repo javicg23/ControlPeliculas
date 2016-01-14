@@ -1,19 +1,15 @@
 package com.example.vesprada.controlpelicula.activity;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.vesprada.controlpelicula.MainActivity;
 import com.example.vesprada.controlpelicula.R;
 import com.example.vesprada.controlpelicula.dao.ActorDAO;
 import com.example.vesprada.controlpelicula.dao.Actor_PeliculaDAO;
@@ -30,6 +26,10 @@ import com.example.vesprada.controlpelicula.modelo.Productor;
 
 import java.util.ArrayList;
 
+/** Activity que sirve para modificar los datos de una pelicula, básicamente es parecido a
+ * la activity CrearPelícula pero rellenando los campos ya de base y mostrando los actores
+ * que ya existen en la película
+ */
 public class ModificarPelicula extends AppCompatActivity {
 
     private EditText etPeliNombreEditar;
@@ -65,7 +65,7 @@ public class ModificarPelicula extends AppCompatActivity {
     private int id_ActorEditar;
     private int duracionRevisarEnteroEditar, anyoRevisarEnteroEditar, puntuacionRevisarEnteroEditar;
 
-    private String encuentraActorEditar, encuentraPeliculaEditar, encuentraDirectorEditar, encuentraProductorEditar, encuentraGeneroEditar;
+    private String encuentraActorEditar, encuentraDirectorEditar, encuentraProductorEditar, encuentraGeneroEditar;
 
     private boolean vacioEditar = false;
     private boolean controlEnterosEditar = false;
@@ -104,6 +104,7 @@ public class ModificarPelicula extends AppCompatActivity {
         btnEstadoPendienteEditar = (AppCompatButton) findViewById(R.id.btnEstadoPendienteEditar);
         btnEstadoFavoritaEditar = (AppCompatButton) findViewById(R.id.btnEstadoFavoritaEditar);
 
+        /** Nos traemos el id de la pelicula de la cual queramos rellenar los edittext */
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             idPeliculaEditar = extras.getInt("idpeli");
@@ -153,10 +154,8 @@ public class ModificarPelicula extends AppCompatActivity {
         btnAgregarEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /**
-                 * Actor
-                 */
 
+                /** Con actor hacemos las diferentes comprobaciones y cada vez nos guardamos el actor en un arraylist para luego hacer los inserts en la tabla Actor_Pelicula */
                 if (etPeliActorEditar.getText().toString().equalsIgnoreCase("")) {
                     Toast toastVacio =
                             Toast.makeText(getApplicationContext(), "El campo Actor está vacío", Toast.LENGTH_SHORT);
@@ -187,6 +186,7 @@ public class ModificarPelicula extends AppCompatActivity {
             }
         });
 
+        /** Guardar el estado de la película conforme haga click sobre un botón u otro */
         btnEstadoNoVistaEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -227,22 +227,22 @@ public class ModificarPelicula extends AppCompatActivity {
         btnConfirmarEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /** guardar en la base de datos */
 
-
+                /** Para controlar que todos los campos numéricos sean números */
                 if (controlEnterosEditar){
                     vacioEditar = false;
                 }
 
+                /** Para comprobar los campos vacíos */
                 if (
-                        etPeliNombreEditar.getText().toString().equalsIgnoreCase("") ||
-                                etPeliDuracionEditar.getText().toString().equalsIgnoreCase("") ||
-                                etPeliAnyoEditar.getText().toString().equalsIgnoreCase("") ||
-                                etPeliPuntuacionEditar.getText().toString().equalsIgnoreCase("") ||
-                                etPeliDirectorEditar.getText().toString().equalsIgnoreCase("") ||
-                                etPeliProductorEditar.getText().toString().equalsIgnoreCase("") ||
-                                etPeliGeneroEditar.getText().toString().equalsIgnoreCase("")
-                        ) {
+                    etPeliNombreEditar.getText().toString().equalsIgnoreCase("") ||
+                        etPeliDuracionEditar.getText().toString().equalsIgnoreCase("") ||
+                        etPeliAnyoEditar.getText().toString().equalsIgnoreCase("") ||
+                        etPeliPuntuacionEditar.getText().toString().equalsIgnoreCase("") ||
+                        etPeliDirectorEditar.getText().toString().equalsIgnoreCase("") ||
+                        etPeliProductorEditar.getText().toString().equalsIgnoreCase("") ||
+                        etPeliGeneroEditar.getText().toString().equalsIgnoreCase("")
+                    ) {
 
                     Toast toastVacio =
                             Toast.makeText(getApplicationContext(), "Hay algún campo vacío.", Toast.LENGTH_SHORT);
@@ -318,10 +318,7 @@ public class ModificarPelicula extends AppCompatActivity {
                     nombreGenero = nombreGenero.replaceAll("\\s+", " ");
                     nuevoGeneroEditar.nombre = nombreGenero;
 
-                    /**
-                     * Director
-                     */
-
+                    /** Buscamos el director y si existe no hace falta crearlo */
                     Director director = conectorDirector.getDirectorByName(nuevoDirectorEditar.nombre_completo);
                     encuentraDirectorEditar = director.nombre_completo;
 
@@ -331,10 +328,8 @@ public class ModificarPelicula extends AppCompatActivity {
                     else {
                         id_DirectorEditar = director.id;
                     }
-                    /**
-                     * Productor
-                     */
 
+                    /** Lo mismo que con director pero para el productor */
                     Productor productor = conectorProductor.getProductorByName(nuevoProductorEditar.nombre);
                     encuentraProductorEditar = productor.nombre;
 
@@ -345,10 +340,7 @@ public class ModificarPelicula extends AppCompatActivity {
                         id_ProductorEditar = productor.id;
                     }
 
-                    /**
-                     * Genero
-                     */
-
+                    /** Idem con Genero*/
                     Genero genero = conectorGenero.getGeneroByName(nuevoGeneroEditar.nombre);
                     encuentraGeneroEditar = genero.nombre;
                     if (encuentraGeneroEditar == null) {
@@ -359,19 +351,13 @@ public class ModificarPelicula extends AppCompatActivity {
                     }
 
 
-                    /**
-                     * Pelicula
-                     */
-
+                    /** Pelicula */
                     nuevaPeliculaEditar.id_director = id_DirectorEditar;
                     nuevaPeliculaEditar.id_productor = id_ProductorEditar;
                     nuevaPeliculaEditar.id_genero = id_GeneroEditar;
 
 
-                    /**
-                     * Actor_Pelicula
-                     */
-
+                    /** Actor_Pelicula */
                     for (int i = 0; i < actoresNuevosEditar.size(); i++) {
                         int actor = actoresNuevosEditar.get(i);
                         int pelicula2 = idPeliculaEditar;
@@ -382,6 +368,7 @@ public class ModificarPelicula extends AppCompatActivity {
                     nuevaPeliculaEditar.id = idPeliculaEditar;
                     conectorPelicula.update(nuevaPeliculaEditar,idPeliculaEditar);
 
+                    /** Cerramos la activity */
                     finish();
                 }
             }
