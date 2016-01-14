@@ -220,10 +220,6 @@ public class ModificarPelicula extends AppCompatActivity {
             }
         });
 
-        if (controlEnterosEditar){
-            vacioEditar = false;
-        }
-
         btnConfirmarEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
