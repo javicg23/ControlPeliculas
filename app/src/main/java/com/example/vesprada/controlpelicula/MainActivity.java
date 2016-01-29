@@ -14,8 +14,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +39,6 @@ import com.example.vesprada.controlpelicula.modelo.Genero;
 import com.example.vesprada.controlpelicula.modelo.Pelicula;
 import com.example.vesprada.controlpelicula.modelo.Productor;
 import com.example.vesprada.controlpelicula.recyclerview.PeliculaAdapter;
-import com.example.vesprada.controlpelicula.recyclerview.RecyclerItemClickListener;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<Pelicula> listaPeliculasOrdVistas = new ArrayList<>();
     private ArrayList<Pelicula> listaPeliculasOrdPendientes = new ArrayList<>();
     private ArrayList<Pelicula> listaPorPelis = new ArrayList<>();
-    private RecyclerView recView;
+    private ListView listView;
     private EditText buscadorPeliculas;
     private ImageButton imgButtonBuscador;
     private PeliculaAdapter adaptadorPelicula;
@@ -98,23 +99,21 @@ public class MainActivity extends AppCompatActivity
 
         crearTablaPeliculas = new DBHelperControlPeliculas(getApplicationContext());
 
-        recView = (RecyclerView) findViewById(R.id.RecView);
+        listView = (ListView) findViewById(R.id.listView);
 
         initList();
 
-        recView.setItemAnimator(new DefaultItemAnimator());
-
         /** Cuando se pulsa en un item mandamos el id de la pelicula que se ha pulsado */
-        recView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView id_pelicula = (TextView)(view.findViewById(R.id.tvIdPelicula));
                 int idPelicula = Integer.parseInt(id_pelicula.getText().toString());
                 Intent myIntent = new Intent(view.getContext(), DetallePelicula.class);
                 myIntent.putExtra("id_pelicula", idPelicula);
                 startActivity(myIntent);
             }
-        }));
+        });
 
         /** Si se pulsa en el buscador y no hay nada escrito se vuelve a rellenar
          * tod el recyclerview sino, se busca lo que se haya puesto
@@ -158,18 +157,16 @@ public class MainActivity extends AppCompatActivity
     /** Método para iniciar la lista de peliculas */
     public void initList(){
         listaPeliculas = conectorPelicula.getPeliculaList();
-        adaptadorPelicula = new PeliculaAdapter(listaPeliculas);
-        recView.setAdapter(adaptadorPelicula);
-        recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        adaptadorPelicula = new PeliculaAdapter(this,listaPeliculas);
+        listView.setAdapter(adaptadorPelicula);
     }
 
     /** Método para buscar según el buscador de las películas */
     public void searchItem (String txtToSearch) {
         if(buscarPorPelicula){
             listaPorPelis = conectorPelicula.getPeliculaListByName(txtToSearch);
-            adaptadorPelicula = new PeliculaAdapter(listaPorPelis);
-            recView.setAdapter(adaptadorPelicula);
-            recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+            adaptadorPelicula = new PeliculaAdapter(this,listaPorPelis);
+            listView.setAdapter(adaptadorPelicula);
             if(listaPeliculas.size() == 0){
                 Toast toast1 = Toast.makeText(getApplicationContext(), "No se ha encontrado la pelicula", Toast.LENGTH_SHORT);
                 toast1.show();
@@ -191,9 +188,8 @@ public class MainActivity extends AppCompatActivity
                 toast1.show();
                 initList();
             }
-            adaptadorPelicula = new PeliculaAdapter(listaPeliculas);
-            recView.setAdapter(adaptadorPelicula);
-            recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+            adaptadorPelicula = new PeliculaAdapter(this,listaPeliculas);
+            listView.setAdapter(adaptadorPelicula);
         }
         if(buscarPorActor){
             listaPeliculas.clear();
@@ -212,9 +208,8 @@ public class MainActivity extends AppCompatActivity
                 toast1.show();
                 initList();
             }
-            adaptadorPelicula = new PeliculaAdapter(listaPeliculas);
-            recView.setAdapter(adaptadorPelicula);
-            recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+            adaptadorPelicula = new PeliculaAdapter(this,listaPeliculas);
+            listView.setAdapter(adaptadorPelicula);
         }
     }
 
@@ -291,9 +286,8 @@ public class MainActivity extends AppCompatActivity
                 listaPeliculasOrdFavoritos.add(listaPeliculas.get(i));
             }
         }
-        adaptadorPelicula = new PeliculaAdapter(listaPeliculasOrdFavoritos);
-        recView.setAdapter(adaptadorPelicula);
-        recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        adaptadorPelicula = new PeliculaAdapter(this,listaPeliculasOrdFavoritos);
+        listView.setAdapter(adaptadorPelicula);
     }
 
     /** Método para ordenar por no vistas */
@@ -308,9 +302,8 @@ public class MainActivity extends AppCompatActivity
                 listaPeliculasOrdNoVistas.add(listaPeliculas.get(i));
             }
         }
-        adaptadorPelicula = new PeliculaAdapter(listaPeliculasOrdNoVistas);
-        recView.setAdapter(adaptadorPelicula);
-        recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        adaptadorPelicula = new PeliculaAdapter(this,listaPeliculasOrdNoVistas);
+        listView.setAdapter(adaptadorPelicula);
     }
 
     /** Método para ordenar por vistas */
@@ -325,9 +318,8 @@ public class MainActivity extends AppCompatActivity
                 listaPeliculasOrdVistas.add(listaPeliculas.get(i));
             }
         }
-        adaptadorPelicula = new PeliculaAdapter(listaPeliculasOrdVistas);
-        recView.setAdapter(adaptadorPelicula);
-        recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        adaptadorPelicula = new PeliculaAdapter(this,listaPeliculasOrdVistas);
+        listView.setAdapter(adaptadorPelicula);
     }
 
     /** Método para ordenar por pendientes */
@@ -342,9 +334,8 @@ public class MainActivity extends AppCompatActivity
                 listaPeliculasOrdPendientes.add(listaPeliculas.get(i));
             }
         }
-        adaptadorPelicula = new PeliculaAdapter(listaPeliculasOrdPendientes);
-        recView.setAdapter(adaptadorPelicula);
-        recView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        adaptadorPelicula = new PeliculaAdapter(this,listaPeliculasOrdPendientes);
+        listView.setAdapter(adaptadorPelicula);
     }
 
     /** Método para insertar por defecto algunos géneros */
